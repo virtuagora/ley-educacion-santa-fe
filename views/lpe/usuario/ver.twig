@@ -1,6 +1,6 @@
 {% extends "lpe/master.twig" %}
  {# ----------------------------------------------------------- #} 
- {% block titulo %}Login{%endblock %}
+ {% block titulo %}{% block titulo %}Login{%endblock %}{%endblock %}
  {% block body %}
 
 <div class="container">
@@ -17,18 +17,7 @@
             </ul>
             <hr>
             </div>
-            <h4><strong>Ultima actividad</strong></h4>
-            <ul class="list-group">
-                {% if acciones|length > 0 %} {% for accion in acciones %}
-                <li class="list-group-item">
-                    <span class="badge">{{ accion.fecha|date("d/m/Y") }}</span>{{ accion.mensaje|raw }}
-                </li>
-                {% endfor%} {% else %}
-                <li class="list-group-item">
-                    <i class="zmdi zmdi-check zmdi-hc-fw"></i> No hay acciones realizadas por el usuario
-                </li>
-                {% endif %}
-            </ul>
+        
         </div>
         <div class="col-sm-6">
             <h4><strong>Comentarios <i class="zmdi zmdi-comment-outline zmdi-hc-fw"></i>({{usuario.comentarios_count}})</strong></h4>
