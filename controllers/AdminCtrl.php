@@ -10,7 +10,7 @@ class AdminCtrl extends Controller {
 
     public function verEstadisticas() {
         $usuarios = Usuario::all();
-        $this->render('lpe/admin/estadisticas.twig', array('ajustes' => $usuarios->toArray()));
+        $this->render('lpe/admin/estadisticas.twig', array('usuarios' => $usuarios->toArray()));
     }
 
     public function adminAjustes() {
