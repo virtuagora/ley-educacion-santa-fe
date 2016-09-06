@@ -91,7 +91,7 @@
          $('input[name="birthday"]').val('{{ usuario.birthday }}');
         $('[name="address"] select').val('{{ usuario.address }}');
         $('[name="title"] select').val('{{ usuario.title }}');
-        var tiempo = new Date(1992,12,03);
+        var tiempo = new Date('{{ usuario.birthday }}');
         $("#datepicker").datepicker({
             changeMonth: true,
             changeYear: true,
