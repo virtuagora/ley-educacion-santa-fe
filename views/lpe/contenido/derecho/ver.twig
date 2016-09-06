@@ -51,10 +51,29 @@
                         <!--<h5>&nbsp;{{seccion.votos_alta}}/{{seccion.votos_media}}/{{seccion.votos_baja}}<i class="zmdi zmdi zmdi-chart zmdi-hc-fw zmdi-hc-lg"></i></h5>-->
                         <!--<h5 class="text-success">&nbsp;{{ptj}}<i class="zmdi zmdi-long-arrow-up zmdi-hc-fw zmdi-hc-lg"></i></h5>-->
                         <div class="btn-group-vertical btn-group-sm">
-                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',3)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 3)) ? 'btn-primary disabled' : 'btn-default'}}">Muy importante</a>
-                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',2)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 2)) ? 'btn-primary disabled' : 'btn-default'}}">Importante</a>
-                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',1)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 1)) ? 'btn-primary disabled' : 'btn-default'}}">Poco importante</a>
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#comentarios{{ seccion.id }}" class="btn btn-info">{{ seccion.comentarios|length }} <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i></a>
+                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',3)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 3)) ? 'btn-primary disabled' : 'btn-default'}}">
+                                Muy importante
+                                 {% if user and (user.patrulla_id != null) %}
+                                &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_alta}}</span>
+                                {% endif %}
+                                </a>
+                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',2)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 2)) ? 'btn-primary disabled' : 'btn-default'}}">
+                                Importante
+                                {% if user and (user.patrulla_id != null) %}
+                                &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_media}}</span>
+                                {% endif %}
+                                </a>
+                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',1)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 1)) ? 'btn-primary disabled' : 'btn-default'}}">
+                                Poco importante
+                                {% if user and (user.patrulla_id != null) %}
+                                &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_baja}}</span>
+                                {% endif %}
+                                </a>
+                                {% set comentariosSeccion = seccion.comentarios|length %}
+                                {% for comentario in seccion.comentarios %}
+                                {% set comentariosSeccion = comentariosSeccion + comentario.respuestas|length %}
+                                {% endfor %}
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#comentarios{{ seccion.id }}" class="btn btn-info">Participá <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i> {{ comentariosSeccion }}</a>
                         </div>
                     </div>
                     <p class="lead"><span class="badge">&nbsp;&nbsp;{{ptj}}<i class="zmdi zmdi-long-arrow-up zmdi-hc-fw zmdi-hc-lg"></i></span>&nbsp;&nbsp;{{seccion.descripcion|nl2br}}</p>
