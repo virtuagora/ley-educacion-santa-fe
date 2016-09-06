@@ -24,6 +24,7 @@
             {% endif %}
         </ul>
             {% endif %} 
+            {% if user %}
         <div id="respComentario-{{comentario.id}}" class="well well" style="display:none">
             <form class="form-horizontal" action="{{ urlFor('runComentar', {'tipoRaiz': 'comentario', 'idRaiz': comentario.id }) }}" method="POST">
                 <div class="form-group" style="margin-bottom:0">
@@ -38,6 +39,7 @@
                 </div>
             </form>
         </div>
+        {% endif %}
         <div class="lista-respuestas">
 
             {% if comentario.respuestas|length > 0 %}
