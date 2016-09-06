@@ -15,7 +15,7 @@
     {% endblock %}
 <link rel="shortcut icon" href="{{ baseUrl() }}/assets-lpe/img/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="{{ baseUrl() }}/assets-lpe/img/favicon.ico" type="image/x-icon">
-    <title>{% block titulo %}Nueva Ley de Educación Provincial - Gobierno de Santa Fe{% endblock titulo %}</title>
+    <title>{% block titulo %}{% endblock titulo %} - Nueva Ley de Educación Provincial - Gobierno de Santa Fe</title>
     <link rel="" type="" href="">
     <!-- Bootstrap -->
     {% block linkhead %}{% endblock %}
@@ -80,7 +80,7 @@
 	<li><a href="{{ urlFor('shwCrearDerecho') }}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-plus"></i> Nuevo derecho</a></li>
 	<li><a href="{{urlFor('shwCrearEvento')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-plus"></i> Nuevo evento</a></li>
 	<li><a href="{{urlFor('shwIndexAdmin')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-settings"></i> Administrar</a></li>
-
+    <li><a href="{{urlFor('shwModifUsuario')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-settings"></i> Editar Perfil</a></li> 
     <li class="divider"></li>
 	{% endif %}
     <li><a href="{{urlFor('shwUsuario', {'idUsu': user.id})}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-assignment-account"></i> Ver Perfil</a></li>
@@ -148,7 +148,6 @@
                 <li><a target="_blank" href="http://www.twitter.com/GobSantaFe"><i class="icon-footertwitter"></i></a></li>
                 <li><a target="_blank" href="http://www.facebook.com/GobSantaFe"><i class="icon-footerfacebook"></i></a></li>
                 <li><a target="_blank" href="http://gplus.to/GobSantaFe"><i class="icon-footerg"></i></a></li>
-                <li><a target="_blank" href="http://gobsantafe.tumblr.com/"><i class="icon-footertumblr"></i></a></li>
                 <li><a target="_blank" href="http://www.youtube.com/GobSantaFe"><i class="icon-footeryoutube"></i></a></li>
                 <li><a target="_blank" href="http://instagram.com/gobsantafe"><i class="icon-footerinstagram"></i></a></li>
                 <li><a target="_blank" href="https://es.foursquare.com/gobsantafe"><i class="icon-footerfoursquare"></i></a></li>

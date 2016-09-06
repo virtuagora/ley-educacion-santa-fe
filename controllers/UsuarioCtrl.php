@@ -37,7 +37,7 @@ class UsuarioCtrl extends RMRController {
     }
 
     public function verCambiarClave() {
-        $this->render('usuario/cambiar-clave.twig');
+        $this->render('/lpe/usuario/cambiar-clave.twig');
     }
 
     public function cambiarClave() {
@@ -64,7 +64,7 @@ class UsuarioCtrl extends RMRController {
 
     public function verModificar() {
         $usuario = $this->session->getUser();
-        $this->render('/usuario/modificar.twig', array('usuario' => $usuario->toArray()));
+        $this->render('/lpe/usuario/modificar.twig', array('usuario' => $usuario->toArray()));
     }
 
     public function modificar() {

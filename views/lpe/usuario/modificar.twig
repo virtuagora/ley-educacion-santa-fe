@@ -1,0 +1,114 @@
+{% extends "lpe/master.twig" %} {# ----------------------------------------------------------- #}{% block linkhead %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/timepicker/jquery.timepicker.css" /> {% endblock %} {% block titulo %}Modificar datos{% endblock %} {% block body %}
+<div class="container" style=" ">
+    <div class="row">
+        {% set paginaAdmin = 1 %} {% include '/lpe/usuario/listaSecciones.twig' %}
+        <div class="col-xs-12 col-sm-9">
+            <div class="text-center">
+                <h2 class="text-center"><strong>Modificar datos personales</strong>
+                <h6><i>Aqui podra editar sus datos personales</i></h6>
+        </h2>
+                <br>
+            </div>
+            <div class="list-group">
+                <li class="list-group-item">
+                     <form action="{{ urlFor('runModifUsuario') }}" method="POST" class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputNombre" class="col-lg-2 control-label">Nombre/s</label>
+                            <div class="col-lg-10">
+                                <input name="nombre" type="text" class="form-control" id="inputNombre" placeholder="Escriba su nombre">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="inputApellido" class="col-lg-2 control-label">Apellido</label>
+                            <div class="col-lg-10">
+                                <input name="apellido" type="text" class="form-control" id="inputEmail" placeholder="Escriba su apellido">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-10">
+                                <input name="email" type="text" class="form-control" id="inputEmail" disabled readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDepartamento" class="col-lg-2 control-label">Fecha Nacimiento</label>
+                            <div class="col-lg-10">
+                                 <input id="datepicker" class="form-control">
+                                <input id="guardarFecha" type="hidden">
+                                <input id="fecha-final" name="birthday" type="hidden" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDepartamento" class="col-lg-2 control-label">Departamento</label>
+                            <div class="col-lg-10">
+                                <select class="form-control" id="inputLocalidad" name="address" data-error="Elija su localidad" required>
+                                        {% for localidad in localidades %}
+                                            <option value="{{ localidad }}">{{ localidad }}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputOcupacion" class="col-lg-2 control-label">Ocupacion</label>
+                            <div class="col-lg-10">
+                                <select class="form-control" id="inputOcupacion" name="title" data-error="Elija su ocupacion" required>
+                                        {% for ocupacion in ocupaciones %}
+                                            <option value="{{ ocupacion }}">{{ ocupacion }}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="inputTelefono" class="col-lg-2 control-label">Teléfono</label>
+                            <div class="col-lg-10">
+                                <input name="telefono" type="text" class="form-control" id="inputTelefono" placeholder="Escriba su teléfono">
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <div class="col-xs-12"> 
+                                <button type="submit" href="#" class="btn btn-success btn-sm">Modificar datos</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %} {# -------------------------------------------- #} {% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
+<script>
+    $(document).ready(function() {
+         $('input[name="nombre"]').val('{{ usuario.nombre }}');
+        $('input[name="apellido"]').val('{{ usuario.apellido }}');
+        $('input[name="email"]').val('{{ usuario.email }}');
+        $('input[name="telefono"]').val('{{ usuario.telefono }}');
+         $('input[name="birthday"]').val('{{ usuario.birthday }}');
+        $('[name="address"] select').val('{{ usuario.address }}');
+        $('[name="title"] select').val('{{ usuario.title }}');
+        var tiempo = new Date(1992,12,03);
+        $("#datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'DD, dd MM yy',
+            altField: "#guardarFecha",
+            altFormat: "yy-mm-dd",
+            yearRange: '1920:2010',
+            defaultDate: tiempo
+        });
+
+        var strDateTime =  tiempo.getDate() + "/" + tiempo.getMonth() + "/" + tiempo.getFullYear();
+        $("#datepicker").val(strDateTime)
+    });
+
+    $('form').submit(function(e) {
+        var fecha = $("#guardarFecha").val();
+        $('#fecha-final').val(fecha);
+    })
+
+</script> {% endblock scripts %}

@@ -1,0 +1,55 @@
+{% extends "lpe/master.twig" %} {# ----------------------------------------------------------- #} {% block titulo %}Modificar datos{% endblock %} {% block body %}
+<div class="container" style=" ">
+    <div class="row">
+        {% set paginaAdmin = 2 %} {% include '/lpe/usuario/listaSecciones.twig' %}
+        <div class="col-xs-12 col-sm-9">
+            <div class="text-center">
+                <h2 class="text-center"><strong>Modificar contraseña</strong>
+        </h2>
+                <br>
+            </div>
+                    <div class ="alert alert-info">
+	Consideraciones para el cambio de su contraseña.
+	<ul class="fa-ul">
+		<li><i class="fa-li fa fa-check-square"></i>La nueva contraseña debe tener minimo 8 caracteres.</li>
+		<li><i class="fa-li fa fa-check-square"></i>Podes usar numeros, mayusculas, simbolos.</li>
+		<li><i class="fa-li fa fa-exclamation-triangle"></i><b>Seleccione una contraseña difícil de adivinar y fácil de recordar.</b><br>Evite utilizar contraseñas vinculadas con fechas de cumpleaños, nros. de cuentas, nros. de documentos, datos personales, caracteres repetitivos o secuencias lógicas. Evite contraseñas fácilmente deducibles.</li>
+		<li><i class="fa-li fa fa-exclamation-triangle"></i><b>No la divulgue</b><br>No ingrese su clave de acceso en presencia de terceros. No comparta su contraseña con nadie. Bajo ninguna circunstancia informe su contraseña a otra persona, aún cuando el que lo solicite se identifique como administrador del portal.</li>
+	</ul>
+</div>
+            <div class="list-group">
+                <li class="list-group-item">
+                     <form action="{{ urlFor('runModifClvUsuario') }}" method="POST" class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputPassOld" class="col-lg-4 control-label">Contraseña actual</label>
+                            <div class="col-lg-8">
+                                <input name="pass-old" type="password" class="form-control" id="inputPassOld">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="inputPassNew" class="col-lg-4 control-label"><b>NUEVA</b> contraseña</label>
+                            <div class="col-lg-8">
+                                <input name="pass-new" type="password" class="form-control" id="inputPassNew">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="inputPassVerif" class="col-lg-4 control-label">Reingrese la <b>NUEVA</b> contraseña</label>
+                            <div class="col-lg-8">
+                                <input name="pass-verif" type="password" class="form-control" id="inputPassVerif">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group text-right">
+                            <div class="col-xs-12"> 
+                                <button type="submit" href="#" class="btn btn-success btn-sm">Cambiar contraseña datos</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %} {# -------------------------------------------- #} {% block scripts %}
+{% endblock scripts %}
