@@ -34,19 +34,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputDepartamento" class="col-lg-2 control-label">Fecha Nacimiento</label>
+                            <label for="inputFecha" class="col-lg-2 control-label">Fecha Nacimiento</label>
                             <div class="col-lg-10">
                                  <input id="datepicker" class="form-control">
                                 <input id="guardarFecha" type="hidden">
                                 <input id="fecha-final" name="birthday" type="hidden" />
                             </div>
                         </div>
-                        <div class="form-group">
+                       <div class="form-group">
                             <label for="inputDepartamento" class="col-lg-2 control-label">Departamento</label>
                             <div class="col-lg-10">
                                 <select class="form-control" id="inputLocalidad" name="address" data-error="Elija su localidad" required>
                                         {% for localidad in localidades %}
-                                            <option value="{{ localidad }}">{{ localidad }}</option>
+                                            <option value="{{ localidad }}" {{localidad == usuario.address ? 'selected="selected"' : ''}}>{{ localidad }}</option>
                                         {% endfor %}
                                     </select>
                             </div>
@@ -56,7 +56,7 @@
                             <div class="col-lg-10">
                                 <select class="form-control" id="inputOcupacion" name="title" data-error="Elija su ocupacion" required>
                                         {% for ocupacion in ocupaciones %}
-                                            <option value="{{ ocupacion }}">{{ ocupacion }}</option>
+                                            <option value="{{ ocupacion }}" {{ocupacion == usuario.title ? 'selected="selected"' : ''}}>{{ ocupacion }}</option>
                                         {% endfor %}
                                     </select>
                             </div>
@@ -84,13 +84,14 @@
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
 <script>
     $(document).ready(function() {
+             $(document).ready(function() {
          $('input[name="nombre"]').val('{{ usuario.nombre }}');
         $('input[name="apellido"]').val('{{ usuario.apellido }}');
         $('input[name="email"]').val('{{ usuario.email }}');
         $('input[name="telefono"]').val('{{ usuario.telefono }}');
          $('input[name="birthday"]').val('{{ usuario.birthday }}');
-        $('[name="address"] select').val('{{ usuario.address }}');
-        $('[name="title"] select').val('{{ usuario.title }}');
+        $('select[name="address"]').val('{{ usuario.address }}');
+        $('select[name="title"]').val('{{ usuario.title }}');
         var tiempo = new Date('{{ usuario.birthday }}');
         $("#datepicker").datepicker({
             changeMonth: true,
@@ -101,9 +102,7 @@
             yearRange: '1920:2010',
             defaultDate: tiempo
         });
-
-        var strDateTime =  tiempo.getDate() + "/" + tiempo.getMonth() + "/" + tiempo.getFullYear();
-        $("#datepicker").val(strDateTime)
+        $("#datepicker").val('{{ usuario.birthday|date("d/m/Y")}}')
     });
 
     $('form').submit(function(e) {

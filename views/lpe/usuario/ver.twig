@@ -1,6 +1,6 @@
 {% extends "lpe/master.twig" %}
  {# ----------------------------------------------------------- #} 
- {% block titulo %}{% block titulo %}Login{%endblock %}{%endblock %}
+ {% block titulo %}{{ usuario.nombre }} {{ usuario.apellido }}{%endblock %}
  {% block body %}
 
 <div class="container">
