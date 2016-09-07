@@ -64,7 +64,16 @@ class UsuarioCtrl extends RMRController {
 
     public function verModificar() {
         $usuario = $this->session->getUser();
-        $this->render('/lpe/usuario/modificar.twig', array('usuario' => $usuario->toArray()));
+        $datos = $usuario->toArray();
+        $datos['email'] = $usuario->email;
+        $this->render('/lpe/usuario/modificar.twig', array('usuario' => $datos, 'localidades' => ['Rosario','La Capital','General López','Castellanos','General Obligado',
+                'San Lorenzo','Las Colonias','Constitución','Caseros','San Jerónimo','San Cristóbal',
+                'Iriondo','San Martín','Vera','Belgrano','San Justo','San Javier','9 de Julio','Garay'],
+            'ocupaciones' => ['Estudiante','Docente Nivel Inicial','Docente Nivel Primario',
+                'Docente Nivel Secundario','Docente Nivel Terciario','Docente Universitario','Asistente escolar',
+                'Representante gremial','Profesional','Empleado/a en relación de dependencia','Comerciante',
+                'Funcionario/a, legislador/a y autoridad gubernamental','Representante de organización social',
+                'Trabajador/a doméstico/a no remunerado/a','Otro']));
     }
 
     public function modificar() {
@@ -76,10 +85,17 @@ class UsuarioCtrl extends RMRController {
             ->addRule('apellido', new Validate\Rule\MinLength(1))
             ->addRule('apellido', new Validate\Rule\MaxLength(32))
             ->addRule('url', new Validate\Rule\URL())
-            ->addRule('email', new Validate\Rule\Email())
             ->addRule('telefono', new Validate\Rule\Telephone())
+            ->addRule('birthday', new Validate\Rule\Date('Y-m-d'))
+            ->addRule('address', new Validate\Rule\InArray(['Rosario','La Capital','General López','Castellanos',
+                'General Obligado','San Lorenzo','Las Colonias','Constitución','Caseros','San Jerónimo','San Cristóbal',
+                'Iriondo','San Martín','Vera','Belgrano','San Justo','San Javier','9 de Julio','Garay']))
+            ->addRule('title', new Validate\Rule\InArray(['Estudiante','Docente Nivel Inicial','Docente Nivel Primario',
+                'Docente Nivel Secundario','Docente Nivel Terciario','Docente Universitario','Asistente escolar',
+                'Representante gremial','Profesional','Empleado/a en relación de dependencia','Comerciante',
+                'Funcionario/a, legislador/a y autoridad gubernamental','Representante de organización social',
+                'Trabajador/a doméstico/a no remunerado/a','Otro']))
             ->addOptional('url')
-            ->addOptional('email')
             ->addOptional('telefono')
             ->addFilter('url', FilterFactory::emptyToNull())
             ->addFilter('telefono', FilterFactory::emptyToNull());
@@ -87,12 +103,20 @@ class UsuarioCtrl extends RMRController {
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());
         }
+        $cumple = Carbon\Carbon::parse($vdt->getData('birthday'));
+        $limInf = Carbon\Carbon::create(1900, 1, 1, 0, 0, 0);
+        $limSup = Carbon\Carbon::now();
+        if (!$cumple->between($limInf, $limSup)) {
+            throw new TurnbackException('Fecha inválida.');
+        }
         $usuario = $this->session->getUser();
         $usuario->nombre = $vdt->getData('nombre');
         $usuario->apellido = $vdt->getData('apellido');
+        $usuario->birthday = $cumple;
+        $usuario->title = $vdt->getData('title');
+        $usuario->address = $vdt->getData('address');
         $usuario->save();
         $contacto = $usuario->contacto ?: new Contacto;
-        $contacto->email = $vdt->getData('email');
         $contacto->web = $vdt->getData('url');
         $contacto->telefono = $vdt->getData('telefono');
         $contacto->contactable()->associate($usuario);
