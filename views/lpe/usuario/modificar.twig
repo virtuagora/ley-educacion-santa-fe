@@ -83,15 +83,15 @@
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
 <script>
-    $(document).ready(function() {
+        $(document).ready(function() {
          $('input[name="nombre"]').val('{{ usuario.nombre }}');
         $('input[name="apellido"]').val('{{ usuario.apellido }}');
         $('input[name="email"]').val('{{ usuario.email }}');
         $('input[name="telefono"]').val('{{ usuario.telefono }}');
-         $('input[name="birthday"]').val('{{ usuario.birthday }}');
+         $('#guardarFecha').val('{{ usuario.birthday|date("Y-m-d") }}');
         $('select[name="address"]').val('{{ usuario.address }}');
         $('select[name="title"]').val('{{ usuario.title }}');
-        var tiempo = new Date('{{ usuario.birthday|date("Y") }}-{{ usuario.birthday|date("m") }}-{{ usuario.birthday|date("d") }}' );
+        var tiempo = new Date('{{ usuario.birthday }}');
         $("#datepicker").datepicker({
             changeMonth: true,
             changeYear: true,
@@ -101,11 +101,12 @@
             yearRange: '1920:2010',
             defaultDate: tiempo
         });
-        $("#datepicker").val('{{ usuario.birthday|date("d/m/Y") }}')
+        $("#datepicker").val('{{ usuario.birthday|date("d/m/Y")}}')
     });
 
     $('form').submit(function(e) {
         var fecha = $("#guardarFecha").val();
+        console.log(fecha);
         $('#fecha-final').val(fecha);
     })
 
