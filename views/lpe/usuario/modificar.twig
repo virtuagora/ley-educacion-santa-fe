@@ -83,7 +83,7 @@
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
 <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
          $('input[name="nombre"]').val('{{ usuario.nombre }}');
         $('input[name="apellido"]').val('{{ usuario.apellido }}');
         $('input[name="email"]').val('{{ usuario.email }}');
@@ -109,5 +109,4 @@
         console.log(fecha);
         $('#fecha-final').val(fecha);
     })
-
 </script> {% endblock scripts %}
