@@ -4,13 +4,13 @@
 
 {% extends "lpe/master.twig" %} 
 
-{% set share_link = derecho.link %}
-{% set twitter_txt = 'Estoy debatiendo acerca del derecho "' ~ derecho.titulo|lower ~ '" ¡Animate vos tambien! ' %}
+{% set share_link = baseUrl() ~ '/derecho/' ~ derecho.id %}
+{% set twitter_txt = 'Debatiendo acerca de ' ~ derecho.titulo|lower %}
 
 {% block opengraph %}
 <meta property="og:url"                content="{{ baseUrl() }}/derecho/{{derecho.id}}" />
 <meta property="og:type"               content="article" />
-<meta property="og:title"              content="{{ derecho.titulo}} - Ley de Educación de Santa Fe" />
+<meta property="og:title"              content="{{ derecho.titulo }} - Ley de Educación de Santa Fe" />
 <meta property="og:description"        content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." />
 {% if derecho.imagen == 1 %}
 <meta property="og:image"              content="{{linkImagen}}" />
@@ -48,26 +48,24 @@
                 <div class="accion clearfix">
                     <div class="pull-left" style="margin-right:20px">
                         {% set ptj = (seccion.votos_alta * 3) + (seccion.votos_media * 2) + (seccion.votos_baja * 1) %}
-                        <!--<h5>&nbsp;{{seccion.votos_alta}}/{{seccion.votos_media}}/{{seccion.votos_baja}}<i class="zmdi zmdi zmdi-chart zmdi-hc-fw zmdi-hc-lg"></i></h5>-->
-                        <!--<h5 class="text-success">&nbsp;{{ptj}}<i class="zmdi zmdi-long-arrow-up zmdi-hc-fw zmdi-hc-lg"></i></h5>-->
                         <div class="btn-group-vertical btn-group-sm">
                             <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',3)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 3)) ? 'btn-primary disabled' : 'btn-default'}}">
                                 Muy importante
-                                 {% if user and (user.patrulla_id != null) %}
+                                 
                                 &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_alta}}</span>
-                                {% endif %}
+                                
                                 </a>
                             <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',2)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 2)) ? 'btn-primary disabled' : 'btn-default'}}">
                                 Importante
-                                {% if user and (user.patrulla_id != null) %}
+                                
                                 &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_media}}</span>
-                                {% endif %}
+                                
                                 </a>
                             <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',1)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 1)) ? 'btn-primary disabled' : 'btn-default'}}">
                                 Poco importante
-                                {% if user and (user.patrulla_id != null) %}
+                                
                                 &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_baja}}</span>
-                                {% endif %}
+                                
                                 </a>
                                 {% set comentariosSeccion = seccion.comentarios|length %}
                                 {% for comentario in seccion.comentarios %}
@@ -77,12 +75,6 @@
                         </div>
                     </div>
                     <p class="lead"><span class="badge">&nbsp;&nbsp;{{ptj}}<i class="zmdi zmdi-long-arrow-up zmdi-hc-fw zmdi-hc-lg"></i></span>&nbsp;&nbsp;{{seccion.descripcion|nl2br}}</p>
-                    <!--<h6><b>Importancia de la acción</b></h6>
-                    <div class="btn-group btn-group-justified" style="margin-bottom:10px;">
-                        <a href="javascript:votarSeccion({{seccion.id}},3)" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 3)) ? 'btn-primary disabled' : 'btn-default'}}">Alta</a>
-                        <a href="javascript:votarSeccion({{seccion.id}},2)" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 2)) ? 'btn-primary disabled' : 'btn-default'}}">Media</a>
-                        <a href="javascript:votarSeccion({{seccion.id}},1)" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 1)) ? 'btn-primary disabled' : 'btn-default'}}">Baja</a>
-                    </div>-->
                     {% include 'lpe/contenido/derecho/comentarioModal.twig' %}
                 </div>
                 <hr>
@@ -96,7 +88,7 @@
                 {% endif %} 
                 <div class="btn-group btn-group-justified" style="margin-bottom:25px;">
                     <a href="https://www.facebook.com/sharer.php?u={{ share_link }}" target="_blank" class="btn btn-default" style="background-color:#3b5998; color:#FFF"><i class="zmdi zmdi-facebook zmdi-hc-2x"></i></a>
-                    <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=nlpe" target="_blank" class="btn btn-default" style="background-color:#55acee; color:#FFF"><i class="zmdi zmdi-twitter zmdi-hc-2x"></i></a>
+                    <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=SerParte,EducacionSantaFe,EducacionYFuturo,Participacion" target="_blank" class="btn btn-default" style="background-color:#55acee; color:#FFF"><i class="zmdi zmdi-twitter zmdi-hc-2x"></i></a>
                     <a href="https://plus.google.com/share?url={{ share_link }}" target="_blank" class="btn btn-default" style="background-color:#dd4b39; color:#FFF"><i class="zmdi zmdi-google-plus zmdi-hc-2x"></i></a>
                 </div>
                 {% for opinion in derecho.opiniones %}
@@ -131,7 +123,6 @@
 <script>
     $(document).ready(function() {
         autosize($('textarea'));
-        // $('body').scrollspy({ target: '#secciones' })
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         })
