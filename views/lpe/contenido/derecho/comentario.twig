@@ -52,12 +52,12 @@
 
             {% if comentario.respuestas|length > 0 %}
             {% for respuesta in comentario.respuestas %}
-            <div class="col-xs-1 col-sm-offset-1 text-center">
+            <div class="col-xs-1 text-center">
                 <a href="{{ urlFor('shwUsuario',{'idUsu': respuesta.autor.id}) }}">
                     <img src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}" class="img-circle" style="width: 25px; margin:0 auto 5px" alt="">
                 </a>
             </div>
-            <div class="col-xs-11 col-sm-10" style="padding-right:0">
+            <div class="col-xs-11" style="padding-right:0">
                 <span class="pull-left text-info" style="margin-top:0"><strong>
                     {{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} &nbsp;</strong></span>
                     {% if respuesta.autor.patrulla_id != null %}
