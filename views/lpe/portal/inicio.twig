@@ -23,14 +23,37 @@ endblock %} {% block body %}
 <div id="derechos" class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-md-10 col-md-offset-1">
-            
             {% if derechos|length > 0 %}
             <div class="grid">
-                <div class="grid-sizer"></div>
+                <div class="grid-sizer w2"></div>
                 {% for derecho in derechos %}
+                {% if derecho.id == 5 or derecho.id == 6 or derecho.id == 9 %}
                 {% set linkImagen = baseUrl() ~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
                 <a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
-                    <div class="grid-item" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
+                    <div class="grid-item w2" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
+                        <figure class="cap-bot height2">
+                            <div class="text-center" style="">
+                                <h5 style="text-transform: uppercase"><strong>{{ derecho.titulo }}</strong></h5>
+                            </div>
+                            <figcaption>
+                                ¡Participá! <i class="fa fa-hand-paper-o fa-lg fa-fw"></i>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+                {% set contador = 1 %}
+                {% if contador == 1 %}
+                    <div class="grid">
+                <div class="grid-sizer"></div>
+                {% endif %}
+                {% for derecho in derechos %}
+                {% if derecho.id != 5 and derecho.id != 6 and derecho.id != 9 %}
+                {% set linkImagen = baseUrl() ~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
+                <a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
+                    <div class="grid-item {{contador < 5 ? '':'w3'}}" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
                         <figure class="cap-bot">
                             <div class="text-center" style="">
                                 <h5 style="text-transform: uppercase"><strong>{{ derecho.titulo }}</strong></h5>
@@ -41,11 +64,19 @@ endblock %} {% block body %}
                         </figure>
                     </div>
                 </a>
+                {% set contador = contador + 1 %}
+                {% endif %}
+                {% if contador == 5  %}
+                    </div>
+                                      <div class="grid">
+                <div class="grid-sizer w2"></div>
+                {% endif %}
                 {% endfor %}
+                    </div>
             </div>
             {% else %}
             <div class="text-center">
-                <p>ERROR CRITICO</p>
+                <p>No hay contenidos que hayan sido subidos a la plataforma</p>
             </div>
             {% endif %}
         </div>

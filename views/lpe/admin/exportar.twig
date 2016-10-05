@@ -1,0 +1,34 @@
+{% extends "lpe/master.twig" %} {# ----------------------------------------------------------- #} {% block titulo %}Exportar{% endblock %} {% block body %}
+<div class="container" style=" ">
+    <div class="row">
+        {% set paginaAdmin = 7 %} {% include '/lpe/admin/listaSecciones.twig' %}
+        <div class="col-xs-12 col-sm-9">
+            <div class="text-center">
+                <h2 class="text-center"><strong>Exportar</strong>
+                </h2>
+                <br>
+            </div>
+            <table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th colspan="2">Elemento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Comentarios en derechos</td>
+      <td class="text-center"><a href="javascript:void(0)" class="btn btn-link btn-xs">Descargar<i class="fa fa-download fa-fw"></i></a></td>
+    </tr>
+    <tr>
+      <td>Listado de emails de usuarios</td>
+      <td class="text-center"><a href="javascript:void(0)" class="btn btn-link btn-xs">Descargar<i class="fa fa-download fa-fw"></i></a></td>
+    </tr>
+    
+  </tbody>
+</table> 
+        </div>
+    </div>
+</div>
+
+{% endblock body %} {# -------------------------------------------- #} {% block scripts %}
+{% endblock scripts %}

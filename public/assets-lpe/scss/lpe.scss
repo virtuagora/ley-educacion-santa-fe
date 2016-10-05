@@ -296,6 +296,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(0, 0, 0, 
         letter-spacing: -1px;
         color: #FFF;
     }
+    &.height2{
+        height:200px;
+    }
 }
 
 .cap-bot:hover figcaption {
@@ -305,15 +308,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(0, 0, 0, 
 .grid-sizer,
 .grid-item {
     border: 2px solid #FFF;
-
-
-
-        background-color: #6f5499;
-background-image: -webkit-gradient(linear,left top,left bottom,from(#563d7c),to(#6f5499));
-background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
-background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
-background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
+    background-color: #6f5499;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#563d7c),to(#6f5499));
+    background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
+    background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
+    background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
     h6{text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-weight: 100;}
     @media (max-width: $screen-xs-max) {
         width: 100%;
@@ -324,12 +324,22 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endC
         
     }
     @media (min-width: $screen-md-min) {
-        width: 20%;
+        width: 25%;
     }
     &.w2{
       @media (min-width: $screen-md-min) {
-        width: 40%;
-
+        width: 33.33%;
+    }
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+        width: 100%;   
+    }  
+    }
+    &.w3{
+      @media (min-width: $screen-md-min) {
+        width: 33.33%;
+    }
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+        width: 50%;   
     }  
     }
 }

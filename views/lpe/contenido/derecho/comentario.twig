@@ -8,7 +8,7 @@
      </div>
     <div class="col-xs-11 col-sm-9">
         <span class="pull-left text-info" style="margin-top:0"><strong>{{ comentario.autor.nombre }} {{ comentario.autor.apellido }} &nbsp;</strong></span>
-        {% if comentario.autor.patrulla_id != null %}
+        {% if false %}
          <span class="label label-warning" style="padding: .5em .6em .3em;">Mod</span>
         {% endif %}
         <br>
@@ -36,7 +36,7 @@
                     <label class="col-xs-1 col-sm-offset-1 text-center"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-circle" style="width: 25px; margin:0 auto 5px" alt=""></label>
                     <div class="col-xs-11 col-sm-10">
                         <span class="text-info"><strong>{{ user.nombre }} {{ user.apellido}} &nbsp;</strong></span>
-                         {% if comentario.autor.patrulla_id != null %}
+                         {% if false %}
          <span class="label label-warning" style="padding: .5em .6em .3em;">Mod</span>
         {% endif %}
                         <textarea name="cuerpo" class="form-control input-sm" rows="1" placeholder="Escriba aqui su comentario..."></textarea>
@@ -60,7 +60,7 @@
             <div class="col-xs-11" style="padding-right:0">
                 <span class="pull-left text-info" style="margin-top:0"><strong>
                     {{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} &nbsp;</strong></span>
-                    {% if respuesta.autor.patrulla_id != null %}
+                    {% if false %}
          <span class="label label-warning" style="padding: .5em .6em .3em;">Mod</span>
         {% endif %}
                 <br>

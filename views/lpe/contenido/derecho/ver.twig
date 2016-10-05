@@ -4,20 +4,15 @@
 
 {% extends "lpe/master.twig" %} 
 
-{% set share_link = baseUrl() ~ '/derecho/' ~ derecho.id %}
-{% set twitter_txt = 'Debatiendo acerca de ' ~ derecho.titulo|lower %}
+{% set share_link = 'https://www.santafe.gob.ar/leyeducacion/public/index.php/derecho/' ~ derecho.id %}
+{% set twitter_txt = 'Estoy debatiendo sobre la Nueva Ley de Educación de Santa Fe. Participá vos también.' %}
 
 {% block opengraph %}
-<meta property="og:url"                content="{{ baseUrl() }}/derecho/{{derecho.id}}" />
+<meta property="og:url"                content="{{ share_link }}" />
 <meta property="og:type"               content="article" />
 <meta property="og:title"              content="{{ derecho.titulo }} - Ley de Educación de Santa Fe" />
 <meta property="og:description"        content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." />
-{% if derecho.imagen == 1 %}
-<meta property="og:image"              content="{{linkImagen}}" />
-{% else %}
-<meta property="og:image"              content="{{ baseUrl() }}/assets-lpe/img/sharer.png"/>
-{% endif %}
-<meta property="og:video"              content="https://www.youtube.com/watch?v={{derecho.video}}" />
+<meta property="og:image"              content="{{ baseUrl() }}/assets-lpe/img/sharer-derecho.jpg"/>
 {% endblock %}
 {% block linkhead %} {% endblock %} {# ----------------------------------------------------------- #} {% block titulo %}{{ derecho.titulo }}{% endblock %} {% block body %}
 <article>
@@ -88,7 +83,7 @@
                 {% endif %} 
                 <div class="btn-group btn-group-justified" style="margin-bottom:25px;">
                     <a href="https://www.facebook.com/sharer.php?u={{ share_link }}" target="_blank" class="btn btn-default" style="background-color:#3b5998; color:#FFF"><i class="zmdi zmdi-facebook zmdi-hc-2x"></i></a>
-                    <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=SerParte,EducacionSantaFe,EducacionYFuturo,Participacion" target="_blank" class="btn btn-default" style="background-color:#55acee; color:#FFF"><i class="zmdi zmdi-twitter zmdi-hc-2x"></i></a>
+                    <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=DiálogosSantaFe" target="_blank" class="btn btn-default" style="background-color:#55acee; color:#FFF"><i class="zmdi zmdi-twitter zmdi-hc-2x"></i></a>
                     <a href="https://plus.google.com/share?url={{ share_link }}" target="_blank" class="btn btn-default" style="background-color:#dd4b39; color:#FFF"><i class="zmdi zmdi-google-plus zmdi-hc-2x"></i></a>
                 </div>
                 {% for opinion in derecho.opiniones %}
