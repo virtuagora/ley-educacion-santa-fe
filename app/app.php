@@ -98,11 +98,12 @@ $checkModifyAuth = function ($resource, $moderable = true) use ($app) {
 };
 
 // Prepare dispatcher
-$app->get('/test', function () use ($app) {
-    $req = $app->request;
-    $uri = $req->headers->get('x-forwarded-host')?: $req->getUrl();
-    var_dump($uri);
-});
+//$app->get('/test', function () use ($app) {
+    //$app->render('lpe/test.twig');
+    //$req = $app->request;
+    //$uri = $req->headers->get('x-forwarded-host')?: $req->getUrl();
+    //var_dump($uri);
+//});
 
 $app->group('/derecho', function () use ($app, $checkRole) {
     $app->get('/crear', $checkRole('mod'), 'DerechoCtrl:verCrear')->name('shwCrearDerecho');
@@ -148,6 +149,7 @@ $app->group('/admin', function () use ($app, $checkRole, $checkAdminAuth) {
     $app->get('/ajustes', $checkAdminAuth(2), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
     $app->post('/ajustes', $checkAdminAuth(2), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
     $app->get('/estadisticas', 'AdminCtrl:verEstadisticas')->name('shwEstadi');
+    $app->get('/exportar', 'AdminCtrl:verExportar')->name('shwExportar');
     $app->get('/moderador/crear', $checkRole('mod'), 'AdminCtrl:verCrearModerador')->name('shwCrearModerad');
     $app->post('/moderador/crear', $checkRole('mod'), 'AdminCtrl:crearModerador')->name('runCrearModerad');
 });
