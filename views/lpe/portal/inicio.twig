@@ -33,10 +33,16 @@ endblock %} {% block body %}
                     <div class="grid-item w2" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
                         <figure class="cap-bot height2">
                             <div class="text-center" style="">
-                                <h5 style="text-transform: uppercase"><strong>{{ derecho.titulo }}</strong></h5>
+                                <h5><strong style="text-transform: uppercase">{{ derecho.titulo }}</strong></h5>
                             </div>
                             <figcaption>
-                                ¡Participá! <i class="fa fa-hand-paper-o fa-lg fa-fw"></i>
+                                 {% if derecho.id == 5 %}
+                                    Derecho a cuidar y ser cuidado.
+                                    {% elseif derecho.id == 6 %}
+                                    Para aprender y transformar las culturas.
+                                    {% elseif derecho.id == 9 %}
+                                    Para el desarrollo y construcción de ambientes ecológicamente sustentables.
+                                    {% endif %}<br>¡Participá! <i class="fa fa-hand-paper-o fa-lg fa-fw"></i>
                             </figcaption>
                         </figure>
                     </div>
