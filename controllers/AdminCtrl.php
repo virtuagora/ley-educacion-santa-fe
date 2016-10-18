@@ -7,13 +7,33 @@ class AdminCtrl extends Controller {
         $this->render('lpe/admin/ajustes.twig', array('ajustes' => $ajustes->toArray()));
     }
 
-public function verExportar() {
+    public function verExportar() {
         $this->render('lpe/admin/exportar.twig');
     }
 
-    public function verEstadisticas() {
+    public function verEmails() {
         $usuarios = Usuario::all();
-        $this->render('lpe/admin/estadisticas.twig', array('usuarios' => $usuarios->toArray()));
+        $this->response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $this->response->headers->set('Content-Disposition', 'attachment; filename=emails.csv');
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['nombre', 'apellido', 'email']);
+        foreach ($usuarios as $usr) {
+            fputcsv($output, [$usr->nombre, $usr->apellido, $usr->email]);
+        }
+    }
+
+    public function verComments($idDer) {
+        $derecho = Derecho::with('contenido.tags')->findOrFail($idDer);
+        $contenido = $derecho->contenido;
+        $datosDer = array_merge($contenido->toArray(), $derecho->toArray());
+        $this->response->headers->set('Content-Type', 'application/json; charset=utf-8');
+        $this->response->headers->set('Content-Disposition', 'attachment; filename=comments.json');
+        echo json_encode($datosDer, JSON_PRETTY_PRINT);
+    }
+
+    public function verEstadisticas() {
+        $usuarios = Usuario::count();
+        $this->render('lpe/admin/estadisticas.twig', array('usuarios' => $usuarios));
     }
 
     public function adminAjustes() {

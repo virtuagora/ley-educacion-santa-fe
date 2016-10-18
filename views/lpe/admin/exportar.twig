@@ -15,15 +15,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Comentarios en derechos</td>
-      <td class="text-center"><a href="javascript:void(0)" class="btn btn-link btn-xs">Descargar<i class="fa fa-download fa-fw"></i></a></td>
-    </tr>
+    
     <tr>
       <td>Listado de emails de usuarios</td>
-      <td class="text-center"><a href="javascript:void(0)" class="btn btn-link btn-xs">Descargar<i class="fa fa-download fa-fw"></i></a></td>
+      <td class="text-center"><a href="{{ urlFor('shwEmails') }}" class="btn btn-link btn-xs">Descargar<i class="fa fa-download fa-fw"></i></a></td>
     </tr>
-    
+    {% for i in 1..10 %}
+      <tr>
+        <td>Comentarios en derecho {{ i }}</td>
+        <td class="text-center"><a href="{{ urlFor('shwComments', {'idDer': i}) }}" class="btn btn-link btn-xs">Descargar<i class="fa fa-download fa-fw"></i></a></td>
+      </tr>
+    {% endfor %}
   </tbody>
 </table> 
         </div>
