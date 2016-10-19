@@ -1,166 +1,141 @@
 {% extends "lpe/master.twig" %} {# ----------------------------------------------------------- #} {% block titulo %}Inicio{%
 endblock %} {% block body %}
 <div class="container-fluid inicio-banner">
-    <div class="overlay-banner">
-        <div class="row">
-            <div class="col-xs-12 text-center">
-
-                <h1 style="text-transform: uppercase"><strong>{{ titulo }}</strong></h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
-                <div class="descripcion" style="font-size: 14px;line-height: 21px;">
-                {{ intro|bbCode }}
-            </div>
-
-            </div>
-        </div>
-    </div>
+	<div class="overlay-banner">
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<h1 style="text-transform: uppercase"><strong>{{ titulo }}</strong></h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+				<div class="descripcion" style="font-size: 14px;line-height: 21px;">
+					{{ intro|bbCode }}
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
-
 <div id="derechos" class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12 col-md-10 col-md-offset-1">
-            {% if derechos|length > 0 %}
-            <div class="grid">
-                <div class="grid-sizer w2"></div>
-                {% for derecho in derechos %}
-                {% if derecho.id == 5 or derecho.id == 6 or derecho.id == 9 %}
-                {% set linkImagen = baseUrl() ~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
-                <a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
-                    <div class="grid-item w2" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
-                        <figure class="cap-bot height2">
-                            <div class="text-center" style="">
-                                <h5><strong style="text-transform: uppercase">{{ derecho.titulo }}</strong></h5>
-                            </div>
-                            <figcaption>
-                                 {% if derecho.id == 5 %}
-                                    Derecho a cuidar y ser cuidado.
-                                    {% elseif derecho.id == 6 %}
-                                    Para aprender y transformar las culturas.
-                                    {% elseif derecho.id == 9 %}
-                                    Para el desarrollo y construcción de ambientes ecológicamente sustentables.
-                                    {% endif %}<br>¡Participá! <i class="fa fa-hand-paper-o fa-lg fa-fw"></i>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </a>
-                {% endif %}
-                {% endfor %}
-            </div>
-                {% set contador = 1 %}
-                {% if contador == 1 %}
-                    <div class="grid">
-                <div class="grid-sizer"></div>
-                {% endif %}
-                {% for derecho in derechos %}
-                {% if derecho.id != 5 and derecho.id != 6 and derecho.id != 9 %}
-                {% set linkImagen = baseUrl() ~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
-                <a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
-                    <div class="grid-item {{contador < 5 ? '':'w3'}}" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
-                        <figure class="cap-bot">
-                            <div class="text-center" style="">
-                                <h5 style="text-transform: uppercase"><strong>{{ derecho.titulo }}</strong></h5>
-                            </div>
-                            <figcaption>
-                                ¡Participá! <i class="fa fa-hand-paper-o fa-lg fa-fw"></i>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </a>
-                {% set contador = contador + 1 %}
-                {% endif %}
-                {% if contador == 5  %}
-                    </div>
-                                      <div class="grid">
-                <div class="grid-sizer w2"></div>
-                {% endif %}
-                {% endfor %}
-                    </div>
-            </div>
-            {% else %}
-            <div class="text-center">
-                <p>No hay contenidos que hayan sido subidos a la plataforma</p>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-xs-12 col-md-5 col-md-offset-1">
+	<div class="row">
+		<div class="col-xs-12 col-md-10 col-md-offset-1">
+			{% if derechos|length > 0 %}
+			<div class="grid">
+				<div class="grid-sizer w2"></div>
+				{% for derecho in derechos %} {% if derecho.id == 5 or derecho.id == 6 or derecho.id == 9 %} {% set linkImagen = baseUrl()
+				~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
+				<a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
+					<div class="grid-item w2" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
+						<figure class="cap-bot height2">
+							<div class="text-center" style="">
+								<h5><strong style="text-transform: uppercase">{{ derecho.titulo }}</strong></h5>
+							</div>
+							<figcaption>
+								{% if derecho.id == 5 %} Derecho a cuidar y ser cuidado. {% elseif derecho.id == 6 %} Para aprender y transformar las culturas.
+								{% elseif derecho.id == 9 %} Para el desarrollo y construcción de ambientes ecológicamente sustentables. {% endif
+								%}
+								<br>¡Participá! <i class="fa fa-hand-paper-o fa-lg fa-fw"></i>
+							</figcaption>
+						</figure>
+					</div>
+				</a>
+				{% endif %} {% endfor %}
+			</div>
+			{% set contador = 1 %} {% if contador == 1 %}
+			<div class="grid">
+				<div class="grid-sizer"></div>
+				{% endif %} {% for derecho in derechos %} {% if derecho.id != 5 and derecho.id != 6 and derecho.id != 9 %} {% set linkImagen
+				= baseUrl() ~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
+				<a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
+					<div class="grid-item {{contador < 5 ? '':'w3'}}" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
+						<figure class="cap-bot">
+							<div class="text-center" style="">
+								<h5 style="text-transform: uppercase"><strong>{{ derecho.titulo }}</strong></h5>
+							</div>
+							<figcaption>
+								¡Participá! <i class="fa fa-hand-paper-o fa-lg fa-fw"></i>
+							</figcaption>
+						</figure>
+					</div>
+				</a>
+				{% set contador = contador + 1 %} {% endif %} {% if contador == 5 %}
+			</div>
+			<div class="grid">
+				<div class="grid-sizer w2"></div>
+				{% endif %} {% endfor %}
+			</div>
+		</div>
+		{% else %}
+		<div class="text-center">
+			<p>No hay contenidos que hayan sido subidos a la plataforma</p>
+		</div>
+		{% endif %}
+	</div>
+</div>
+<br>
+<div class="container-fluid">
 
-            <div class="" style=" background-size:cover;">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox">
-                        {% for video in videos %}
-                        <div class="item {{ loop.first ? 'active':''}}">
-                            <div class="row">
-                                <div class="col-xs-12 text-center">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" width="853" height="480" src="https://www.youtube.com/embed/{{video}}" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="icon-prev" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="icon-next" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-              
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-5">
-            <h5><strong>CRONOGRAMA</strong></h5>
-            <div class="list-group">
-                {% if eventos|length > 0%}
-                {% set contador = 1 %}
-                {% set tackle = true %}
-                {% for evento in eventos %}
-                    {% if contador >= 1 and contador < 3 %}
-                    <li class="list-group-item {{ tackle ? 'active' : ''}}">
-                    <div class="pull-right text-center">
-                        <h3><span style="{{ tackle ? 'color:#FFF' : ''}}">
+	<div class="row">
+		<div class="col-xs-12 col-md-5 col-md-offset-1">
+			<div class="" style=" background-size:cover;">
+				<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						{% for video in videos %}
+						<div class="item {{ loop.first ? 'active':''}}">
+							<div class="row">
+								<div class="col-xs-12 text-center">
+									<div class="embed-responsive embed-responsive-16by9">
+										<iframe class="embed-responsive-item" width="853" height="480" src="https://www.youtube.com/embed/{{video}}" frameborder="0"
+											allowfullscreen></iframe>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+					<!-- Left and right controls -->
+					<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+						<span class="icon-prev" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						<span class="icon-next" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-5">
+			<h5><strong>CRONOGRAMA</strong></h5>
+			<div class="list-group">
+				{% if eventos|length > 0%} {% set contador = 1 %} {% set tackle = true %} {% for evento in eventos %} {% if contador >= 1
+				and contador
+				< 3 %} <li class="list-group-item {{ tackle ? 'active' : ''}}">
+					<div class="pull-right text-center">
+						<h3><span style="{{ tackle ? 'color:#FFF' : ''}}">
                             <i class="zmdi  {{ (evento.finalizado) and tackle ? 'zmdi-badge-check' : ''}}
                             {{ (not evento.finalizado) and tackle ? 'zmdi-calendar' : ''}}
                             {{ (not evento.finalizado) and (not tackle) ? 'zmdi-time-countdown' : ''}}
                              zmdi-hc-fw zmdi-hc-lg"></i>
                             </span></h3>
-                    </div>
-                    <h5 class="list-group-item-heading"><strong>{{ evento.titulo }}</strong></h5>
-                    <h6 class="list-group-item-heading">{{evento.fecha|date("d/m/Y")}} - {{evento.fecha|date("H:i")}}Hs.</h6>
-                    <h6 class="list-group-item-heading">{{ evento.lugar }}</h6>
-                    </li>
-                    {% endif %}
-                    {% if tackle %}
-                    {% set tackle = false %}
-                    {% endif %}
-                    {% if not evento.finalizado %}
-                    {% set contador = contador + 1 %}
-                    {% endif %}
-                    {% endfor %}
-                {% else %}
-                <li class="list-group-item">
-                    <h6 class="list-group-item-heading">No hay eventos próximos</h6>
-                </li>
-                {% endif %}
-                <br>
-                <a href="{{ urlFor('shwListaEvento')}}" class="btn btn-xs btn-link">Ver mas eventos</a></small>
-            </div>
-        </div>
-    </div>
+					</div>
+					<h5 class="list-group-item-heading"><strong>{{ evento.titulo }}</strong></h5>
+					<h6 class="list-group-item-heading">{{evento.fecha|date("d/m/Y")}} - {{evento.fecha|date("H:i")}}Hs.</h6>
+					<h6 class="list-group-item-heading">{{ evento.lugar }}</h6>
+					</li>
+					{% endif %} {% if tackle %} {% set tackle = false %} {% endif %} {% if not evento.finalizado %} {% set contador = contador
+					+ 1 %} {% endif %} {% endfor %} {% else %}
+					<li class="list-group-item">
+						<h6 class="list-group-item-heading">No hay eventos próximos</h6>
+					</li>
+					{% endif %}
+					<br>
+					<a href="{{ urlFor('shwListaEvento')}}" class="btn btn-xs btn-link">Ver mas eventos</a>
+			</div>
+		</div>
+	</div>
 </div>
-
 {% endblock body %} {# -------------------------------------------- #} {% block scripts %}
 <script src="{{ baseUrl() }}/assets-lpe/js/masonry.pkgd.min.js"></script>
 <script>
