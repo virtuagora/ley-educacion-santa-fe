@@ -64,7 +64,7 @@ class AdminCtrl extends Controller {
         $this->render('lpe/admin/moderadores.twig', ['moderadores' => $mods]);
     }
     
-    public function crearModerardor() {
+    public function crearModerador() {
         $req = $this->request;
         $vdt = new Validate\QuickValidator([$this, 'notFound']);
         $vdt->test($req->post('id'), new Validate\Rule\NumNatural());
