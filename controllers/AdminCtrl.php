@@ -66,9 +66,7 @@ class AdminCtrl extends Controller {
     
     public function crearModerador() {
         $req = $this->request;
-        $vdt = new Validate\QuickValidator([$this, 'notFound']);
-        $vdt->test($req->post('id'), new Validate\Rule\NumNatural());
-        $usuario = Usuario::findOrFail($vdt->getData('id'));
+        $usuario = Usuario::findOrFail($req->post('id'));
         if ($usuario->patrulla_id) {
             throw new TurnbackException('Ese usuario ya es moderador.');
         }
