@@ -28,23 +28,29 @@ class ExtendedTwig extends Twig_Extension {
                                '<br>');
 
     public function getFilters() {
-        return array(
-            new Twig_SimpleFilter('bbCode', array($this, 'bbCodeFilter'), array('is_safe' => array('html')))
-        );
+        return [
+            new Twig_SimpleFilter('bbCode', [$this, 'bbCodeFilter'], ['is_safe' => ['html']]),
+            new Twig_SimpleFilter('clickableLinks', [$this, 'clickableLinksFilter'], ['is_safe' => ['html']]),
+        ];
     }
 
     public function getFunctions() {
-        return array(
+        return [
             new Twig_SimpleFunction('avatarUrl', array($this, 'avatarUrlFunction')),
             new Twig_SimpleFunction('urlFor', array($this, 'urlFor')),
             new Twig_SimpleFunction('baseUrl', array($this, 'base')),
             new Twig_SimpleFunction('siteUrl', array($this, 'site')),
             new Twig_SimpleFunction('currentUrl', array($this, 'currentUrl')),
-        );
+        ];
     }
 
     public function bbCodeFilter($str) {
         return preg_replace($this->searchRx, $this->replaceRx, str_replace($this->search, $this->replace, $str));
+    }
+
+    public function clickableLinksFilter($str) {
+        $url = '/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,10}(\/\S*)?/';
+        return preg_replace($url, '<a href="$0" target="_blank">$0</a>', $str);
     }
 
     public function avatarUrlFunction($type, $hash, $size) {

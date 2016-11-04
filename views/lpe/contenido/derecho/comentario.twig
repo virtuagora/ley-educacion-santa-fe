@@ -14,7 +14,7 @@
         <br>
         <p class="comentario" style="margin-bottom:0">
             <span class="pull-right"></span>
-            {{ comentario.cuerpo|nl2br }}
+            {{ comentario.cuerpo|e|nl2br|clickableLinks }}
         </p>
         <ul class="list-inline" style="border-bottom: 1px solid #83c8ff;">
             {% if user %}
@@ -66,7 +66,7 @@
         {% endif %}
                 <br>
                 <p class="comentario" style="margin-bottom:0">
-                    {{ respuesta.cuerpo|nl2br }}
+                    {{ respuesta.cuerpo|e|nl2br|clickableLinks }}
                 </p>
                 <ul class="list-inline" style="border-bottom: 1px solid #83c8ff;">
                     {% if user %}
