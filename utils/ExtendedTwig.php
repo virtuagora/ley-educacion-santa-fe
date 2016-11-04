@@ -49,7 +49,7 @@ class ExtendedTwig extends Twig_Extension {
     }
 
     public function clickableLinksFilter($str) {
-        $url = '/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,10}(\/\S*)?/';
+        $url = '/([--:\w?@%&+~#=]*\.[a-z]{2,4}\/{0,2})((?:[?&](?:\w+)=(?:\w+))+|[--:\w?@%&+~#=]+)?/';
         return preg_replace($url, '<a href="$0" target="_blank">$0</a>', $str);
     }
 
