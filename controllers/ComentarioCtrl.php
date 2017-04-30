@@ -15,6 +15,7 @@ class ComentarioCtrl extends RMRController {
             ->addRule('tipoRaiz', new Validate\Rule\InArray(['Seccion', 'Comentario', 'Novedad', 'Evento']))
             ->addRule('cuerpo', new Validate\Rule\MinLength(4))
             ->addRule('cuerpo', new Validate\Rule\MaxLength(2048))
+            ->addRule('seccion', new Validate\Rule\NumNatural())
             ->addFilter('tipoRaiz', 'ucfirst');
         $req = $this->request;
         $data = array_merge($req->post(), ['idRaiz' => $idRaiz, 'tipoRaiz' => $tipoRaiz]);
@@ -37,13 +38,15 @@ class ComentarioCtrl extends RMRController {
         $log = UserlogCtrl::createLog('newComenta', $autor->id, $raiz);
         NotificacionCtrl::createNotif($raiz->contenido->autor_id, $log);
         $this->flash('success', 'Su comentario fue enviado exitosamente.');
-        $this->redirect($req->getReferrer());
+
+        $this->redirect( preg_replace('/\?.*/', '', $req->getReferrer()) . '?seccion=' . $vdt->getData('seccion') . '&comentario=' . $comentario->id );
     }
 
     public function votar($idCom) {
         $vdt = new Validate\Validator();
         $vdt->addRule('idCom', new Validate\Rule\NumNatural())
-            ->addRule('valor', new Validate\Rule\InArray(array(-1, 1)));
+            ->addRule('valor', new Validate\Rule\InArray(array(-1, 1)))
+            ->addRule('seccion', new Validate\Rule\NumNatural());
         $req = $this->request;
         $data = array_merge(array('idCom' => $idCom), $req->post());
         if (!$vdt->validate($data)) {
@@ -62,7 +65,7 @@ class ComentarioCtrl extends RMRController {
             throw new TurnbackException('No puede votar dos veces el mismo comentario.');
         }
         $this->flash('success', 'Su voto fue registrado exitosamente.');
-        $this->redirect($req->getReferrer());
+        $this->redirect( preg_replace('/\?.*/', '', $req->getReferrer()) . '?seccion=' . $vdt->getData('seccion') . '&comentario=' . $idCom);
     }
 
     public function eliminar() {

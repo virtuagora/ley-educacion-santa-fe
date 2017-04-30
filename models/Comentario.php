@@ -5,9 +5,10 @@ class Comentario extends Eloquent {
 
     //protected $table = 'comentarios';
     protected $dates = ['deleted_at'];
-    protected $visible = ['id', 'cuerpo', 'comentable_type', 'comentable_id', 'votos',
+    protected $visible = ['id', 'cuerpo', 'comentable_type', 'comentable_id', 'votos', 'karma',
                           'created_at', 'updated_at', 'autor', 'respuestas'];
-    protected $with = ['autor', 'respuestas', 'votos'];
+    protected $with = ['autor', 'respuestas','votos'];
+    protected $appends = ['karma'];
     
     public function scopeModifiableBy($query, $id) {
         return $query->where('autor_id', $id);
@@ -27,6 +28,10 @@ class Comentario extends Eloquent {
 
     public function votos() {
         return $this->hasMany('VotoComentario');
+    }
+
+    public function getKarmaAttribute() {
+        return $this->votos()->sum('valor');
     }
 
     public function getRaizAttribute() {

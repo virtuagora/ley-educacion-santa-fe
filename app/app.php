@@ -154,6 +154,8 @@ $app->group('/admin', function () use ($app, $checkRole) {
     $app->get('/comments/:idDer', $checkRole('mod'), 'AdminCtrl:verComments')->name('shwComments');
     $app->get('/moderador/crear', $checkRole('mod'), 'AdminCtrl:verCrearModerador')->name('shwCrearModerad');
     $app->post('/moderador/crear', $checkRole('mod'), 'AdminCtrl:crearModerador')->name('runCrearModerad');
+    $app->get('/comentarios', $checkRole('mod'), 'AdminCtrl:verComentariosAdmin')->name('shwComentariosAdmin');
+    $app->get('/comentarios/:idDer', $checkRole('mod'), 'AdminCtrl:verComentariosAdminDerecho')->name('shwComentariosAdminDerecho');
 });
 
 $app->group('/comentario', function () use ($app, $checkRole) {

@@ -14,9 +14,10 @@
 <meta property="og:description"        content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." />
 <meta property="og:image"              content="{{ baseUrl() }}/assets-lpe/img/sharer-derecho.jpg"/>
 {% endblock %}
-{% block linkhead %} {% endblock %} {# ----------------------------------------------------------- #} {% block titulo %}{{ derecho.titulo }}{% endblock %} {% block body %}
+{% block linkhead %} {% endblock %} {# ----------------------------------------------------------- #} {% block titulo %}{{ derecho.titulo }}{% endblock %}
+{% block body %}
 <article>
-{% set colorSeleccionado = random(3) %}
+    {% set colorSeleccionado = random(3) %}
     {% if derecho.imagen == 1 %}
     <img src="{{linkImagen}}" class="img-responsive" style="width:100%;margin-bottom: 30px;" alt="">
     {% else %}
@@ -46,30 +47,30 @@
                         <div class="btn-group-vertical btn-group-sm">
                             <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',3)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 3)) ? 'btn-primary disabled' : 'btn-default'}}">
                                 Muy importante
-                                 
+
                                 &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_alta}}</span>
-                                
-                                </a>
+
+                            </a>
                             <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',2)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 2)) ? 'btn-primary disabled' : 'btn-default'}}">
                                 Importante
-                                
+
                                 &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_media}}</span>
-                                
-                                </a>
+
+                            </a>
                             <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',1)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 1)) ? 'btn-primary disabled' : 'btn-default'}}">
                                 Poco importante
-                                
+
                                 &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_baja}}</span>
-                                
-                                </a>
-                                {% set comentariosSeccion = seccion.comentarios|length %}
-                                {% for comentario in seccion.comentarios %}
-                                {% set comentariosSeccion = comentariosSeccion + comentario.respuestas|length %}
-                                {% endfor %}
+
+                            </a>
+                            {% set comentariosSeccion = seccion.comentarios|length %}
+                            {% for comentario in seccion.comentarios %}
+                            {% set comentariosSeccion = comentariosSeccion + comentario.respuestas|length %}
+                            {% endfor %}
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#comentarios{{ seccion.id }}" class="btn btn-info">Participá <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i> {{ comentariosSeccion }}</a>
                         </div>
                     </div>
-                    <p class="lead"><span class="badge">&nbsp;&nbsp;{{ptj}}<i class="zmdi zmdi-long-arrow-up zmdi-hc-fw zmdi-hc-lg"></i></span>&nbsp;&nbsp;{{seccion.descripcion|nl2br}}</p>
+                    <p class="lead"><span class="badge" data-toggle="tooltip" data-placement="right" title="Relevancia. Se calcula dandole ponderación a cada voto, siendo: {{seccion.votos_alta}} * 3 + {{seccion.votos_media}} * 2 + {{seccion.votos_baja}} * 1 = {{ptj}} "><i class="zmdi zmdi-star zmdi-hc-fw zmdi-hc-lg"></i>{{ptj}}&nbsp;</span>&nbsp;&nbsp;{{seccion.descripcion|nl2br}}</p>
                     {% include 'lpe/contenido/derecho/comentarioModal.twig' %}
                 </div>
                 <hr>
@@ -103,25 +104,42 @@
 
             </div>
         </div>
+    </div>
 </article>
 {% if user and (user.patrulla_id != null) %}
- {% include 'lpe/contenido/moderar.twig' %}
-  {% endif %}
+{% include 'lpe/contenido/moderar.twig' %}
+{% endif %}
 <form id="votarSeccion" method="POST">
     <input type="hidden" type="text" name="postura">
 </form>
 <form id="votarComentario" method="POST">
     <input type="text" name="valor" style="display:none">
+    <input type="text" name="seccion" style="display:none">
 </form>
 {% endblock %} {# ----------------------------------------------------------- #} {% block scripts %}
 <script src="{{ baseUrl() }}/assets-lpe/js/autosize.min.js"></script>
 <script>
+    var idSeccion = getUrlVars()["seccion"];
     $(document).ready(function() {
         autosize($('textarea'));
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         })
 
+        if( idSeccion != undefined ){
+            $('#comentarios' + idSeccion).modal('show');
+        }
+    })
+
+    $('#comentarios' + idSeccion).on('shown.bs.modal', function () {
+        $('#comentarios' + idSeccion).scrollTop(0);
+        // get the top of the section
+        var sectionOffset = $('[data-comentarioid=' + getUrlVars()["comentario"] + ']').offset();
+        console.log(sectionOffset);
+        //scroll the container
+        $('#comentarios' + idSeccion).animate({
+            scrollTop: sectionOffset.top - 30
+        }, "slow");
     })
 
     var votarSeccion = function(id, valor) {
@@ -136,12 +154,26 @@
         $('#respComentario-' + id).toggle();
     }
 
-    var votarComentario = function(id, valor) {
+    var votarComentario = function(seccionID, id, valor) {
         var action_no = "{{ urlFor('runVotarComenta') }}";
         $('#votarComentario').find('input[name="valor"]').val(valor)
         var action_yes = action_no.replace(':idCom', id);
+        $('#votarComentario').find('input[name="seccion"]').val(seccionID)
         $('#votarComentario').attr('action', action_yes);
         $('#votarComentario').submit();
+    }
+
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
     }
 </script>
 {% include 'lpe/contenido/moderar.js.twig' %} {% endblock %}

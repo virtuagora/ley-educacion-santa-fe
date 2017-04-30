@@ -16,7 +16,6 @@ class DerechoCtrl extends Controller {
                 $votosUsr[$voto->seccion_id] = $voto->postura;
             }
         }
-        
         $this->render('lpe/contenido/derecho/ver.twig', [
             'derecho' => $datosDer,
             'voto' => $votosUsr

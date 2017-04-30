@@ -23,6 +23,10 @@ class Usuario extends Eloquent {
         return $this->hasMany('Comentario', 'autor_id');
     }
 
+    public function votos() {
+        return $this->hasMany('VotoSeccion');
+    }
+
     public function notificaciones() {
         return $this->hasMany('Notificacion');
     }

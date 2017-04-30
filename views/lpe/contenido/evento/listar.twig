@@ -4,10 +4,10 @@
         <div class="col-xs-10 col-xs-offset-1">
             <div class="text-center">
                 <h2 class="text-center"><strong>CRONOGRAMA</strong>
-                {% if user and (user.patrulla_id != null) %}
-        <a href="{{urlFor('shwCrearEvento')}}" class="btn-warning btn"><i class="zmdi zmdi-plus zmdi-hc-lg"></i></a>
-        {% endif %}
-        </h2>
+                    {% if user and (user.patrulla_id != null) %}
+                    <a href="{{urlFor('shwCrearEvento')}}" class="btn-warning btn"><i class="zmdi zmdi-plus zmdi-hc-lg"></i></a>
+                    {% endif %}
+                </h2>
                 <br>
             </div>
             <div class="list-group">
@@ -15,38 +15,54 @@
                 {% set tackle = true %}
                 {% for evento in eventos %}
                 {% set colorSeleccionado = random(3) %}
-                <li class="list-group-item {{ (not evento.finalizado) and tackle ? 'active' : ''}}">
+                {% if not evento.finalizado %}
+                <li class="clearfix list-group-item {{ (not evento.finalizado) and tackle ? 'active' : ''}}">
                     <div class="pull-right text-center">
                         <h3><span class="{{ evento.finalizado and tackle ? 'text-success' : ''}}" style="{{ (not evento.finalizado) and tackle ? 'color:#FFF' : ''}}">
                             <i class="zmdi {{ evento.finalizado and tackle ? 'zmdi-badge-check' : ''}}
-                            {{ (not evento.finalizado) and tackle ? 'zmdi-calendar' : ''}}
-                            {{ (not evento.finalizado) and (not tackle) ? 'zmdi-time-countdown' : ''}}
-                             zmdi-hc-fw zmdi-hc-lg"></i>
+                                      {{ (not evento.finalizado) and tackle ? 'zmdi-calendar' : ''}}
+                                      {{ (not evento.finalizado) and (not tackle) ? 'zmdi-time-countdown' : ''}}
+                                      zmdi-hc-fw zmdi-hc-lg"></i>
                             </span></h3>
-                            {% if user and (user.patrulla_id != null) %}
-                            <form action="{{ urlFor('runElimiEvento', {'idEve': evento.id }) }}" method="POST">
-                                <button type="submit" class="btn btn-warning btn-sm" style="margin-bottom: 15px;"><i class="zmdi zmdi-close zmdi-hc-fw zmdi-hc-lg"></i> Eliminar</a>
-                            </form>
+                        {% if user and (user.patrulla_id != null) %}
+                        <form action="{{ urlFor('runElimiEvento', {'idEve': evento.id }) }}" method="POST">
+                            <button type="submit" class="btn btn-warning btn-sm" style="margin-bottom: 15px;"><i class="zmdi zmdi-close zmdi-hc-fw zmdi-hc-lg"></i> Eliminar</button>
+                        </form>
                         {% endif %}
                     </div>
                     <h4 class="list-group-item-heading"><strong>{{ evento.titulo }}</strong></h4>
                     <h5 class="list-group-item-heading">{{evento.fecha|date("d/m/Y")}} - {{evento.fecha|date("H:i")}}Hs.</h5>
                     <h6 class="list-group-item-heading">{{ evento.lugar }}</h6>
-                    <p class="list-group-item-text">{{ evento.cuerpo }}</p>
-                    {% if evento.finalizado %}
-                    <h5><span class="{{ (not evento.finalizado) and tackle ? '' : 'text-primary'}}" style="{{ (not evento.finalizado) and tackle ? 'color:#FFF' : ''}}"><b>Opiniones de interes</b></span></h5>
-                    <ul class="list-inline">
-                        {% if evento.opiniones|length > 0 %}
-                        {% for opinion in evento.opiniones %}
-                        <li><a href="javascript:void(0)" data-toggle="modal" data-target="#opinion{{loop.index}}"><i class="zmdi zmdi-mic-outline zmdi-hc-lg zmdi-hc-fw"></i>{{opinion.participante.nombre}}</a></li>
-                        {% include 'lpe/contenido/opinion/ver.twig' %}
-                        {% endfor %}
-                        {% else %}
-                        <li class="text-info"><i class="zmdi zmdi-close zmdi-hc-lg zmdi-hc-fw"></i> No hay opiniones registradas</li>
-                        {% endif%}
-                    </ul>
-                    {% endif %}
                 </li>
+                {% endif %}
+                {% if (not evento.finalizado) and tackle %}
+                {% set tackle = false %}
+                {% endif %}
+                {% endfor %}
+                {% set tackle = true %}
+
+                {% for evento in eventos %}
+                {% set colorSeleccionado = random(3) %}
+                {% if evento.finalizado %}
+                <li class="clearfix list-group-item {{ (not evento.finalizado) and tackle ? 'active' : ''}}">
+                    <div class="pull-right text-center">
+                        <h3><span class="{{ evento.finalizado and tackle ? 'text-success' : ''}}" style="{{ (not evento.finalizado) and tackle ? 'color:#FFF' : ''}}">
+                            <i class="zmdi {{ evento.finalizado and tackle ? 'zmdi-badge-check' : ''}}
+                                      {{ (not evento.finalizado) and tackle ? 'zmdi-calendar' : ''}}
+                                      {{ (not evento.finalizado) and (not tackle) ? 'zmdi-time-countdown' : ''}}
+                                      zmdi-hc-fw zmdi-hc-lg"></i>
+                            </span></h3>
+                        {% if user and (user.patrulla_id != null) %}
+                        <form action="{{ urlFor('runElimiEvento', {'idEve': evento.id }) }}" method="POST">
+                            <button type="submit" class="btn btn-warning btn-sm" style="margin-bottom: 15px;"><i class="zmdi zmdi-close zmdi-hc-fw zmdi-hc-lg"></i> Eliminar</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <h4 class="list-group-item-heading"><strong>{{ evento.titulo }}</strong></h4>
+                    <h5 class="list-group-item-heading">{{evento.fecha|date("d/m/Y")}} - {{evento.fecha|date("H:i")}}Hs.</h5>
+                    <h6 class="list-group-item-heading">{{ evento.lugar }}</h6>
+                </li>
+                {% endif %}
                 {% if (not evento.finalizado) and tackle %}
                 {% set tackle = false %}
                 {% endif %}

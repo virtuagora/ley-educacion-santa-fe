@@ -3,3 +3,4 @@
 composer.phar
 /public/img
 /.sass-cache/*
+/app/database.php

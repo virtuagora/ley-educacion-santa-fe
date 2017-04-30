@@ -1,16 +1,14 @@
-<div class="row">
+<div class="row" data-comentarioid="{{comentario.id}}">
     <div class="col-xs-1 col-sm-offset-1 text-center">
         <a href="{{ urlFor('shwUsuario',{'idUsu': comentario.autor.id}) }}">
-            <img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}" class="img-circle" style="
-            margin:2px auto 5px;
-            " alt="">
+            <img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}" class="img-circle" style="margin:2px auto 5px;" alt="">
         </a>
-     </div>
+    </div>
     <div class="col-xs-11 col-sm-9">
-        <span class="pull-left text-info" style="margin-top:0"><strong>{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</strong></span>
         {% if comentario.autor.patrulla_id != null %}
-         <span class="text-warning" data-toggle="tooltip" data-placement="right" data-original-title="Oficial"><i class="fa fa-check fa-fw"></i></span>
+        <span class="text-warning" data-toggle="tooltip" data-placement="bottom" data-original-title="Oficial"><i class="fa fa-check fa-fw"></i></span>
         {% endif %}
+        <span class="text-info" style="margin-top:0"><strong>{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</strong></span>&nbsp;<span style="font-size:11px"><i>comentó el {{comentario.created_at|date('d-m-Y H:i')}}</i></span>
         <br>
         <p class="comentario" style="margin-bottom:0">
             <span class="pull-right"></span>
@@ -18,29 +16,32 @@
         </p>
         <ul class="list-inline" style="border-bottom: 1px solid #83c8ff;">
             {% if user %}
-            <li><a href="javascript:votarComentario({{comentario.id}},1)" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-long-arrow-up"></i> {{comentario.votos|length}}</a></b></li>
-            <li><a href="javascript:votarComentario({{comentario.id}},-1)" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><b><i class="zmdi zmdi-long-arrow-down"></i></a></b></li>
+            <li><a href="javascript:votarComentario({{seccion.id}},{{comentario.id}},1)" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-thumb-up"></i></b></span></a></li>
+            <li><a href="javascript:votarComentario({{seccion.id}},{{comentario.id}},-1)" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><b><i class="zmdi zmdi-thumb-down"></i></b></span></a></li>
+            <li><b>{{comentario.karma}}</b></li>
             <li><a href="javascript:verBoxResponder({{comentario.id}})"><small>Responder</small></a></li>
             {% if user and (user.patrulla_id != null) %}
             <li><a href="javascript:sancionar({{comentario.autor.id}})"><small><i class="zmdi zmdi-alert-triangle zmdi-hc-fw zmdi-hc-lg"></i>Moderar</small></a></li>
             <li><a href="javascript:eliminarComentario({{comentario.id}})"><small><i class="zmdi zmdi-close zmdi-hc-lg zmdi-hc-fw"></i>Eliminar</small></a></li>
             {% endif %}
-             {% else %}
-                <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-long-arrow-up"></i> {{respuesta.votos|length }}</a></b></li>
-            <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><b><i class="zmdi zmdi-long-arrow-down"></i></a></b></li>
+            {% else %}
+            <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-thumb-up"></i></b></span></a></li>
+            <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><b><i class="zmdi zmdi-thumb-down"></i></b></span></a></li>
+            <li><b>{{comentario.karma}}</b></li>
             {% endif %}    
         </ul>
-            {% if user %}
+        {% if user %}
         <div id="respComentario-{{comentario.id}}" class="well well" style="display:none">
             <form class="form-horizontal" action="{{ urlFor('runComentar', {'tipoRaiz': 'comentario', 'idRaiz': comentario.id }) }}" method="POST">
                 <div class="form-group" style="margin-bottom:0">
-                    <label class="col-xs-1 col-sm-offset-1 text-center"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-circle" style="width: 25px; margin:0 auto 5px" alt=""></label>
-                    <div class="col-xs-11 col-sm-10">
+                    <label class="col-xs-1 text-center"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-circle" style="width: 25px; margin:0 auto 5px" alt=""></label>
+                    <div class="col-xs-11">
                         <span class="text-info"><strong>{{ user.nombre }} {{ user.apellido}} &nbsp;</strong></span>
-                         {% if false %}
-         <span class="label label-warning" style="padding: .5em .6em .3em;">Mod</span>
-        {% endif %}
-                        <textarea name="cuerpo" class="form-control input-sm" rows="1" placeholder="Escriba aqui su comentario..."></textarea>
+                        {% if false %}
+                        <span class="label label-warning" style="padding: .5em .6em .3em;">Mod</span>
+                        {% endif %}
+                        <input name="seccion" type="number" value="{{seccion.id}}" hidden>
+                        <textarea name="cuerpo" class="form-control input-sm" rows="1" placeholder="Escriba aqui su respuesta..."></textarea>
                         <div class="clearfix" style="margin-top: 10px">
                             <button type="submit" class=" pull-right btn btn-primary btn-xs">Enviar comentario</button>
                         </div>
@@ -50,41 +51,42 @@
         </div>
         {% endif %}
         <div class="lista-respuestas">
-
             {% if comentario.respuestas|length > 0 %}
             {% for respuesta in comentario.respuestas %}
-            <div class="col-xs-1 text-center">
-                <a href="{{ urlFor('shwUsuario',{'idUsu': respuesta.autor.id}) }}">
-                    <img src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}" class="img-circle" style="width: 25px; margin:0 auto 5px" alt="">
-                </a>
-            </div>
-            <div class="col-xs-11" style="padding-right:0">
-                <span class="pull-left text-info" style="margin-top:0"><strong>
-                    {{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }} &nbsp;</strong></span>
-                     {% if respuesta.autor.patrulla_id != null %}
-         <span class="text-warning" data-toggle="tooltip" data-placement="right" data-original-title="Oficial"><i class="fa fa-check fa-fw"></i></span>
-        {% endif %}
-                <br>
-                <p class="comentario" style="margin-bottom:0">
-                    {{ respuesta.cuerpo|e|nl2br|clickableLinks }}
-                </p>
-                <ul class="list-inline" style="border-bottom: 1px solid #83c8ff;">
-                    {% if user %}
-            <li><a href="javascript:votarComentario({{respuesta.id}},1)" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-long-arrow-up"></i> {{respuesta.votos|length }}</a></b></li>
-            <li><a href="javascript:votarComentario({{respuesta.id}},-1)" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><b><i class="zmdi zmdi-long-arrow-down"></i></a></b></li>
-            <li><a href="javascript:verBoxResponder({{comentario.id}})"><small>Responder</small></a></li>
-                    {% if user and (user.patrulla_id != null) %}
-                    <li><a href="javascript:sancionar({{respuesta.autor.id}})"><small><i class="zmdi zmdi-alert-triangle zmdi-hc-fw zmdi-hc-lg"></i>Moderar</small></a></li>
-                    <li><a href="#"><small><i class="zmdi zmdi-close zmdi-hc-lg zmdi-hc-fw"></i>Eliminar</small></a></li>
+            <div class="row" data-comentarioid="{{respuesta.id}}">
+                <div class="col-xs-1 text-center" >
+                    <a href="{{ urlFor('shwUsuario',{'idUsu': respuesta.autor.id}) }}">
+                        <img src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}" class="img-circle" style="width: 25px; margin:0 auto 5px" alt="">
+                    </a>
+                </div>
+                <div class="col-xs-11" style="padding-right:0">
+                    {% if respuesta.autor.patrulla_id != null %}
+                    <span class="text-warning" data-toggle="tooltip" data-placement="bottom" data-original-title="Oficial"><i class="fa fa-check fa-fw"></i></span>
                     {% endif %}
-            {% else %}
-                <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-long-arrow-up"></i> {{respuesta.votos|length }}</a></b></li>
-            <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><b><i class="zmdi zmdi-long-arrow-down"></i></a></b></li>
-            {% endif %} 
-                </ul>
+                    <span class="text-info" style="margin-top:0"><strong>{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }}</strong></span>&nbsp;<span style="font-size:11px"><i>comentó el {{respuesta.created_at|date('d-m-Y H:i')}}</i></span>
+                    <br>
+                    <p class="comentario" style="margin-bottom:0">
+                        {{ respuesta.cuerpo|e|nl2br|clickableLinks }}
+                    </p>
+                    <ul class="list-inline" style="border-bottom: 1px solid #83c8ff;">
+                        {% if user %}
+                        <li><a href="javascript:votarComentario({{seccion.id}},{{respuesta.id}},1)" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-thumb-up"></i></b></span></a></li>
+                        <li><a href="javascript:votarComentario({{seccion.id}},{{respuesta.id}},-1)" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><i class="zmdi zmdi-thumb-down"></i></span></a></li>
+                        <li><b>{{respuesta.karma}}</b></li>
+                        {% if user and (user.patrulla_id != null) %}
+                        <li><a href="javascript:sancionar({{respuesta.autor.id}})"><small><i class="zmdi zmdi-alert-triangle zmdi-hc-fw zmdi-hc-lg"></i>Moderar</small></a></li>
+                        <li><a href="#"><small><i class="zmdi zmdi-close zmdi-hc-lg zmdi-hc-fw"></i>Eliminar</small></a></li>
+                        {% endif %}
+                        {% else %}
+                        <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-success" data-toggle="tooltip" data-placement="bottom" data-original-title="Me gusta"><b><i class="zmdi zmdi-thumb-up"></i></b></span></a></li>
+                        <li><a href="{{urlFor('shwLogin')}}" style="text-decoration:none;"><span class="text-danger" data-toggle="tooltip" data-placement="bottom" data-original-title="No me gusta"><b><i class="zmdi zmdi-thumb-down"></i></b></span></a></li>
+                        <li><b>{{respuesta.karma}}</b></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-                {% endfor %}
-                 {% endif %}
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>

@@ -1,0 +1,75 @@
+{% extends "lpe/master.twig" %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Administrar comentarios{% endblock %}
+
+{% block body %}
+<form action="" method="POST">
+    <div class="container" style=" ">
+        <div class="row">
+            {% set paginaAdmin = 0 %}
+            {% include '/lpe/admin/listaSecciones.twig' %}
+            <div class="col-xs-12 col-sm-9">
+                <div class="text-center">
+                    <h2 class="text-center"><strong>Administrar comentarios</strong></h2>
+                    <h4 class="text-center"><strong>{{derecho.titulo}}</strong></h4>
+                    <br>
+                    <button type="submit" class="btn btn-danger pull-right">Eliminar comentarios</button>
+                </div>
+                <table class="table table-hover ">
+                    <thead>
+                        <tr>
+                            <th colspan="">#</th>
+                            <th colspan="">Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for seccion in derecho.secciones %}
+                        {% for comentario in seccion.comentarios %}
+                        <tr>
+                            <td class="text-center"><input name="comentario" type="checkbox" value="{{comentario.id}}"></td>
+                            <td style="line-height: 15px;font-size: 12px;">
+                                <a href="{{ urlFor('shwUsuario',{'idUsu': comentario.autor.id}) }}"><img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}" class="img-circle" style="margin:0 auto 0px; width:15px;" alt=""></a><strong> {{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</strong><i> comentó el {{comentario.created_at|date('d-m-Y H:i')}}</i> - <i class="fa fa-thumbs-up fa-fw"></i> {{comentario.votos}}
+                                <br>
+                                {{comentario.cuerpo|nl2br}}
+                            </td>
+                        </tr>
+                        {% for respuesta in comentario.respuestas %}
+                        <tr>
+                            <td class="text-center"><input name="comentario" type="checkbox" value="{{respuesta.id}}"></td>
+                            <td style="line-height: 15px;font-size: 12px;">
+                                <div style="margin-left:40px;">
+
+                                    <a href="{{ urlFor('shwUsuario',{'idUsu': respuesta.autor.id}) }}"><img src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}" class="img-circle" style="margin:0 auto 0px; width:15px;" alt=""></a><strong> {{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }}</strong><i> comentó el {{respuesta.created_at|date('d-m-Y H:i')}}</i> - <i class="fa fa-thumbs-up fa-fw"></i> {{comentario.votos}}
+                                    <br>
+                                    {{respuesta.cuerpo|nl2br}}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <input name="comentarios" type="text" value="" hidden>
+                <button type="submit" class="btn btn-danger pull-right">Eliminar comentarios</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock body %}
+{# -------------------------------------------- #}
+{% block scripts %}
+<script>
+    $('form').submit(function(e){
+         var comentarios = [];
+        e.preventDefault();
+        $('input[name=comentario]:checked').each(function( index ) {
+            comentarios.push($( this ).val());
+        });
+        var comentariosString = comentarios.join("&&");
+        $('input[name=comentarios]').val(comentariosString);
+        return false;
+    })
+</script>
+{% endblock scripts %}

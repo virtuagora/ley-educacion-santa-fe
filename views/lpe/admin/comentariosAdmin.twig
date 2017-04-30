@@ -1,0 +1,38 @@
+{% extends "lpe/master.twig" %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Administrar comentarios{% endblock %}
+
+{% block body %}
+<div class="container" style=" ">
+    <div class="row">
+        {% set paginaAdmin = 8 %}
+        {% include '/lpe/admin/listaSecciones.twig' %}
+        <div class="col-xs-12 col-sm-9">
+            <div class="text-center">
+                <h2 class="text-center"><strong>Administrar comentarios</strong></h2>
+                <br>
+                <a href=""></a>
+            </div>
+            <table class="table table-hover ">
+                <thead>
+                    <tr>
+                        <th colspan="2">Elemento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for derecho in derechos %}
+                    <tr>
+                        <td>Administrar comentarios <b>{{derecho.titulo}}</b></td>
+                        <td class="text-center"><a href="{{ urlFor('shwComentariosAdminDerecho', {'idDer': derecho.id}) }}" class="btn btn-primary btn-xs"><i class="fa fa-comments fa-lg fa-fw"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+{# -------------------------------------------- #}
+{% block scripts %}
+{% endblock scripts %}

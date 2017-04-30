@@ -1,6 +1,10 @@
 {% extends "lpe/master.twig" %} {% block linkhead %}
 <link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/timepicker/jquery.timepicker.css" /> {% endblock %} {# ----------------------------------------------------------- #} {% block titulo %}Crear Evento{% endblock %} {% block body %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/timepicker/jquery.timepicker.css" />
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Crear Evento{% endblock %}
+{% block body %}
 <form action="{{ urlFor('runCrearEvento') }}" method="POST">
     <article>
         <div class="titulo-derecho-background bgcolor{{random(3)}}">
@@ -34,18 +38,18 @@
                     </div>
                     <div class="col-xs-12 col-sm-7 text-center">
                         <div class="form-group">
-                            <h5><b>Fecha</b></h5>
+                            <h5><b>Fecha del evento</b></h5>
                             <input id="txt-fecha" type="text" class="form-control text-center input-lg" placeholder="Seleccione la fecha" readonly />
                             <h5><b>Hora</b></h5>
                             <input id="timepicker" type="text" class="form-control text-center input-lg" data-time-format="H:i:s" placeholder="¿Hora?" />
-                            <h5><b>Lugar</b></h5>
+                            <h5><b>Lugar del evento</b></h5>
                             <input name="lugar" type="text" class="form-control text-center" placeholder="Escriba el lugar donde se llevara a cabo el evento" style="margin: 0;" />
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea name="cuerpo" rows="2" class="form-control" cols="">Descripcion...</textarea>
-                    <hr>
+                    <h5><b>Descripción del evento</b></h5>
+                    <textarea name="cuerpo" rows="2" class="form-control" cols="" placeholder="Describa algun mensaje acerca del evento. Si lo deja vacio no se mostrará nada."></textarea>
                 </div>
                 <div class="clearfix">
                     <a href="#" class="pull-left btn btn-link">Cancelar</a>
@@ -72,7 +76,6 @@
             dateFormat: 'DD, dd MM yy',
             altField: "#guardarFecha",
             altFormat: "yy-mm-dd",
-            minDate: 0,
             onSelect: function() {
                 $('#txt-fecha').val(this.value);
             }

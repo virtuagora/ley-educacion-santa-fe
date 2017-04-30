@@ -1,4 +1,10 @@
-{% extends "lpe/master.twig" %} {# ----------------------------------------------------------- #} {% block titulo %}Participantes{% endblock %} {% block body %}
+{% extends "lpe/master.twig" %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css" />
+{% endblock %}
+{% block titulo %}Estadistica{% endblock %}
+{% block body %}
 <div class="container" style=" ">
     <div class="row">
         {% set paginaAdmin = 6 %} {% include '/lpe/admin/listaSecciones.twig' %}
@@ -9,22 +15,104 @@
                 <br>
             </div>
             <table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>Dato</th>
-      <th>Valor</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Usuarios Registrados</td>
-      <td>{{ usuarios }}</td>
-    </tr>
-  </tbody>
-</table> 
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total de usuarios registrados</td>
+                        <td>{{ datosUsuarios.total }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de Usuarios que votan</td>
+                        <td>{{ datosUsuarios.participantes }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de Usuarios que comentan</td>
+                        <td>{{ datosUsuarios.comentadores }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de Comentarios</td>
+                        <td>{{ datosComentarios.aportes }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cant. de Respuestas</td>
+                        <td>{{ datosComentarios.respuestas }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <hr>
+            <form action="" method="GET">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <div id="datepicker" style="margin: 10px auto 0;"></div>
+                            <input id="guardarFecha" hidden>
+                            <input id="fecha-final" name="fechaDesde" type="text" style="display:none;" />
+                        </div>
+                        <h5><b>Fecha Desde</b></h5>
+                        <input id="txt-fecha" type="text" class="form-control" placeholder="Seleccione la fecha" readonly />
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <div id="datepicker2" style="margin: 10px auto 0;"></div>
+                            <input id="guardarFecha2" hidden>
+                            <input id="fecha-final2" name="fechaHasta" type="text" style="display:none;" />
+                        </div>
+                        <h5><b>Fecha Hasta</b></h5>
+                        <input id="txt-fecha2" type="text" class="form-control" placeholder="Seleccione la fecha" readonly />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <br>
+                        <button type=submit class="btn btn-primary btn-block">Buscar todos los eventos</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-{% endblock body %} {# -------------------------------------------- #} {% block scripts %}
+{% endblock body %}
+{# -------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets/js/jquery-ui/jquery-ui.min.js"></script>
+<script src="{{ baseUrl() }}/assets/js/jquery-ui/datepicker-es.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#datepicker").datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'DD, dd MM yy',
+            altField: "#guardarFecha",
+            altFormat: "yy-mm-dd",
+            maxDate: 0,
+            onSelect: function() {
+                $('#txt-fecha').val(this.value);
+            }
+        });
+        $("#datepicker2").datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'DD, dd MM yy',
+            altField: "#guardarFecha2",
+            altFormat: "yy-mm-dd",
+            maxDate: 0,
+            onSelect: function() {
+                $('#txt-fecha2').val(this.value);
+            }
+        });
+    });
+
+    $('form').submit(function(e) {
+        var fechaDesde = $("#guardarFecha").val();
+        $('#fecha-final').val(fechaDesde);
+        var fechaHasta = $("#guardarFecha2").val();
+        $('#fecha-final2').val(fechaHasta);
+    })
+</script>
 {% endblock scripts %}

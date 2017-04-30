@@ -7,6 +7,18 @@ class AdminCtrl extends Controller {
         $this->render('lpe/admin/ajustes.twig', array('ajustes' => $ajustes->toArray()));
     }
 
+    public function verComentariosAdmin() {
+        $derechos = Contenido::where('contenible_type', 'Derecho')->get()->toArray();
+        $this->render('lpe/admin/comentariosAdmin.twig',array('derechos' => $derechos));
+    }
+
+    public function verComentariosAdminDerecho($idDer) {
+        $derecho = Derecho::with('contenido.tags')->findOrFail($idDer);
+        $contenido = $derecho->contenido;
+        $datosDer = array_merge($contenido->toArray(), $derecho->toArray());
+        $this->render('lpe/admin/comentariosAdminDerecho.twig',array('derecho' => $datosDer));
+    }
+
     public function verExportar() {
         $this->render('lpe/admin/exportar.twig');
     }
@@ -32,8 +44,19 @@ class AdminCtrl extends Controller {
     }
 
     public function verEstadisticas() {
-        $usuarios = Usuario::count();
-        $this->render('lpe/admin/estadisticas.twig', array('usuarios' => $usuarios));
+        $usrData = [
+            'total' => Usuario::count(),
+            'comentadores' => Usuario::has('comentarios')->count(),
+            'participantes' => Usuario::has('votos')->count(),
+        ];
+        $comData = [
+            'aportes' => Comentario::where('comentable_type', 'Seccion')->count(),
+            'respuestas' => Comentario::where('comentable_type', 'Comentario')->count(),
+        ];
+        $this->render('lpe/admin/estadisticas.twig', [
+            'datosUsuarios' => $usrData,
+            'datosComentarios' => $comData,
+        ]);
     }
 
     public function adminAjustes() {

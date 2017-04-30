@@ -1,4 +1,4 @@
-<div id="comentarios{{ seccion.id }}" class="modal fade">
+<div id="comentarios{{ seccion.id }}" class="modal">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,6 +13,7 @@
                             <label class="col-xs-1 col-sm-offset-1 text-center"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-circle" style="margin:0 auto 5px" alt=""></label>
                             <div class="col-xs-11 col-sm-9">
                                 <span class="text-info"><strong>{{ user.nombre }} {{ user.apellido}}</strong></span>
+                                <input name="seccion" type="number" value="{{seccion.id}}" hidden>
                                 <textarea name="cuerpo" class="form-control input-sm" rows="1" placeholder="Escriba aqui su comentario..." style="resize: none;"></textarea>
                                 <div class="clearfix" style="margin-top: 10px">
                                     <button type="submit" class=" pull-right btn btn-primary btn-xs">Enviar comentario</button>
