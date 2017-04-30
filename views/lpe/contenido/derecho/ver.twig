@@ -109,6 +109,10 @@
 {% if user and (user.patrulla_id != null) %}
 {% include 'lpe/contenido/moderar.twig' %}
 {% endif %}
+<form id="eliminarComentario" action="{{ urlFor('runElimiComenta') }}" method="POST">
+    <input type="hidden" type="text" name="id">
+    <input type="hidden" type="text" name="seccion">
+</form>
 <form id="votarSeccion" method="POST">
     <input type="hidden" type="text" name="postura">
 </form>
@@ -161,6 +165,12 @@
         $('#votarComentario').find('input[name="seccion"]').val(seccionID)
         $('#votarComentario').attr('action', action_yes);
         $('#votarComentario').submit();
+    }
+
+    var eliminarComentario = function(seccion, id) {
+        $('#eliminarComentario').find('input[name="id"]').val(id)
+        $('#eliminarComentario').find('input[name="seccion"]').val(seccion)
+        $('#eliminarComentario').submit();
     }
 
     function getUrlVars()

@@ -75,6 +75,6 @@ class ComentarioCtrl extends RMRController {
         $comentario = Comentario::findOrFail($req->post('id'));
         $comentario->delete();
         $this->flash('success', 'El comentario se ha eliminado exitosamente.');
-        $this->redirectTo('shwIndex');
+        $this->redirect(preg_replace('/\?.*/', '', $req->getReferrer()) . '?seccion=' . $vdt->getData('seccion') );
     }
 }

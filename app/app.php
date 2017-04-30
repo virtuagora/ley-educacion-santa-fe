@@ -156,6 +156,7 @@ $app->group('/admin', function () use ($app, $checkRole) {
     $app->post('/moderador/crear', $checkRole('mod'), 'AdminCtrl:crearModerador')->name('runCrearModerad');
     $app->get('/comentarios', $checkRole('mod'), 'AdminCtrl:verComentariosAdmin')->name('shwComentariosAdmin');
     $app->get('/comentarios/:idDer', $checkRole('mod'), 'AdminCtrl:verComentariosAdminDerecho')->name('shwComentariosAdminDerecho');
+    $app->get('/comentarios/:idDer/eliminar', $checkRole('mod'), 'AdminCtrl:eliminarComentariosAdminDerecho')->name('runComentariosAdminDerecho');
 });
 
 $app->group('/comentario', function () use ($app, $checkRole) {
@@ -163,7 +164,7 @@ $app->group('/comentario', function () use ($app, $checkRole) {
     $app->post('/comentar/:tipoRaiz/:idRaiz', $checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
     $app->get('/:idCom', 'ComentarioCtrl:ver')->name('shwComenta');
     $app->post('/:idCom/votar', $checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComenta');
-    $app->post('/eliminar', $checkRole('usr'), 'ComentarioCtrl:eliminar')->name('runElimiComenta');
+    $app->post('/eliminar', $checkRole('mod'), 'ComentarioCtrl:eliminar')->name('runElimiComenta');
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');

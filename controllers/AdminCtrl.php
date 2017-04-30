@@ -19,6 +19,11 @@ class AdminCtrl extends Controller {
         $this->render('lpe/admin/comentariosAdminDerecho.twig',array('derecho' => $datosDer));
     }
 
+    public function eliminarComentariosAdminDerecho($idDer) {
+        //RECIBIR EL STRING DE IDS DE COMENTARIOS DEL $idDer
+        $this->flash('success', 'Comentario(s) borrado(s) exitosamente');
+        $this->redirectTo('shwComentariosAdminDerecho');
+    }
     public function verExportar() {
         $this->render('lpe/admin/exportar.twig');
     }
@@ -81,12 +86,12 @@ class AdminCtrl extends Controller {
         $this->flash('success', 'Los ajustes se han modificado exitosamente.');
         $this->redirectTo('shwAdmAjuste');
     }
-    
+
     public function verCrearModerador() {
         $mods = Usuario::whereNotNull('patrulla_id')->get()->toArray();
         $this->render('lpe/admin/moderadores.twig', ['moderadores' => $mods]);
     }
-    
+
     public function crearModerador() {
         $req = $this->request;
         $usuario = Usuario::findOrFail($req->post('id'));
@@ -144,7 +149,7 @@ class AdminCtrl extends Controller {
     public function verIndexAdmin() {
         $this->render('lpe/admin/indexAdmin.twig');
     }
-    
+
     public function verSubirImagen() {
         $dir = __DIR__ . '/../public/img/uploads';
         if (!is_dir($dir)) {
