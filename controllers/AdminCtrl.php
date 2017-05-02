@@ -23,7 +23,7 @@ class AdminCtrl extends Controller {
         //RECIBIR EL STRING DE IDS DE COMENTARIOS DEL $idDer
         $vdt = new Validate\Validator();
         $vdt->addRule('comments', new Validate\Rule\NumNatural())
-            ->addFilter('comments', FilterFactory::explode(','));
+            ->addFilter('comments', FilterFactory::explode('&&'));
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }

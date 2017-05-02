@@ -159,12 +159,12 @@ $app->group('/admin', function () use ($app, $checkRole) {
     $app->get('/comentarios/:idDer/eliminar', $checkRole('mod'), 'AdminCtrl:eliminarComentariosAdminDerecho')->name('runComentariosAdminDerecho');
 });
 
-$app->group('/comentario', function () use ($app, $checkRole) {
+$app->group('/comentario', function () use ($app, $checkRole, $checkModifyAuth) {
     $app->get('', 'ComentarioCtrl:listar')->name('shwListaComenta');
     $app->post('/comentar/:tipoRaiz/:idRaiz', $checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
     $app->get('/:idCom', 'ComentarioCtrl:ver')->name('shwComenta');
     $app->post('/:idCom/votar', $checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComenta');
-    $app->post('/eliminar', $checkModifyAuth('Comentario'), 'ComentarioCtrl:eliminar')->name('runElimiComenta');
+    $app->post('/eliminar/:idCom', $checkModifyAuth('Comentario'), 'ComentarioCtrl:eliminar')->name('runElimiComenta');
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');

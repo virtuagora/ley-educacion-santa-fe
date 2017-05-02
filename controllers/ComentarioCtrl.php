@@ -68,13 +68,15 @@ class ComentarioCtrl extends RMRController {
         $this->redirect( preg_replace('/\?.*/', '', $req->getReferrer()) . '?seccion=' . $vdt->getData('seccion') . '&comentario=' . $idCom);
     }
 
-    public function eliminar() {
+    public function eliminar($idCom) {
         $req = $this->request;
         $vdt = new Validate\QuickValidator([$this, 'notFound']);
-        $vdt->test($req->post('id'), new Validate\Rule\NumNatural());
-        $comentario = Comentario::findOrFail($req->post('id'));
+        $vdt->test($idCom, new Validate\Rule\NumNatural());
+        $vdt->test($req->post('seccion'), new Validate\Rule\NumNatural());
+        //var_dump($req->get('idCom'));
+        $comentario = Comentario::findOrFail($idCom);
         $comentario->delete();
         $this->flash('success', 'El comentario se ha eliminado exitosamente.');
-        $this->redirect(preg_replace('/\?.*/', '', $req->getReferrer()) . '?seccion=' . $vdt->getData('seccion') );
+        $this->redirect(preg_replace('/\?.*/', '', $req->getReferrer()) . '?seccion=' . $req->post('seccion'));
     }
 }
