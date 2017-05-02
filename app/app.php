@@ -91,7 +91,7 @@ $checkModifyAuth = function ($resource, $moderable = true) use ($app) {
         $idRes = reset($params);
         $idUsr = $app->session->user('id');
         $query = call_user_func($resource.'::modifiableBy', $idUsr);
-        if (is_null($query->find($idRes)) && !($moderable && $app->session->isAdminAllowedTo(1))) {
+        if (is_null($query->find($idRes)) && !($moderable && $app->session->hasRole('mod'))) {
             throw new BearableException('No tiene permiso para realizar esta acción', 403);
         }
     };
@@ -164,7 +164,7 @@ $app->group('/comentario', function () use ($app, $checkRole) {
     $app->post('/comentar/:tipoRaiz/:idRaiz', $checkRole('usr'), 'ComentarioCtrl:comentar')->name('runComentar');
     $app->get('/:idCom', 'ComentarioCtrl:ver')->name('shwComenta');
     $app->post('/:idCom/votar', $checkRole('usr'), 'ComentarioCtrl:votar')->name('runVotarComenta');
-    $app->post('/eliminar', $checkRole('mod'), 'ComentarioCtrl:eliminar')->name('runElimiComenta');
+    $app->post('/eliminar', $checkModifyAuth('Comentario'), 'ComentarioCtrl:eliminar')->name('runElimiComenta');
 });
 
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');

@@ -21,6 +21,16 @@ class AdminCtrl extends Controller {
 
     public function eliminarComentariosAdminDerecho($idDer) {
         //RECIBIR EL STRING DE IDS DE COMENTARIOS DEL $idDer
+        $vdt = new Validate\Validator();
+        $vdt->addRule('comments', new Validate\Rule\NumNatural())
+            ->addFilter('comments', FilterFactory::explode(','));
+        if (!$vdt->validate($data)) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+        $comentarios = Comentario::whereIn('id', $vdt->getData('comments'))->get();
+        foreach ($comentarios as $comment) {
+            $comment->delete();
+        }
         $this->flash('success', 'Comentario(s) borrado(s) exitosamente');
         $this->redirectTo('shwComentariosAdminDerecho');
     }
@@ -62,6 +72,34 @@ class AdminCtrl extends Controller {
             'datosUsuarios' => $usrData,
             'datosComentarios' => $comData,
         ]);
+    }
+
+    public function verEstadisticasTemporales() {
+        $desde = $req->get('desde');
+        $hasta = $req->get('hasta');
+
+        $queryUsu = Usuario::query();
+        $queryApo = Comentario::where('comentable_type', 'Seccion');
+        $queryRes = Comentario::where('comentable_type', 'Comentario');
+
+        if ($desde) {
+            $desdeDate = Carbon\Carbon::parse($req->get('desde'));
+            $queryUsu = $queryUsu->whereDate('created_at', '>=', $desdeDate);
+            $queryApo = $queryApo->whereDate('created_at', '>=', $desdeDate);
+            $queryRes = $queryRes->whereDate('created_at', '>=', $desdeDate);
+        }
+        if ($hasta) {
+            $hastaDate = Carbon\Carbon::parse($req->get('hasta'));
+            $queryUsu = $queryUsu->whereDate('created_at', '<=', $hastaDate);
+            $queryApo = $queryApo->whereDate('created_at', '<=', $hastaDate);
+            $queryRes = $queryRes->whereDate('created_at', '<=', $hastaDate);
+        }
+        $datos = [
+            'usuarios' => $queryUsu->count(),
+            'aportes' => $queryApo->count(),
+            'respuestas' => $queryRes->count(),
+        ];
+        $this->render('lpe/admin/estadisticas.twig', ['datos' => $datos]);
     }
 
     public function adminAjustes() {
