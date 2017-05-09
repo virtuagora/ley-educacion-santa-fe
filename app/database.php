@@ -6,7 +6,7 @@ $capsule->addConnection([
     'host' => 'localhost',
     'database' => 'nlpe',
     'username' => 'root',
-    'password' => '',
+    'password' => 'newbo-ok',
     'charset' => 'utf8',
     'collation' => 'utf8_general_ci',
     'prefix' => ''

@@ -24,6 +24,8 @@ class AdminCtrl extends Controller {
         $vdt = new Validate\Validator();
         $vdt->addRule('comments', new Validate\Rule\NumNatural())
             ->addFilter('comments', FilterFactory::explode('&&'));
+        $req = $this->request;
+        $data = $this->request->post();
         if (!$vdt->validate($data)) {
             throw new TurnbackException($vdt->getErrors());
         }
@@ -32,7 +34,7 @@ class AdminCtrl extends Controller {
             $comment->delete();
         }
         $this->flash('success', 'Comentario(s) borrado(s) exitosamente');
-        $this->redirectTo('shwComentariosAdminDerecho');
+        $this->redirectTo('shwComentariosAdminDerecho',['idDer' => $idDer]);
     }
     public function verExportar() {
         $this->render('lpe/admin/exportar.twig');

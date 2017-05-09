@@ -1,0 +1,98 @@
+{% extends "lpe/master.twig" %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link href="{{ baseUrl() }}/assets-lpe/css/lightbox.min.css" rel="stylesheet">
+{% endblock %}
+{% block titulo %}Galeria de fotos{% endblock %} {% block body %}
+<div class="container-fluid inicio-banner">
+    <div class="overlay-banner">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
+                <h1 style="text-transform: uppercase"><strong>Animaton</strong></h1>
+                <h5 style="color: #FFF;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum animi neque numquam doloribus sequi ullam culpa, ad officia tempora, veritatis quia! Porro impedit quas accusantium ea consectetur, praesentium aspernatur corporis!</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style=" ">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                <fieldset>
+                    <legend><i class="zmdi zmdi-plus zmdi-hc-lg"></i> <i class="zmdi zmdi-image zmdi-hc-lg"></i> Nueva foto</legend>
+                    <div class="form-group">
+                        <label for="inputFile" class="col-lg-2 control-label">Foto</label>
+                        <div class="col-lg-10">
+                            <input type="file" class="form-control" id="inputFile" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescripcion" class="col-lg-2 control-label">Descripción</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDescripcion" placeholder="Descripción o pie de foto de la imagen (Opcional)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <div class="col-lg-10 col-lg-offset-2">
+                        <button type="submit" class="btn-success btn">Subir</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="album">
+                <div class="fotofull-sizer"></div>
+                <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
+                    <div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/01.jpg" class="img-responsive" alt=""></div></a>
+                <a href="{{baseUrl()}}/img/galeria/02/02.jpg" data-lightbox="album" data-title="My caption"><div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/02.jpg" class="img-responsive" alt=""></div></a>
+                <a href="{{baseUrl()}}/img/galeria/02/03.jpg" data-lightbox="album" data-title="My caption"><div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/03.jpg" class="img-responsive" alt=""></div></a>
+                <a href="{{baseUrl()}}/img/galeria/02/04.jpg" data-lightbox="album" data-title="My caption"><div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/04.jpg" class="img-responsive" alt=""></div></a>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/04.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/05.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/06.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/07.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/08.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/09.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/10.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/11.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/12.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/13.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/14.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/15.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/16.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/17.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/18.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/19.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/20.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/20.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/21.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/22.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/23.jpg" class="img-responsive" alt=""></div>
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}"><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/24.jpg" class="img-responsive" alt=""></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{# -------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets-lpe/js/lightbox-plus-jquery.min.js"></script>
+<script src="{{ baseUrl() }}/assets-lpe/js/masonry.pkgd.min.js"></script>
+<script src="{{ baseUrl() }}/assets-lpe/js/imagesloaded.pkgd.min.js"></script>
+<script>
+    var $grid = $('.album').masonry({
+        // set itemSelector so .grid-sizer is not used in layout
+        itemSelector: '.fotofull-item',
+        // use element for option
+        columnWidth: '.fotofull-sizer',
+        percentPosition: true
+    });
+    $grid.imagesLoaded().progress( function() {
+        $grid.masonry('layout');
+    });
+    lightbox.option({
+        'resizeDuration': 500,
+        'wrapAround': true,
+        'albumLabel': "Imagen %1 de %2"
+    })
+</script>
+{% endblock scripts %}

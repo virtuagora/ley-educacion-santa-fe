@@ -1,0 +1,180 @@
+{% extends "lpe/master.twig" %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Galeria de fotos{% endblock %} {% block body %}
+<div class="container-fluid inicio-banner">
+	<div class="overlay-banner">
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<h1 style="text-transform: uppercase"><strong>Galería de fotos</strong></h1>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container" style=" ">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+           {% if user and (user.patrulla_id != null) %}
+            <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                <fieldset>
+                    <legend><i class="zmdi zmdi-plus zmdi-hc-lg"></i> <i class="zmdi zmdi-image zmdi-hc-lg"></i> Nuevo album</legend>
+                    <div class="form-group">
+                         <label for="inputDescripcion" class="col-lg-2 control-label">Título</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDescripcion" placeholder="Título del album">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescripcion" class="col-lg-2 control-label">Descripción</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputDescripcion" placeholder="Descripción o pie de foto del album">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <div class="col-lg-10 col-lg-offset-2">
+                        <button type="submit" class="btn-success btn">Nuevo Album</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+           <hr>
+           {% endif %}
+           {% if user and (user.patrulla_id != null) %}
+            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
+           {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Taller de baldosines {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui officia perspiciatis fuga, aliquid quod, cum fugiat harum ipsa quam at recusandae quis optio eaque quibusdam suscipit veritatis maiores, hic.</p>
+            <div class="album">
+                <div class="foto-sizer"></div>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/30.jpg" class="img-responsive" alt=""></div></a>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/31.jpg" class="img-responsive" alt=""></div></a>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/32.jpg" class="img-responsive" alt=""></div></a>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/33.jpg" class="img-responsive" alt=""></div></a>
+                <a href="#"><div class="foto-item"><img src="http://placehold.it/600x400?text=%2b25%20fotos" class="img-responsive"></div></a>
+                <!--
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/34.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/35.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/36.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/37.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/38.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/39.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/40.jpg" class="img-responsive" alt=""></div>
+-->
+            </div>
+            <hr>
+             {% if user and (user.patrulla_id != null) %}
+            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
+           {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Animatón {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae veritatis, qui facere. Est et natus nam, aut tenetur, placeat architecto in, earum aliquid ad eius. Possimus cum animi itaque. Modi.</p>
+            <div class="album">
+                <div class="foto-sizer"></div>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/01.jpg" class="img-responsive" alt=""></div></a>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/02.jpg" class="img-responsive" alt=""></div></a>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/03.jpg" class="img-responsive" alt=""></div></a>
+                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/04.jpg" class="img-responsive" alt=""></div></a>
+                <div class="foto-item"><img src="http://placehold.it/600x400?text=%2b48%20fotos" class="img-responsive"></div>
+                <!--
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/04.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/05.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/06.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/07.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/08.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/09.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/10.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/11.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/12.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/13.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/14.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/15.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/16.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/17.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/18.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/19.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/20.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/20.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/21.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/22.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/23.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/24.jpg" class="img-responsive" alt=""></div>
+-->
+
+            </div>
+            <hr>
+             {% if user and (user.patrulla_id != null) %}
+            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
+           {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae veritatis, qui facere. Est et natus nam, aut tenetur, placeat architecto in, earum aliquid ad eius. Possimus cum animi itaque. Modi.</p>
+            <div class="album">
+                <div class="foto-sizer"></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/50.jpg" class="img-responsive" alt=""></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/51.jpg" class="img-responsive" alt=""></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/52.jpg" class="img-responsive" alt=""></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/53.jpg" class="img-responsive" alt=""></div>
+                <div class="foto-item"><img src="http://placehold.it/600x400?text=%2b48%20fotos" class="img-responsive"></div>
+                <!--
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/54.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/55.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/56.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/57.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/58.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/59.jpg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/60.jpg" class="img-responsive" alt=""></div>
+-->
+            </div>
+            <hr>
+             {% if user and (user.patrulla_id != null) %}
+            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
+           {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            <div class="album">
+                <div class="foto-sizer"></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/70.jpg" class="img-responsive" alt=""></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/71.jpeg" class="img-responsive" alt=""></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/72.jpeg" class="img-responsive" alt=""></div>
+                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/73.jpeg" class="img-responsive" alt=""></div>
+                <!--
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/74.jpeg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/75.jpeg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/76.jpeg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/77.jpeg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/78.jpeg" class="img-responsive" alt=""></div>
+<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/79.jpeg" class="img-responsive" alt=""></div>
+-->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+{# -------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets-lpe/js/masonry.pkgd.min.js"></script>
+<script src="{{ baseUrl() }}/assets-lpe/js/imagesloaded.pkgd.min.js"></script>
+<script>
+    var $grid = $('.album').masonry({
+        // set itemSelector so .grid-sizer is not used in layout
+        itemSelector: '.foto-item',
+        // use element for option
+        columnWidth: '.foto-sizer',
+        percentPosition: true
+    });
+    $grid.imagesLoaded().progress( function() {
+        $grid.masonry('layout');
+    });
+    $(function() {
+        $('a[href="#derechos"]').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+{% endblock scripts %}

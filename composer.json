@@ -5,7 +5,7 @@
     "require": {
         "slim/slim": "2.*",
         "slim/views": "*",
-        "twig/twig": "*",
+        "twig/twig": "1.*",
         "symfony/translation": "*",
         "symfony/config": "*",
         "illuminate/database": "4.2.*",

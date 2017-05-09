@@ -109,8 +109,7 @@
 {% if user and (user.patrulla_id != null) %}
 {% include 'lpe/contenido/moderar.twig' %}
 {% endif %}
-<form id="eliminarComentario" action="{{ urlFor('runElimiComenta') }}" method="POST">
-    <input type="hidden" type="text" name="id">
+<form id="eliminarComentario" method="POST">
     <input type="hidden" type="text" name="seccion">
 </form>
 <form id="votarSeccion" method="POST">
@@ -168,8 +167,12 @@
     }
 
     var eliminarComentario = function(seccion, id) {
-        $('#eliminarComentario').find('input[name="id"]').val(id)
-        $('#eliminarComentario').find('input[name="seccion"]').val(seccion)
+        var action_no = "{{ urlFor('runElimiComenta') }}";
+        //$('#votarComentario').find('input[name="valor"]').val(valor)
+        var action_yes = action_no.replace(':idCom', id);
+        //$('#eliminarComentario').find('input[name="id"]').val(id)
+        $('#eliminarComentario').find('input[name="seccion"]').val(seccion);
+        $('#eliminarComentario').attr('action', action_yes);
         $('#eliminarComentario').submit();
     }
 

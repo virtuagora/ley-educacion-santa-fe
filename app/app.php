@@ -156,7 +156,7 @@ $app->group('/admin', function () use ($app, $checkRole) {
     $app->post('/moderador/crear', $checkRole('mod'), 'AdminCtrl:crearModerador')->name('runCrearModerad');
     $app->get('/comentarios', $checkRole('mod'), 'AdminCtrl:verComentariosAdmin')->name('shwComentariosAdmin');
     $app->get('/comentarios/:idDer', $checkRole('mod'), 'AdminCtrl:verComentariosAdminDerecho')->name('shwComentariosAdminDerecho');
-    $app->get('/comentarios/:idDer/eliminar', $checkRole('mod'), 'AdminCtrl:eliminarComentariosAdminDerecho')->name('runComentariosAdminDerecho');
+    $app->post('/comentarios/:idDer/eliminar', $checkRole('mod'), 'AdminCtrl:eliminarComentariosAdminDerecho')->name('runComentariosAdminDerecho');
 });
 
 $app->group('/comentario', function () use ($app, $checkRole, $checkModifyAuth) {
@@ -183,6 +183,11 @@ $app->post('/recuperar-clave', $checkNoSession, 'PortalCtrl:recuperarClave')->na
 $app->get('/reiniciar-clave/:idUsu/:token', $checkNoSession, 'PortalCtrl:verReiniciarClave')->name('shwReiniciarClave');
 $app->post('/reiniciar-clave/:idUsu/:token', $checkNoSession, 'PortalCtrl:reiniciarClave')->name('runReiniciarClave');
 $app->get('/reiniciar-clave', $checkNoSession, 'PortalCtrl:finReiniciarClave')->name('endReiniciarClave');
+
+$app->group('/galeria', function () use ($app, $checkRole) {
+    $app->get('/', 'GaleriaCtrl:verGaleria')->name('shwGaleria');
+    $app->get('/album/:idAlb', 'GaleriaCtrl:verAlbum')->name('shwAlbum');
+});
 
 $app->get('/contenido/:idCon', 'ContenidoCtrl:ver')->name('shwConteni');
 $app->get('/contenido', 'ContenidoCtrl:listar')->name('shwListaConteni');

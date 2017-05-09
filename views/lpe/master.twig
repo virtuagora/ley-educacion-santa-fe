@@ -1,145 +1,145 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    {% block opengraph %}
-    		<meta property="og:url"                content="{{ baseUrl() }}" />
-<meta property="og:type"               content="website" />
-<meta property="og:title"              content="Ley de Educación de Santa Fe" />
-<meta property="og:description"        content="Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." />
-<meta property="og:image"              content="{{ baseUrl() }}/assets-lpe/img/sharer.png" />
-    {% endblock %}
-<link rel="shortcut icon" href="{{ baseUrl() }}/assets-lpe/img/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="{{ baseUrl() }}/assets-lpe/img/favicon.ico" type="image/x-icon">
-    <title>{% block titulo %}{% endblock titulo %} - Nueva Ley de Educación Provincial - Gobierno de Santa Fe</title>
-    <link rel="" type="" href="">
-    <!-- Bootstrap -->
-    {% block linkhead %}{% endblock %}
-    <link href="{{ baseUrl() }}/assets-lpe/css/lpe.css" rel="stylesheet">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        {% block opengraph %}
+        <meta property="og:url"                content="{{ baseUrl() }}" />
+        <meta property="og:type"               content="website" />
+        <meta property="og:title"              content="Ley de Educación de Santa Fe" />
+        <meta property="og:description"        content="Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." />
+        <meta property="og:image"              content="{{ baseUrl() }}/assets-lpe/img/sharer.png" />
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ baseUrl() }}/assets-lpe/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ baseUrl() }}/assets-lpe/img/favicon.ico" type="image/x-icon">
+        <title>{% block titulo %}{% endblock titulo %} - Nueva Ley de Educación Provincial - Gobierno de Santa Fe</title>
+        <!-- Bootstrap -->
+        {% block linkhead %}{% endblock %}
+        <link href="{{ baseUrl() }}/assets-lpe/css/lpe.css" rel="stylesheet">
 
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(["setDomains", ["*.www.santafe.gov.ar/leyeducacion"]]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//westad.santafe.gov.ar/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', 31]);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<noscript><p><img src="//westad.santafe.gov.ar/piwik.php?idsite=31" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
-</head>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(["setDomains", ["*.www.santafe.gov.ar/leyeducacion"]]);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u="//westad.santafe.gov.ar/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', 31]);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
+        </script>
+        <noscript><p><img src="//westad.santafe.gov.ar/piwik.php?idsite=31" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+    </head>
 
-<body data-spy="scroll" data-target="#secciones">
+    <body data-spy="scroll" data-target="#secciones">
 
-    <div class="wrapper">
+        <div class="wrapper">
 
-        <div class="container">
-            <header class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Ver/Esconder Menú</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-                        <a class="navbar-brand" href="{{ urlFor('shwIndex') }}"><img src="{{ baseUrl() }}/assets-lpe/img/logo-gob-stafe.png" alt="Logo Santa Fe Provincia"></a>
+            <div class="container">
+                <header class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Ver/Esconder Menú</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="{{ urlFor('shwIndex') }}"><img src="{{ baseUrl() }}/assets-lpe/img/logo-gob-stafe.png" alt="Logo Santa Fe Provincia"></a>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="{{ urlFor('shwIndex') }}"><i class="zmdi zmdi-home zmdi-hc-fw zmdi-hc-lg"></i>Inicio</a></li>
+                                <li><a href="{{ urlFor('shwProp') }}">Propuesta</a></li>
+                                <li><a href="{{ urlFor('shwAnteced') }}">Antecedentes</a></li>
+                                <li><a href="{{ urlFor('shwGaleria') }}">Galería</a></li>
+                                <li><a href="{{urlFor('shwListaEvento')}}">Cronograma</a></li>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                {% if user is not empty %}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-circle" style="width:21px"> {{ user.nombre }} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        {% if user and (user.patrulla_id != null) %}
+                                        <li><a href="{{ urlFor('shwCrearDerecho') }}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-plus"></i> Nuevo derecho</a></li>
+                                        <li><a href="{{urlFor('shwCrearEvento')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-plus"></i> Nuevo evento</a></li>
+                                        <li><a href="{{urlFor('shwIndexAdmin')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-settings"></i> Administrar</a></li>
+                                        <li class="divider"></li>
+                                        {% endif %}
+                                        <li><a href="{{urlFor('shwUsuario', {'idUsu': user.id})}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-assignment-account"></i> Ver Perfil</a></li>
+                                        <li><a href="{{urlFor('shwModifUsuario')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-settings"></i> Editar Perfil</a></li>
+                                        <li class="divider"></li>
+                                        <form id="form-salir" action="{{ urlFor('runLogout') }}" method="POST">
+                                            <li><button type="submit" class="btn btn-link btn-sm btn-block text-danger"><b><i class="zmdi zmdi-close-circle zmdi-hc-fw zmdi-hc-lg"></i>Salir</b></button></li>
+                                        </form>
+                                    </ul>
+                                </li>
+                                {% else %}
+                                <li><a href="{{ urlFor('shwLogin') }}"><i class="zmdi zmdi-sign-in zmdi-hc-lg zmdi-hc-fw"></i>Entrar</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+                <div class="navbar-bottom-colors">
+                </div>
+                <!--HEADER-->
+
+                {% if flash['success'] is defined %}
+                <div class="row">
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button> {{ flash.success|capitalize
+                        }}
+                    </div>
+                </div>
+
+                {% endif %} {% if flash['errors'] is defined %}
+                <div class="row">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <ul class="list-unstyled">
+                            {% for error in flash['errors'] %}
+                            <li><i class="zmdi zmdi-close zmdi-hc-fw zmdi-hc-lg"></i> {{ error|capitalize }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
 
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{ urlFor('shwIndex') }}"><i class="zmdi zmdi-home zmdi-hc-fw zmdi-hc-lg"></i>Inicio</a></li>
-                            <li><a href="{{ urlFor('shwProp') }}">Propuesta</a></li>
-                            <li><a href="{{ urlFor('shwAnteced') }}">Antecedentes</a></li>
-                            <li><a href="{{urlFor('shwListaEvento')}}">Cronograma</a></li>
-                        </ul>
-                        
-                        <ul class="nav navbar-nav navbar-right">
-                            {% if user is not empty %}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{ avatarUrl(user.img_tipo, user.img_hash, 32) }}" class="img-circle" style="width:21px"> {{ user.nombre }} <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    {% if user and (user.patrulla_id != null) %}
-	<li><a href="{{ urlFor('shwCrearDerecho') }}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-plus"></i> Nuevo derecho</a></li>
-	<li><a href="{{urlFor('shwCrearEvento')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-plus"></i> Nuevo evento</a></li>
-	<li><a href="{{urlFor('shwIndexAdmin')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-settings"></i> Administrar</a></li>
-    <li class="divider"></li>
-	{% endif %}
-    <li><a href="{{urlFor('shwUsuario', {'idUsu': user.id})}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-assignment-account"></i> Ver Perfil</a></li>
-    <li><a href="{{urlFor('shwModifUsuario')}}"><i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-settings"></i> Editar Perfil</a></li> 
-                                    <li class="divider"></li>
-                                    <form id="form-salir" action="{{ urlFor('runLogout') }}" method="POST">
-                                    <li><button type="submit" class="btn btn-link btn-sm btn-block text-danger"><b><i class="zmdi zmdi-close-circle zmdi-hc-fw zmdi-hc-lg"></i>Salir</b></button></li>
-                                    </form>
-                                </ul>
-                            </li>
-                            {% else %}
-                            <li><a href="{{ urlFor('shwLogin') }}"><i class="zmdi zmdi-sign-in zmdi-hc-lg zmdi-hc-fw"></i>Entrar</a></li>
-                            {% endif %}
-                        </ul>
+                </div>
+
+                {% endif %} {% if flash['warning'] is defined %}
+                <div class="row">
+                    <div class="alert alert-dismissible alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button> {{ flash.warning|capitalize
+                        }}
                     </div>
                 </div>
-            </header>
-            <div class="navbar-bottom-colors">
+
+                {% endif %}
             </div>
-            <!--HEADER-->
+            <!-- container-->
+            <!-- body -->
+            {% block body %}{% endblock %}
 
-            {% if flash['success'] is defined %}
-            <div class="row">
-                <div class="alert alert-dismissible alert-success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button> {{ flash.success|capitalize
-                    }}
-                </div>
-            </div>
 
-            {% endif %} {% if flash['errors'] is defined %} 
-            <div class="row">
-                <div class="alert alert-dismissible alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button> 
-                    <ul class="list-unstyled">
-            {% for error in flash['errors'] %}
-                    <li><i class="zmdi zmdi-close zmdi-hc-fw zmdi-hc-lg"></i> {{ error|capitalize }}</li>
-            {% endfor %}
-                    </ul>
-                </div>
-
-            </div>
-
-             {% endif %} {% if flash['warning'] is defined %}
-            <div class="row">
-                <div class="alert alert-dismissible alert-warning">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button> {{ flash.warning|capitalize
-                    }}
-                </div>
-            </div>
-
-            {% endif %}
+            <div class="push"></div>
         </div>
-        <!-- container-->
-        <!-- body -->
-        {% block body %}{% endblock %}
-
-
-        <div class="push"></div>
-    </div>
-    </div>
+        </div>
     <div class="footer">
         <div class="barra-footer"></div>
         <img class="img-logo" src="{{ baseUrl() }}/assets-lpe/img/logo-footer.jpg" alt="">
@@ -154,7 +154,7 @@
                 <li><a target="_blank" href="https://storify.com/GobSantaFe"><i class="icon-footerstorify"></i></a></li>
                 <li><a target="_blank" href="http://www.linkedin.com/company/gobierno-de-la-provincia-de-santa-fe"><i class="icon-footerlinkedin"></i></a></li>
             </ul>
-            
+
             <div class="lastfoot">
                 <br> Atención telefónica: 0800-777-0801
                 <br> Lunes a viernes de 8 a 18 hs
@@ -170,6 +170,6 @@
     <script src="{{ baseUrl() }}/assets/js/bootstrap.min.js"></script>
     <!--=======================-->
     {% block scripts %}{% endblock %}
-</body>
+    </body>
 
 </html>
