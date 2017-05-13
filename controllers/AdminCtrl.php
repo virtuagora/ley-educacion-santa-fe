@@ -70,13 +70,48 @@ class AdminCtrl extends Controller {
             'aportes' => Comentario::where('comentable_type', 'Seccion')->count(),
             'respuestas' => Comentario::where('comentable_type', 'Comentario')->count(),
         ];
+        $req = $this->request;
+        $desde = $req->get('fechaDesde');
+        $hasta = $req->get('fechaHasta');
+
+        if(($desde != null) || ($hasta != null)){
+            $queryUsu = Usuario::query();
+            $queryApo = Comentario::where('comentable_type', 'Seccion');
+            $queryRes = Comentario::where('comentable_type', 'Comentario');
+            if ($desde) {
+                $desdeDate = Carbon\Carbon::createFromFormat('Y-m-d',$desde);
+                $queryUsu = $queryUsu->whereDate('created_at', '>=', $desdeDate);
+                $queryApo = $queryApo->whereDate('created_at', '>=', $desdeDate);
+                $queryRes = $queryRes->whereDate('created_at', '>=', $desdeDate);
+            }
+            if ($hasta) {
+                $hastaDate = Carbon\Carbon::createFromFormat('Y-m-d',$hasta);
+                $queryUsu = $queryUsu->whereDate('created_at', '<=', $hastaDate);
+                $queryApo = $queryApo->whereDate('created_at', '<=', $hastaDate);
+                $queryRes = $queryRes->whereDate('created_at', '<=', $hastaDate);
+            }
+            $datos = [
+                'usuarios' => $queryUsu->get(),
+                'aportes' => $queryApo->get(),
+                'respuestas' => $queryRes->get(),
+            ];
+        } else{
+            $datos = null;
+        }
+        $secciones = Seccion::all()->toArray();
+
         $this->render('lpe/admin/estadisticas.twig', [
             'datosUsuarios' => $usrData,
             'datosComentarios' => $comData,
+            'datos' => $datos,
+            'fechaDesde' => $desde,
+            'fechaHasta' => $hasta,
+            'secciones' => $secciones
         ]);
     }
 
     public function verEstadisticasTemporales() {
+        $req = $this->request;
         $desde = $req->get('desde');
         $hasta = $req->get('hasta');
 

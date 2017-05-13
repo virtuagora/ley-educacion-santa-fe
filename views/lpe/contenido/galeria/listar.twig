@@ -2,46 +2,48 @@
 {# ----------------------------------------------------------- #}
 {% block titulo %}Galeria de fotos{% endblock %} {% block body %}
 <div class="container-fluid inicio-banner">
-	<div class="overlay-banner">
-		<div class="row">
-			<div class="col-xs-12 text-center">
-				<h1 style="text-transform: uppercase"><strong>Galería de fotos</strong></h1>
-			</div>
-		</div>
-	</div>
+    <div class="overlay-banner">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h1 style="text-transform: uppercase"><strong>Galería de fotos</strong></h1>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container" style=" ">
     <div class="row">
         <div class="col-xs-12 col-sm-12">
-           {% if user and (user.patrulla_id != null) %}
-            <form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">
+            {% if user and (user.patrulla_id != null) %}
+            <form action="{{urlFor('runCrearAlbum')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                 <fieldset>
                     <legend><i class="zmdi zmdi-plus zmdi-hc-lg"></i> <i class="zmdi zmdi-image zmdi-hc-lg"></i> Nuevo album</legend>
                     <div class="form-group">
-                         <label for="inputDescripcion" class="col-lg-2 control-label">Título</label>
+                        <label for="inputDescripcion" class="col-lg-2 control-label">Título</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputDescripcion" placeholder="Título del album">
+                            <input type="text" name="titulo" class="form-control" id="inputDescripcion" placeholder="Título del album">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputDescripcion" class="col-lg-2 control-label">Descripción</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputDescripcion" placeholder="Descripción o pie de foto del album">
+                            <input type="text" name="descripcion" class="form-control" id="inputDescripcion" placeholder="Descripción o pie de foto del album">
                         </div>
                     </div>
                     <div class="form-group">
-                       <div class="col-lg-10 col-lg-offset-2">
-                        <button type="submit" class="btn-success btn">Nuevo Album</button>
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn-success btn">Nuevo Album</button>
                         </div>
                     </div>
                 </fieldset>
             </form>
-           <hr>
-           {% endif %}
-           {% if user and (user.patrulla_id != null) %}
-            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
-           {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Taller de baldosines {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            <hr>
+            {% endif %}
+            {% if user and (user.patrulla_id != null) %}
+            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
+                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
+            </form>
+            {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Taller de baldosines</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui officia perspiciatis fuga, aliquid quod, cum fugiat harum ipsa quam at recusandae quis optio eaque quibusdam suscipit veritatis maiores, hic.</p>
             <div class="album">
                 <div class="foto-sizer"></div>
@@ -61,10 +63,12 @@
 -->
             </div>
             <hr>
-             {% if user and (user.patrulla_id != null) %}
-            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
-           {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Animatón {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            {% if user and (user.patrulla_id != null) %}
+            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
+                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
+            </form>
+            {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Animatón</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae veritatis, qui facere. Est et natus nam, aut tenetur, placeat architecto in, earum aliquid ad eius. Possimus cum animi itaque. Modi.</p>
             <div class="album">
                 <div class="foto-sizer"></div>
@@ -100,10 +104,12 @@
 
             </div>
             <hr>
-             {% if user and (user.patrulla_id != null) %}
-            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
-           {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            {% if user and (user.patrulla_id != null) %}
+            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
+                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
+            </form>
+            {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae veritatis, qui facere. Est et natus nam, aut tenetur, placeat architecto in, earum aliquid ad eius. Possimus cum animi itaque. Modi.</p>
             <div class="album">
                 <div class="foto-sizer"></div>
@@ -123,10 +129,12 @@
 -->
             </div>
             <hr>
-             {% if user and (user.patrulla_id != null) %}
-            <a href="{{urlFor('shwCrearEvento')}}" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
-           {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP {% if user and (user.patrulla_id != null) %}<a href="{{urlFor('shwCrearEvento')}}" class="btn-primary btn-sm btn"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>{% endif %}</h1>
+            {% if user and (user.patrulla_id != null) %}
+            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
+                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
+            </form>
+            {% endif %}
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP</h1>
             <div class="album">
                 <div class="foto-sizer"></div>
                 <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/70.jpg" class="img-responsive" alt=""></div>

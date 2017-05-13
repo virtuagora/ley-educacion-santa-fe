@@ -726,13 +726,22 @@ ul.socialmedia{
 //    background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
 //    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
     //    h6{text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-weight: 100;}
+    .boton-eliminar-foto{
+        display:none;
+    }
     &:hover{
+        .boton-eliminar-foto{
+            display:block;
+        position:absolute;
+        z-index: 1000;
+    }
         .overlay{
             background-color: rgba(111, 84, 153, 0.3);
             height: 100%;
             z-index: 10;
             position: absolute;
             width: 100%;
+            display:block;
         }
     }
     @media (max-width: $screen-xs-max) {

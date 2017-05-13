@@ -2,7 +2,7 @@
 
 class Seccion extends Eloquent {
     protected $table = 'secciones';
-    protected $visible = array('id', 'descripcion', 'comentarios', 'votos_baja', 'votos_media', 'votos_alta');
+    protected $visible = array('id', 'descripcion', 'comentarios', 'votos_baja', 'votos_media', 'votos_alta','derecho_id');
     protected $with = array('comentarios');
     protected $appends = array('votos_baja', 'votos_media', 'votos_alta');
 
