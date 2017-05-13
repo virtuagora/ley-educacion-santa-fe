@@ -149,7 +149,7 @@ $app->group('/admin', function () use ($app, $checkRole) {
     $app->get('/ajustes', $checkRole('mod'), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
     $app->post('/ajustes', $checkRole('mod'), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
     $app->get('/estadisticas', $checkRole('mod'), 'AdminCtrl:verEstadisticas')->name('shwEstadi');
-    $app->get('/estadisticastemp', $checkRole('mod'), 'AdminCtrl:verEstadisticasTemporales')->name('shwEstadiTemp');
+    $app->get('/estadisticas/:fechaDesde/:fechaHasta/imprimir', $checkRole('mod'), 'AdminCtrl:verEstadisticasTemporalesImprimir')->name('shwEstadiTempImpr');
     $app->get('/exportar', $checkRole('mod'), 'AdminCtrl:verExportar')->name('shwExportar');
     $app->get('/emails', $checkRole('mod'), 'AdminCtrl:verEmails')->name('shwEmails');
     $app->get('/comments/:idDer', $checkRole('mod'), 'AdminCtrl:verComments')->name('shwComments');

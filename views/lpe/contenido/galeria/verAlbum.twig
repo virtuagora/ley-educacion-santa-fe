@@ -1,23 +1,36 @@
 {% extends "lpe/master.twig" %}
 {# ----------------------------------------------------------- #}
+{% block opengraph %}
+        <meta property="og:url"                content="{{ baseUrl() }}" />
+        <meta property="og:type"               content="website" />
+        <meta property="og:title"              content="{{album.titulo}} - Ley de Educación de Santa Fe" />
+        <meta property="og:description"        content="{{album.descripcion}}" />
+        <meta property="og:image"              content="{{ baseUrl() }}/img/galeria/{{album.id}}/{{album.fotos[0].id}}.jpg" />
+        <meta name="description" content="{{album.descripcion}}" />
+        {% endblock %}
 {% block linkhead %}
 <link href="{{ baseUrl() }}/assets-lpe/css/lightbox.min.css" rel="stylesheet">
 {% endblock %}
-{% block titulo %}Galeria de fotos{% endblock %} {% block body %}
+{% block titulo %}{{album.titulo}}{% endblock %}
+{% block body %}
 <div class="container-fluid inicio-banner">
     <div class="overlay-banner">
         <div class="row">
             <div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
-                <h1 style="text-transform: uppercase"><strong>Animaton</strong></h1>
-                <h5 style="color: #FFF;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum animi neque numquam doloribus sequi ullam culpa, ad officia tempora, veritatis quia! Porro impedit quas accusantium ea consectetur, praesentium aspernatur corporis!</h5>
+                <h1 style="text-transform: uppercase"><strong>{{album.titulo}}</strong></h1>
             </div>
         </div>
     </div>
 </div>
 <div class="container" style=" ">
+   <div class="row">
+       <div class="col-xs-12 col-sm-8 col-sm-offset-2 text-center well well-sm">
+           <h6>{{album.descripcion}}</h6>
+       </div>
+   </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12">
-           {% if user and (user.patrulla_id != null) %}
+           {% if user and (user.patrulla_id == null) %}
             <form action="{{urlFor('runSubirFoto')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                 <fieldset>
                     <legend><i class="zmdi zmdi-plus zmdi-hc-lg"></i> <i class="zmdi zmdi-image zmdi-hc-lg"></i> Nueva foto</legend>
@@ -43,6 +56,15 @@
             {% endif %}
             <div class="album">
                 <div class="fotofull-sizer"></div>
+                {% for foto in album.fotos %}
+                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
+                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':foto.id})}}" method="POST">
+                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
+                    </form>{% endif %}
+                    <a href="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/{{album.id}}/{{foto.id}}.jpg" class="img-responsive" alt=""></div></a>
+                </div>
+                {% endfor %}
+<!--
                 <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
                     {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
                         <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
@@ -145,6 +167,7 @@
                     </form>{% endif %}
                     <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/17.jpg" class="img-responsive" alt=""></div></a>
                 </div>
+-->
 
             </div>
         </div>

@@ -1,0 +1,169 @@
+{% extends "lpe/masterImprimir.twig" %}
+{# ----------------------------------------------------------- #}
+{% block linkhead %}
+<link rel="stylesheet" type="text/css" href="{{ baseUrl() }}/assets/css/jquery-ui/jquery-ui.min.css" />
+{% endblock %}
+{% block titulo %}Estadisticas desde el {{fechaDesde|date('d-m-Y')}} hasta el {{fechaHasta|date('d-m-Y')}}{% endblock %}
+{% block body %}
+<div class="container" style="">
+    <div class="row">
+        <img class="pull-right" src="{{ baseUrl() }}/assets-lpe/img/nGGx2hTj.png" style="width: 130px;" alt="Santa Fe">
+        <h6><img src="{{ baseUrl() }}/assets-lpe/img/logo-virtuagora.svg" style="height:20px; margin-right: 5px;" alt=""> Plataforma de participación ciudadana</h6>
+        <h5>Ley de Educación Provincial - Gobierno de Santa Fe</h5>
+        <h3>Datos estadisticos<br>desde el {{fechaDesde|date('d-m-Y')}} hasta el {{fechaHasta|date('d-m-Y')}}</h3>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>Dato</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total de usuarios registrados</td>
+                    <td>{{ datos.usuarios|length }}</td>
+                </tr>
+                <tr>
+                    <td>Cant. de Usuarios que comentan</td>
+                    <td>{{ datos.aportes|length }}</td>
+                </tr>
+                <tr>
+                    <td>Cant. de Respuestas</td>
+                    <td>{{ datos.respuestas|length }}</td>
+                </tr>
+                <tr>
+                    <td>Votos en Secciones</td>
+                    <td>{{ datos.votosSecciones|length }}</td>
+                </tr>
+                <tr>
+                    <td>Votos en Comentarios</td>
+                    <td>{{ datos.votosComentarios|length }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Usuarios registrados</h5>
+        <table class="table table-hover table-condensed">
+           <thead>
+               <tr>
+                   <th>Nombre y Apellido</th>
+                   <th>Email</th>
+                   <th>Fecha Nacimiento</th>
+                   <th>Localidad</th>
+                   <th>Actividad</th>
+                   <th>Fecha Registro</th>
+               </tr>
+           </thead>
+            <tbody>
+                {% for usuario in datos.usuarios %}
+                <tr>
+                    <td><img src="{{ avatarUrl(usuario.img_tipo, usuario.img_hash, 32) }}" class="img-circle" style="width: 15px; margin:-5px 5px 0" alt=""> {{usuario.nombre}} {{usuario.apellido}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.birthday|date('d-m-Y')}}</td>
+                    <td>{{usuario.address}}</td>
+                    <td>{{usuario.title}}</td>
+                    <td>{{usuario.created_at|date('d-m-Y H:i:s')}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h5>Comentarios</h5>
+        <table class="table table-hover table-condensed">
+            <tbody>
+                {% for comentario in datos.aportes %}
+                <tr>
+                        <td>
+                            <div class="col-xs-4"><div class="well well-sm">
+                                {% for seccion in secciones %}
+                                {% if (comentario.comentable_type == 'Seccion') and (comentario.comentable_id == seccion.id) %}
+                                <h6 style="margin-bottom:0;line-height: 16px;"><b>Sección del derecho {% for contenido in contenidos %}{{ seccion.derecho_id == contenido.id ? contenido.titulo : ''}}{% endfor %}</b>: {{seccion.descripcion}}</h6>
+                                {% endif %}
+                                {% endfor%}
+                            </div></div>
+                            <div class="col-xs-8">
+                                <img src="{{ avatarUrl(comentario.autor.img_tipo, comentario.autor.img_hash, 32) }}" class="img-circle" style="width: 15px; margin:-5px 5px 0" alt="">
+                            <span class="text-info" style="margin-top:0"><strong>{{ comentario.autor.nombre }} {{ comentario.autor.apellido }}</strong></span>&nbsp;<span style="font-size:11px"><i>comentó el {{comentario.created_at|date('d-m-Y H:i')}} - <i class="fa fa-thumbs-up"></i> {{comentario.karma}}</i></span>
+                            <br>
+                            <p style="margin-bottom:0; font-size:12px;line-height: 14px;">
+                                {{ comentario.cuerpo|e|nl2br|clickableLinks }}
+                            </p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h5>Respuestas</h5>
+        <table class="table table-hover table-condensed">
+            <tbody>
+                {% for respuesta in datos.respuestas %}
+                <tr>
+                    <td>
+
+                        <img src="{{ avatarUrl(respuesta.autor.img_tipo, respuesta.autor.img_hash, 32) }}" class="img-circle" style="width: 15px; margin:-5px 5px 0" alt="">
+                        <span class="text-info" style="margin-top:0"><strong>{{ respuesta.autor.nombre }} {{ respuesta.autor.apellido }}</strong></span>&nbsp;<span style="font-size:11px"><i>respondió el {{respuesta.created_at|date('d-m-Y H:i')}} - <i class="fa fa-thumbs-up"></i> {{respuesta.karma}}</i></span>
+                        <br>
+                        <p style="margin-bottom:0; font-size:12px;line-height: 14px;">
+                            {{ respuesta.cuerpo|e|nl2br|clickableLinks }}
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="col-xs-6">
+            <h5>Votos en Secciones</h5>
+            {% set muyimp  = 0 %}
+            {% set imp  = 0 %}
+            {% set pocoimp  = 0 %}
+            {% for voto in datos.votosSecciones %}
+            {% if voto.postura == 3 %}{% set muyimp  = muyimp + 1 %}{% endif %}
+            {% if voto.postura == 2 %}{% set imp  = imp + 1 %}{% endif %}
+            {% if voto.postura == 1 %}{% set pocoimp  = pocoimp + 1 %}{% endif %}
+            {% endfor %}
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{muyimp}}</span>
+                    Muy Importante
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{imp}}</span>
+                    Importante
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{pocoimp}}</span>
+                    Poco Importante
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-xs-6">
+            <h5>Votos en Comentarios</h5>
+            {% set megusta  = 0 %}
+            {% set nomegusta  = 0 %}
+            {% for voto in datos.votosComentarios %}
+            {% if voto.valor == 1 %}{% set megusta  = megusta + 1 %}{% endif %}
+            {% if voto.valor == -1 %}{% set nomegusta  = nomegusta + 1 %}{% endif %}
+            {% endfor %}
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{muyimp}}</span>
+                    Me gusta
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{imp}}</span>
+                    No me gusta
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{# -------------------------------------------- #}
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        window.print();
+    });
+</script>
+{% endblock scripts %}

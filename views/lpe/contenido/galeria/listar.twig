@@ -36,120 +36,23 @@
                     </div>
                 </fieldset>
             </form>
-            <hr>
             {% endif %}
-            {% if user and (user.patrulla_id != null) %}
-            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
-                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
-            </form>
-            {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Taller de baldosines</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui officia perspiciatis fuga, aliquid quod, cum fugiat harum ipsa quam at recusandae quis optio eaque quibusdam suscipit veritatis maiores, hic.</p>
-            <div class="album">
-                <div class="foto-sizer"></div>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/30.jpg" class="img-responsive" alt=""></div></a>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/31.jpg" class="img-responsive" alt=""></div></a>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/32.jpg" class="img-responsive" alt=""></div></a>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/33.jpg" class="img-responsive" alt=""></div></a>
-                <a href="#"><div class="foto-item"><img src="http://placehold.it/600x400?text=%2b25%20fotos" class="img-responsive"></div></a>
-                <!--
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/34.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/35.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/36.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/37.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/38.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/39.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/01/40.jpg" class="img-responsive" alt=""></div>
--->
-            </div>
+            {% for album in albumes.album %}
             <hr>
             {% if user and (user.patrulla_id != null) %}
             <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
                 <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
             </form>
             {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Animatón</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae veritatis, qui facere. Est et natus nam, aut tenetur, placeat architecto in, earum aliquid ad eius. Possimus cum animi itaque. Modi.</p>
+            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>{{album.titulo}}</h1>
             <div class="album">
                 <div class="foto-sizer"></div>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/01.jpg" class="img-responsive" alt=""></div></a>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/02.jpg" class="img-responsive" alt=""></div></a>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/03.jpg" class="img-responsive" alt=""></div></a>
-                <a href="#"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/04.jpg" class="img-responsive" alt=""></div></a>
-                <div class="foto-item"><img src="http://placehold.it/600x400?text=%2b48%20fotos" class="img-responsive"></div>
-                <!--
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/04.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/05.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/06.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/07.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/08.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/09.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/10.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/11.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/12.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/13.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/14.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/15.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/16.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/17.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/18.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/19.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/20.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/20.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/21.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/22.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/23.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/02/24.jpg" class="img-responsive" alt=""></div>
--->
-
+                {% for album in albumes.album|slice(1,4) %}
+                <a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" class="img-responsive" alt=""></div></a>
+                {% endfor %}
+                <a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="http://placehold.it/600x400?text=%2b{{album.fotos|length}}%20fotos" class="img-responsive"></div></a>
             </div>
-            <hr>
-            {% if user and (user.patrulla_id != null) %}
-            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
-                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
-            </form>
-            {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae veritatis, qui facere. Est et natus nam, aut tenetur, placeat architecto in, earum aliquid ad eius. Possimus cum animi itaque. Modi.</p>
-            <div class="album">
-                <div class="foto-sizer"></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/50.jpg" class="img-responsive" alt=""></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/51.jpg" class="img-responsive" alt=""></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/52.jpg" class="img-responsive" alt=""></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/53.jpg" class="img-responsive" alt=""></div>
-                <div class="foto-item"><img src="http://placehold.it/600x400?text=%2b48%20fotos" class="img-responsive"></div>
-                <!--
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/54.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/55.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/56.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/57.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/58.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/59.jpg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/03/60.jpg" class="img-responsive" alt=""></div>
--->
-            </div>
-            <hr>
-            {% if user and (user.patrulla_id != null) %}
-            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
-                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
-            </form>
-            {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>Mesas OGP</h1>
-            <div class="album">
-                <div class="foto-sizer"></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/70.jpg" class="img-responsive" alt=""></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/71.jpeg" class="img-responsive" alt=""></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/72.jpeg" class="img-responsive" alt=""></div>
-                <div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/73.jpeg" class="img-responsive" alt=""></div>
-                <!--
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/74.jpeg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/75.jpeg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/76.jpeg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/77.jpeg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/78.jpeg" class="img-responsive" alt=""></div>
-<div class="foto-item"><img src="{{baseUrl()}}/img/galeria/04/79.jpeg" class="img-responsive" alt=""></div>
--->
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

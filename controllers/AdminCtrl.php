@@ -78,25 +78,35 @@ class AdminCtrl extends Controller {
             $queryUsu = Usuario::query();
             $queryApo = Comentario::where('comentable_type', 'Seccion');
             $queryRes = Comentario::where('comentable_type', 'Comentario');
+            $querySec = VotoSeccion::query();
+            $queryCom = VotoComentario::query();
             if ($desde) {
                 $desdeDate = Carbon\Carbon::createFromFormat('Y-m-d',$desde);
                 $queryUsu = $queryUsu->whereDate('created_at', '>=', $desdeDate);
                 $queryApo = $queryApo->whereDate('created_at', '>=', $desdeDate);
                 $queryRes = $queryRes->whereDate('created_at', '>=', $desdeDate);
+                $querySec = $querySec->whereDate('created_at', '>=', $desdeDate);
+                $queryCom = $queryCom->whereDate('created_at', '>=', $desdeDate);
             }
             if ($hasta) {
                 $hastaDate = Carbon\Carbon::createFromFormat('Y-m-d',$hasta);
                 $queryUsu = $queryUsu->whereDate('created_at', '<=', $hastaDate);
                 $queryApo = $queryApo->whereDate('created_at', '<=', $hastaDate);
                 $queryRes = $queryRes->whereDate('created_at', '<=', $hastaDate);
+                $querySec = $querySec->whereDate('created_at', '>=', $desdeDate);
+                $queryCom = $queryCom->whereDate('created_at', '<=', $hastaDate);
             }
             $datos = [
                 'usuarios' => $queryUsu->get(),
                 'aportes' => $queryApo->get(),
                 'respuestas' => $queryRes->get(),
+                'votosSecciones' => $querySec->get(),
+                'votosComentarios' => $queryCom->get()
             ];
+            $contenidos = Contenido::all()->toArray();
         } else{
             $datos = null;
+            $contenidos = null;
         }
         $secciones = Seccion::all()->toArray();
 
@@ -106,37 +116,56 @@ class AdminCtrl extends Controller {
             'datos' => $datos,
             'fechaDesde' => $desde,
             'fechaHasta' => $hasta,
-            'secciones' => $secciones
+            'secciones' => $secciones,
+            'contenidos' => $contenidos
         ]);
     }
 
-    public function verEstadisticasTemporales() {
-        $req = $this->request;
-        $desde = $req->get('desde');
-        $hasta = $req->get('hasta');
+    public function verEstadisticasTemporalesImprimir($fechaDesde, $fechaHasta) {
 
-        $queryUsu = Usuario::query();
-        $queryApo = Comentario::where('comentable_type', 'Seccion');
-        $queryRes = Comentario::where('comentable_type', 'Comentario');
+        if(($fechaDesde != null) || ($fechaHasta != null)){
+            $queryUsu = Usuario::query();
+            $queryApo = Comentario::where('comentable_type', 'Seccion');
+            $queryRes = Comentario::where('comentable_type', 'Comentario');
+            $querySec = VotoSeccion::query();
+            $queryCom = VotoComentario::query();
+            if ($fechaDesde) {
+                $desdeDate = Carbon\Carbon::createFromFormat('Y-m-d',$fechaDesde);
+                $queryUsu = $queryUsu->whereDate('created_at', '>=', $desdeDate);
+                $queryApo = $queryApo->whereDate('created_at', '>=', $desdeDate);
+                $queryRes = $queryRes->whereDate('created_at', '>=', $desdeDate);
+                $querySec = $querySec->whereDate('created_at', '>=', $desdeDate);
+                $queryCom = $queryCom->whereDate('created_at', '>=', $desdeDate);
+            }
+            if ($fechaHasta) {
+                $hastaDate = Carbon\Carbon::createFromFormat('Y-m-d',$fechaHasta);
+                $queryUsu = $queryUsu->whereDate('created_at', '<=', $hastaDate);
+                $queryApo = $queryApo->whereDate('created_at', '<=', $hastaDate);
+                $queryRes = $queryRes->whereDate('created_at', '<=', $hastaDate);
+                $querySec = $querySec->whereDate('created_at', '>=', $desdeDate);
+                $queryCom = $queryCom->whereDate('created_at', '<=', $hastaDate);
+            }
+            $datos = [
+                'usuarios' => $queryUsu->get(),
+                'aportes' => $queryApo->get(),
+                'respuestas' => $queryRes->get(),
+                'votosSecciones' => $querySec->get(),
+                'votosComentarios' => $queryCom->get()
+            ];
+            $contenidos = Contenido::all()->toArray();
+        } else{
+            $datos = null;
+            $contenidos = null;
+        }
+        $secciones = Seccion::all()->toArray();
 
-        if ($desde) {
-            $desdeDate = Carbon\Carbon::parse($req->get('desde'));
-            $queryUsu = $queryUsu->whereDate('created_at', '>=', $desdeDate);
-            $queryApo = $queryApo->whereDate('created_at', '>=', $desdeDate);
-            $queryRes = $queryRes->whereDate('created_at', '>=', $desdeDate);
-        }
-        if ($hasta) {
-            $hastaDate = Carbon\Carbon::parse($req->get('hasta'));
-            $queryUsu = $queryUsu->whereDate('created_at', '<=', $hastaDate);
-            $queryApo = $queryApo->whereDate('created_at', '<=', $hastaDate);
-            $queryRes = $queryRes->whereDate('created_at', '<=', $hastaDate);
-        }
-        $datos = [
-            'usuarios' => $queryUsu->count(),
-            'aportes' => $queryApo->count(),
-            'respuestas' => $queryRes->count(),
-        ];
-        $this->render('lpe/admin/estadisticas.twig', ['datos' => $datos]);
+        $this->render('lpe/admin/estadisticasImprimir.twig', [
+            'datos' => $datos,
+            'fechaDesde' => $fechaDesde,
+            'fechaHasta' => $fechaHasta,
+            'secciones' => $secciones,
+            'contenidos' => $contenidos
+        ]);
     }
 
     public function adminAjustes() {
