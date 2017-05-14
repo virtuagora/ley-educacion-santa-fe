@@ -12,6 +12,8 @@
         "codeguy/upload": "*",
         "ircmaxell/password-compat": "*",
         "google/recaptcha": "~1.1",
+        "intervention/image": "2.3",
+        "facebook/graph-sdk": "5.4.*",
         "augusthur/validation": "*"
     },
     "repositories": [

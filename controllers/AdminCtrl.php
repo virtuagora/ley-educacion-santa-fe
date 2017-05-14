@@ -61,6 +61,16 @@ class AdminCtrl extends Controller {
     }
 
     public function verEstadisticas() {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('fechaDesde', new Validate\Rule\Date('Y-m-d'))
+            ->addRule('fechaHasta', new Validate\Rule\Date('Y-m-d'))
+            ->addOptional('fechaDesde')
+            ->addOptional('fechaHasta');
+        $req = $this->request;
+        if (!$vdt->validate($req->get())) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+
         $usrData = [
             'total' => Usuario::count(),
             'comentadores' => Usuario::has('comentarios')->count(),
@@ -71,8 +81,8 @@ class AdminCtrl extends Controller {
             'respuestas' => Comentario::where('comentable_type', 'Comentario')->count(),
         ];
         $req = $this->request;
-        $desde = $req->get('fechaDesde');
-        $hasta = $req->get('fechaHasta');
+        $desde = $vdt->getData('fechaDesde');
+        $hasta = $vdt->getData('fechaHasta');
 
         if(($desde != null) || ($hasta != null)){
             $queryUsu = Usuario::query();
@@ -122,6 +132,15 @@ class AdminCtrl extends Controller {
     }
 
     public function verEstadisticasTemporalesImprimir($fechaDesde, $fechaHasta) {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('fechaDesde', new Validate\Rule\Date('Y-m-d'))
+            ->addRule('fechaHasta', new Validate\Rule\Date('Y-m-d'))
+            ->addOptional('fechaDesde')
+            ->addOptional('fechaHasta');
+        $req = $this->request;
+        if (!$vdt->validate(['fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta])) {
+            throw new TurnbackException($vdt->getErrors());
+        }
 
         if(($fechaDesde != null) || ($fechaHasta != null)){
             $queryUsu = Usuario::query();
@@ -171,8 +190,7 @@ class AdminCtrl extends Controller {
     public function adminAjustes() {
         $vdt = new Validate\Validator();
         $vdt->addRule('tos', new Validate\Rule\MinLength(8))
-            ->addRule('tos', new Validate\Rule\MaxLength(8192))
-            ;
+            ->addRule('tos', new Validate\Rule\MaxLength(8192));
         $req = $this->request;
         if (!$vdt->validate($req->post())) {
             throw new TurnbackException($vdt->getErrors());
