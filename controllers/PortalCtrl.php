@@ -29,10 +29,20 @@ class PortalCtrl extends Controller {
     }
 
     public function verLogin() {
-        $this->render('lpe/registro/login-static.twig');
+        $helper = $this->facebook->getRedirectLoginHelper();
+        //TODO cambiar a https://www.santafe.gob.ar/leyeducacion
+        $fbPath = 'http://localhost:8000'.str_replace(
+            '/public/',
+            '/public/index.php/',
+            $this->urlFor('fbLogin')
+        );
+        $fbUrl = $helper->getLoginUrl($fbPath, ['email']);
+        $this->render('lpe/registro/login-static.twig', [
+            'facebook' => $fbUrl,
+        ]);
     }
 
-public function verAntecedentes() {
+    public function verAntecedentes() {
         $this->render('lpe/contenido/static/antecedentes.twig');
     }
 
@@ -61,6 +71,50 @@ public function verAntecedentes() {
 
     public function logout() {
         $this->session->logout();
+        $this->redirectTo('shwIndex');
+    }
+
+    public function facebookLogin()
+    {
+        $helper = $this->facebook->getRedirectLoginHelper();
+        $accessToken = $helper->getAccessToken();
+        if (!isset($accessToken)) {
+            if ($helper->getError()) {
+                $msg = 'Error: '.$helper->getError().'\n';
+                $msg += 'Error Code: '.$helper->getErrorCode().'\n';
+                $msg += 'Error Reason: '.$helper->getErrorReason().'\n';
+                $msg += 'Error Description: '.$helper->getErrorDescription();
+                $this->logger->info($msg);
+            }
+            throw new BearableException('Petición de acceso a Facebook inválida.', 400);
+        }
+        $response = $this->facebook->get('/me?fields=id,first_name,last_name,email', $accessToken);
+        $userNode = $response->getGraphUser();
+        if (!$userNode['email']) {
+            //TODO mejorar
+            throw new BearableException('No tenés una dirección de email asociada en facebook.', 400);
+        }
+        $user = Usuario::firstOrNew([
+            'email' => $userNode['email'],
+        ]);
+        if (!$user->exists) {
+            $user->facebook = $userNode['id'];
+            $user->name = $userNode['first_name'];
+            $user->password = '';
+            $user->nombre = $userNode['first_name'];
+            $user->apellido = $userNode['last_name'];
+            $user->puntos = 0;
+            $user->suspendido = false;
+            $user->es_funcionario = false;
+            $user->es_jefe = false;
+            $user->img_tipo = 2;
+            $user->img_hash = $userNode['id'];
+            $user->birthday = null;
+            $user->title = null;
+            $user->address = null;
+            $user->save();
+        }
+        $this->session->update($user);
         $this->redirectTo('shwIndex');
     }
 
