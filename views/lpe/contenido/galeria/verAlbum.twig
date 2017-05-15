@@ -62,7 +62,7 @@
                     {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':foto.id})}}" method="POST">
                         <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
                     </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/{{album.id}}/{{foto.id}}.jpg" class="img-responsive" alt=""></div></a>
+                    <a href="{{baseUrl()}}/img/galeria/{{album.id}}/{{foto.id}}.jpg" data-lightbox="album" data-title="{{foto.descripcion}}"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" class="img-responsive" style="width:100%;" alt=""></div></a>
                 </div>
                 {% endfor %}
 <!--
