@@ -22,6 +22,14 @@ $app->container->singleton('translator', function () {
     return $trans;
 });
 
+$app->container->singleton('facebook', function () use ($app) {
+    return new Facebook\Facebook([
+        'app_id' => '185937511894838',
+        'app_secret' => 'e9dbb879409dfe4c51a546ff7a4fa863',
+        'default_graph_version' => 'v2.9',
+    ]);
+});
+
 $app->api = false;
 
 // Prepare error handler
