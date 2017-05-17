@@ -90,32 +90,40 @@ class PortalCtrl extends Controller {
         }
         $response = $this->facebook->get('/me?fields=id,first_name,last_name,email', $accessToken);
         $userNode = $response->getGraphUser();
-        if (!$userNode['email']) {
-            //TODO mejorar
-            throw new BearableException('No tenés una dirección de email asociada en facebook.', 400);
+        if (empty($userNode['email'])) {
+            //TODO cambiar a https://www.santafe.gob.ar/leyeducacion
+            $fbPath = 'http://localhost:8000'.str_replace(
+                '/public/',
+                '/public/index.php/',
+                $this->urlFor('fbLogin')
+            );
+            $fbUrl = $helper->getReRequestUrl($fbPath, ['email']);
+            $this->render('lpe/registro/login-noemail.twig', [
+                'facebook' => $fbUrl,
+            ]);
+        } else {
+            $user = Usuario::firstOrNew([
+                'email' => $userNode['email'],
+            ]);
+            if (!$user->exists) {
+                $user->facebook = $userNode['id'];
+                $user->password = '';
+                $user->nombre = $userNode['first_name'];
+                $user->apellido = $userNode['last_name'];
+                $user->puntos = 0;
+                $user->suspendido = false;
+                $user->es_funcionario = false;
+                $user->es_jefe = false;
+                $user->img_tipo = 2;
+                $user->img_hash = $userNode['id'];
+                $user->birthday = null;
+                $user->title = null;
+                $user->address = null;
+                $user->save();
+            }
+            $this->session->update($user);
+            $this->redirectTo('shwIndex');
         }
-        $user = Usuario::firstOrNew([
-            'email' => $userNode['email'],
-        ]);
-        if (!$user->exists) {
-            $user->facebook = $userNode['id'];
-            $user->name = $userNode['first_name'];
-            $user->password = '';
-            $user->nombre = $userNode['first_name'];
-            $user->apellido = $userNode['last_name'];
-            $user->puntos = 0;
-            $user->suspendido = false;
-            $user->es_funcionario = false;
-            $user->es_jefe = false;
-            $user->img_tipo = 2;
-            $user->img_hash = $userNode['id'];
-            $user->birthday = null;
-            $user->title = null;
-            $user->address = null;
-            $user->save();
-        }
-        $this->session->update($user);
-        $this->redirectTo('shwIndex');
     }
 
     public function verRegistrar() {

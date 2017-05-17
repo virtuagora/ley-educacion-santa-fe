@@ -1,0 +1,26 @@
+{% extends "lpe/master.twig" %} 
+{# ----------------------------------------------------------- #} 
+{% block titulo %}Necesitamos tu email{% endblock %} 
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="panel-inicio col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 ">
+			<h2><strong>NO PUDIMOS OBTENER TU DIRECCIÓN DE EMAIL</strong></h2>
+			<p>
+            Necesitamos tu dirección de email para continuar pero no pudimos obtenerna desde facebook.
+            Esto puede ser porque no cargaste una dirección allí, en ese caso te invitamos a que lo hagas y
+            vuelvas a intentarlo. En el caso que nos hayas negado el permiso a obtener esta dirección, te
+            pedimos que nos lo brindes. Podés volver a intenterlo a continuación,
+            </p>
+			<a href="{{ facebook }}" class="btn btn-primary">Volver a solitar permiso</a>
+            <a href="{{ urlFor('shwIndex') }}" class="btn btn-primary">Cancelar y volver al inicio</a>
+		</div>
+	</div>
+</div>
+
+{% endblock %} 
+{# ----------------------------------------------------------- #} 
+{% block scripts %}
+
+{% endblock %}
