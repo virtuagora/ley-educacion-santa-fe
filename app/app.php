@@ -24,7 +24,7 @@ $app->container->singleton('translator', function () {
 
 $app->container->singleton('facebook', function () use ($app) {
     return new Facebook\Facebook([
-        'app_id' => '185937511894838',
+        'app_id' => '1421977514560165',
         'app_secret' => 'e9dbb879409dfe4c51a546ff7a4fa863',
         'default_graph_version' => 'v2.9',
     ]);
@@ -176,6 +176,7 @@ $app->group('/comentario', function () use ($app, $checkRole, $checkModifyAuth) 
     $app->post('/eliminar/:idCom', $checkModifyAuth('Comentario'), 'ComentarioCtrl:eliminar')->name('runElimiComenta');
 });
 
+$app->get('/fb-login', $checkNoSession, 'PortalCtrl:facebookLogin')->name('fbLogin');
 $app->get('/', 'PortalCtrl:verIndex')->name('shwIndex');
 $app->get('/portal', 'PortalCtrl:verPortal')->name('shwPortal');
 //$app->get('/tos', 'PortalCtrl:verTos')->name('shwTos');
