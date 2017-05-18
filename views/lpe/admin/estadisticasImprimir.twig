@@ -46,6 +46,7 @@
            <thead>
                <tr>
                    <th>Nombre y Apellido</th>
+                   <th><i class="fa fa-user-plus"></i></th>
                    <th>Email</th>
                    <th>Fecha Nacimiento</th>
                    <th>Localidad</th>
@@ -57,7 +58,8 @@
                 {% for usuario in datos.usuarios %}
                 <tr>
                     <td><img src="{{ avatarUrl(usuario.img_tipo, usuario.img_hash, 32) }}" class="img-circle" style="width: 15px; margin:-5px 5px 0" alt=""> {{usuario.nombre}} {{usuario.apellido}}</td>
-                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.facebook is null ? '<i class="fa fa-envelope"></i>' : '<i class="fa fa-facebook-square"></i>'}}</td>
+                     <td>{{usuario.email is null ? '(Facebook)' : usuario.email}}</td>
                     <td>{{usuario.birthday|date('d-m-Y')}}</td>
                     <td>{{usuario.address}}</td>
                     <td>{{usuario.title}}</td>

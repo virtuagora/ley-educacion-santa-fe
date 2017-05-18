@@ -27,6 +27,7 @@ class GaleriaCtrl extends Controller {
         }
         $album = new Album;
         $album->nombre = $vdt->getData('nombre');
+        $album->descripcion = $vdt->getData('descripcion');
         $album->save();
         $dir = __DIR__ . '/../public/img/galeria/' . $album->id;
         if (!is_dir($dir)) mkdir($dir, 0777, true);
@@ -71,6 +72,8 @@ class GaleriaCtrl extends Controller {
                 })->save($pathOrig, 85);
             $imgThum = $manager->make($_FILES['foto']['tmp_name'])
                 ->fit(400, 300, function ($constraint) {
+//                ->resize(400, 300, function ($constraint) {
+					$constraint->aspectRatio();
                     $constraint->upsize();
                 })->save($pathThum, 80);
         } else {

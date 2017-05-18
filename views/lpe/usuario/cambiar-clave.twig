@@ -8,6 +8,7 @@
         </h2>
                 <br>
             </div>
+                   {% if user.facebook is null %}
                     <div class ="alert alert-info">
 	Consideraciones para el cambio de su contraseña.
 	<ul class="fa-ul">
@@ -47,6 +48,11 @@
                     </form>
                 </li>
             </div>
+            {% else %}
+            <div class ="alert alert-info">
+	Usted se identifica con la plataforma utilizando una cuenta en Facebook, no necesita cambiar su clave.
+</div>
+            {% endif %}
         </div>
     </div>
 </div>
