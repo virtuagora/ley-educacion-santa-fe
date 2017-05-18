@@ -1,0 +1,70 @@
+{% extends "lpe/master.twig" %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Destacar derechos{% endblock %}
+
+{% block body %}
+<div class="container" style=" ">
+	<div class="row">
+		{% set paginaAdmin = 8 %}
+		{% include '/lpe/admin/listaSecciones.twig' %}
+		<div class="col-xs-12 col-sm-9">
+			<div class="text-center">
+				<h2 class="text-center"><strong>Administrar comentarios</strong></h2>
+				<div class ="alert alert-info">
+					Seleccione 3 derechos a destacar. No pueden ser ni mas ni menos que 3.
+				</div>
+			</div>
+			<form action="{{urlFor('runDestacarDerechos')}}" method="POST">
+				<table class="table table-hover ">
+					<thead>
+						<tr>
+							<th colspan="2">Derecho</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for derecho in derechos %}
+						<tr>
+							<td>{{derecho.titulo}}</td>
+							<td class="text-center"><input name="destacado" type="checkbox" value="{{derecho.id}}" {{derecho.categoria.id == 2 ? 'checked'}}></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<input name="destacados" type="hidden">
+				<button type="submit" class="btn btn-primary pull-right">Guardar</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock body %}
+{# -------------------------------------------- #}
+{% block scripts %}
+<script>
+	$(document).ready(function(){
+
+	});
+
+	$( "input[type=checkbox]" ).click(function(e) {
+
+	});
+
+	$('form').submit(function(e){
+
+		if($('input[type=checkbox]:checked').length != 3){
+			alert('Debe tener 3 derechos destacados, usted eligió ' + $('input[type=checkbox]:checked').length );
+			e.preventDefault();
+			return false;
+		} else{
+			var derechos = [];
+                $('input[type=checkbox]:checked').each(function( index ) {
+                    derechos.push($( this ).val());
+                });
+                var derechosString = derechos.join("&&")
+                $('input[name=destacados]').val(derechosString);
+		}
+		return true;
+	})
+
+</script>
+{% endblock scripts %}

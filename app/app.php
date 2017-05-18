@@ -156,6 +156,8 @@ $app->group('/admin', function () use ($app, $checkRole) {
     $app->post('/verificar', $checkRole('mod'), 'AdminCtrl:verifCiudadano')->name('runAdmVrfUsuario');
     $app->get('/ajustes', $checkRole('mod'), 'AdminCtrl:verAdminAjustes')->name('shwAdmAjuste');
     $app->post('/ajustes', $checkRole('mod'), 'AdminCtrl:adminAjustes')->name('runAdmAjuste');
+    $app->get('/destacar', $checkRole('mod'), 'AdminCtrl:verDestacarDerechosAdmin')->name('shwDestacarDerechos');
+    $app->post('/destacar', $checkRole('mod'), 'AdminCtrl:destacarDerechosAdmin')->name('runDestacarDerechos');
     $app->get('/estadisticas', $checkRole('mod'), 'AdminCtrl:verEstadisticas')->name('shwEstadi');
     $app->get('/estadisticas/:fechaDesde/:fechaHasta/imprimir', $checkRole('mod'), 'AdminCtrl:verEstadisticasTemporalesImprimir')->name('shwEstadiTempImpr');
     $app->get('/exportar', $checkRole('mod'), 'AdminCtrl:verExportar')->name('shwExportar');

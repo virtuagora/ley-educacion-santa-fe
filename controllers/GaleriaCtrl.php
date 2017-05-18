@@ -3,7 +3,10 @@
 class GaleriaCtrl extends Controller {
 
     public function verGaleria() {
-        $this->render('lpe/contenido/galeria/listar.twig');
+		$albunes = Album::all()->toArray();
+        $this->render('lpe/contenido/galeria/listar.twig',[
+            'albumes' => $albunes,
+        ]);
     }
 
     public function verAlbum($idAlb) {

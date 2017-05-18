@@ -12,6 +12,16 @@ class AdminCtrl extends Controller {
         $this->render('lpe/admin/comentariosAdmin.twig',array('derechos' => $derechos));
     }
 
+	public function verDestacarDerechosAdmin() {
+        $derechos = Contenido::where('contenible_type', 'Derecho')->get()->toArray();
+        $this->render('lpe/admin/destacarDerechos.twig',array('derechos' => $derechos));
+    }
+
+	public function destacarDerechosAdmin() {
+        $this->flash('success', 'Los derechos se han destacado exitosamente.');
+        $this->redirectTo('shwDestacarDerechos');
+    }
+
     public function verComentariosAdminDerecho($idDer) {
         $derecho = Derecho::with('contenido.tags')->findOrFail($idDer);
         $contenido = $derecho->contenido;

@@ -2,59 +2,60 @@
 {# ----------------------------------------------------------- #}
 {% block titulo %}Galeria de fotos{% endblock %} {% block body %}
 <div class="container-fluid inicio-banner">
-    <div class="overlay-banner">
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <h1 style="text-transform: uppercase"><strong>Galería de fotos</strong></h1>
-            </div>
-        </div>
-    </div>
+	<div class="overlay-banner">
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<h1 style="text-transform: uppercase"><strong>Galería de fotos</strong></h1>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="container" style=" ">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12">
-            {% if user and (user.patrulla_id != null) %}
-            <form action="{{urlFor('runCrearAlbum')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
-                <fieldset>
-                    <legend><i class="zmdi zmdi-plus zmdi-hc-lg"></i> <i class="zmdi zmdi-image zmdi-hc-lg"></i> Nuevo album</legend>
-                    <div class="form-group">
-                        <label for="inputDescripcion" class="col-lg-2 control-label">Título</label>
-                        <div class="col-lg-10">
-                            <input type="text" name="nombre" class="form-control" id="inputDescripcion" placeholder="Título del album">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputDescripcion" class="col-lg-2 control-label">Descripción</label>
-                        <div class="col-lg-10">
-                            <input type="text" name="descripcion" class="form-control" id="inputDescripcion" placeholder="Descripción o pie de foto del album">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-10 col-lg-offset-2">
-                            <button type="submit" class="btn-success btn">Nuevo Album</button>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-            {% endif %}
-            {% for album in albumes.album %}
-            <hr>
-            {% if user and (user.patrulla_id != null) %}
-            <form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
-                <button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
-            </form>
-            {% endif %}
-            <h1><a href="#"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>{{album.titulo}}</h1>
-            <div class="album">
-                <div class="foto-sizer"></div>
-                {% for album in albumes.album|slice(1,4) %}
-                <a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" class="img-responsive" alt=""></div></a>
-                {% endfor %}
-                <a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="http://placehold.it/600x400?text=%2b{{album.fotos|length}}%20fotos" class="img-responsive"></div></a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12">
+			{% if user and (user.patrulla_id != null) %}
+			<form action="{{urlFor('runCrearAlbum')}}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+				<fieldset>
+					<legend><i class="zmdi zmdi-plus zmdi-hc-lg"></i> <i class="zmdi zmdi-image zmdi-hc-lg"></i> Nuevo album</legend>
+					<div class="form-group">
+						<label for="inputDescripcion" class="col-lg-2 control-label">Título</label>
+						<div class="col-lg-10">
+							<input type="text" name="nombre" class="form-control" id="inputDescripcion" placeholder="Título del album">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputDescripcion" class="col-lg-2 control-label">Descripción</label>
+						<div class="col-lg-10">
+							<input type="text" name="descripcion" class="form-control" id="inputDescripcion" placeholder="Descripción o pie de foto del album">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-10 col-lg-offset-2">
+							<button type="submit" class="btn-success btn">Nuevo Album</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+			{% endif %}
+			{% for album in albumes %}
+			<hr>
+			{% if user and (user.patrulla_id != null) %}
+			<form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
+				<button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
+			</form>
+			{% endif %}
+			<h1><a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><i class="zmdi zmdi-collection-folder-image zmdi-hc-fw"></i></a>{{album.nombre}}</h1>
+			<div class="well"><h6>{{album.descripcion}}</h6></div>
+			<div class="album">
+				<div class="foto-sizer"></div>
+				{% for foto in album.fotos|slice(1,4) %}
+				<a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" class="img-responsive" alt=""></div></a>
+				{% endfor %}
+				<a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="http://placehold.it/400x300?text=%2b{{album.fotos|length}}%20fotos" class="img-responsive"></div></a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
 </div>
 
 {% endblock body %}
@@ -63,29 +64,29 @@
 <script src="{{ baseUrl() }}/assets-lpe/js/masonry.pkgd.min.js"></script>
 <script src="{{ baseUrl() }}/assets-lpe/js/imagesloaded.pkgd.min.js"></script>
 <script>
-    var $grid = $('.album').masonry({
-        // set itemSelector so .grid-sizer is not used in layout
-        itemSelector: '.foto-item',
-        // use element for option
-        columnWidth: '.foto-sizer',
-        percentPosition: true
-    });
-    $grid.imagesLoaded().progress( function() {
-        $grid.masonry('layout');
-    });
-    $(function() {
-        $('a[href="#derechos"]').click(function() {
-            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
-    });
+	var $grid = $('.album').masonry({
+		// set itemSelector so .grid-sizer is not used in layout
+		itemSelector: '.foto-item',
+		// use element for option
+		columnWidth: '.foto-sizer',
+		percentPosition: true
+	});
+	$grid.imagesLoaded().progress( function() {
+		$grid.masonry('layout');
+	});
+	$(function() {
+		$('a[href="#derechos"]').click(function() {
+			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+				var target = $(this.hash);
+				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+				if (target.length) {
+					$('html, body').animate({
+						scrollTop: target.offset().top
+					}, 1000);
+					return false;
+				}
+			}
+		});
+	});
 </script>
 {% endblock scripts %}
