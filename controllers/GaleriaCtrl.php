@@ -43,9 +43,12 @@ class GaleriaCtrl extends Controller {
     }
 
     public function eliminarAlbum($idAlb) {
-        //TODO
-         //El retorno que lo lleve a la galeria
-
+        $vdt = new Validate\QuickValidator([$this, 'notFound']);
+        $vdt->test($idAlb, new Validate\Rule\NumNatural());
+        $album = Album::findOrFail($idAlb);
+        $album->delete();
+        $this->flash('success', 'El album fue eliminado exitosamente.');
+        $this->redirectTo('shwAlbum', ['idAlb' => $idAlb]);
     }
 
     public function subirFoto() {
@@ -82,13 +85,21 @@ class GaleriaCtrl extends Controller {
         } else {
             throw new TurnbackException('No seleccionó imagen.');
         }
+        $this->flash('success', 'Foto subida exitosamente.');
         $this->redirectTo('shwAlbum', ['idAlb' => $foto->album_id]);
-        //TODO
-        //El retorno que lo lleve al album
     }
 
-     public function eliminarFoto($idFot) {
-        //TODO
-         //El retorno que lo lleve al album
+    public function eliminarFoto($idFot) {
+        $vdt = new Validate\QuickValidator([$this, 'notFound']);
+        $vdt->test($idFot, new Validate\Rule\NumNatural());
+        $foto = Foto::findOrFail($idFot);
+        $idAlb = $foto->album_id;
+        $pathOrig = __DIR__ . '/../public/img/galeria/'.$idAlb.'/'.$idFot.'.jpg';
+        $pathThum = __DIR__ . '/../public/img/galeria/'.$idAlb.'/thumbnail/'.$idFot.'.jpg';
+        if (file_exists($pathOrig)) unlink($pathOrig);
+        if (file_exists($pathThum)) unlink($pathThum);
+        $foto->delete();
+        $this->flash('success', 'Foto eliminada exitosamente.');
+        $this->redirectTo('shwAlbum', ['idAlb' => $idAlb]);
     }
 }
