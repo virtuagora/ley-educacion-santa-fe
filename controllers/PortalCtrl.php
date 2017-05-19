@@ -77,15 +77,14 @@ class PortalCtrl extends Controller {
     public function facebookLogin()
     {
         $helper = $this->facebook->getRedirectLoginHelper();
-        $accessToken = $helper->getAccessToken();
+        try {
+            $accessToken = $helper->getAccessToken();
+        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            throw new BearableException('No pudimos obtener tus datos de facebook, volvé a intentarlo más tarde.', 200);
+        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            throw new BearableException('En este momento hubo un error de comunicación con facebook, volvé a intentarlo más tarde.', 200);
+        }
         if (!isset($accessToken)) {
-            if ($helper->getError()) {
-                $msg = 'Error: '.$helper->getError().'\n';
-                $msg += 'Error Code: '.$helper->getErrorCode().'\n';
-                $msg += 'Error Reason: '.$helper->getErrorReason().'\n';
-                $msg += 'Error Description: '.$helper->getErrorDescription();
-                $this->logger->info($msg);
-            }
             throw new BearableException('Petición de acceso a Facebook inválida.', 400);
         }
         $response = $this->facebook->get('/me?fields=id,first_name,last_name,email', $accessToken);

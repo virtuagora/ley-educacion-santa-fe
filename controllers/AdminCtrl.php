@@ -18,6 +18,15 @@ class AdminCtrl extends Controller {
     }
 
 	public function destacarDerechosAdmin() {
+        $vdt = new Validate\Validator();
+        $vdt->addRule('destacados', new Validate\Rule\NumNatural())
+            ->addFilter('destacados', FilterFactory::explode('&&'));
+        $req = $this->request;
+        if (!$vdt->validate($req->post())) {
+            throw new TurnbackException($vdt->getErrors());
+        }
+        Contenido::whereNotIn('id', $vdt->getData('destacados'))->update(['categoria_id' => 1]);
+        Contenido::whereIn('id', $vdt->getData('destacados'))->update(['categoria_id' => 2]);
         $this->flash('success', 'Los derechos se han destacado exitosamente.');
         $this->redirectTo('shwDestacarDerechos');
     }
