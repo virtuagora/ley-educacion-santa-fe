@@ -40,7 +40,7 @@
 			{% for album in albumes %}
 			<hr>
 			{% if user and (user.patrulla_id != null) %}
-			<form action="{{urlFor('runElimiAlbum',{'idAlb': 1})}}" method="POST">
+			<form action="{{urlFor('runElimiAlbum',{'idAlb': album.id})}}" method="POST">
 				<button type="submit" class="btn-danger btn pull-right"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></button>
 			</form>
 			{% endif %}
