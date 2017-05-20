@@ -48,7 +48,7 @@
 			<div class="well"><h6>{{album.descripcion}}</h6></div>
 			<div class="album">
 				<div class="foto-sizer"></div>
-				{% for foto in album.fotos|slice(1,4) %}
+				{% for foto in album.fotos|slice(0,4) %}
 				<a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" class="img-responsive" alt=""></div></a>
 				{% endfor %}
 				<a href="{{urlFor('shwAlbum',{'idAlb': album.id})}}"><div class="foto-item"><img src="http://placehold.it/400x300?text=%2b{{album.fotos|length}}%20fotos" class="img-responsive"></div></a>
