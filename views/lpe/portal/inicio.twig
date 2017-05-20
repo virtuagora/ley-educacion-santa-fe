@@ -24,7 +24,7 @@ endblock %} {% block body %}
 				<div class="grid-sizer w2"></div>
 				{% for derecho in derechos %}
 				{% if derecho.categoria.id == 2 %}
-				{% set linkImagen = baseUrl() ~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
+				{% set linkImagen = baseUrl() ~ '/img/bloque/' ~ derecho.contenible_id ~ '.jpg' %}
 				<a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
 					<div class="grid-item w2" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
 						<figure class="cap-bot height2">
@@ -47,7 +47,7 @@ endblock %} {% block body %}
 				{% endif %}
 				{% for derecho in derechos %}
 				{% if derecho.categoria.id == 1 %}
-				{% set linkImagen	= baseUrl() ~ '/img/bloque/' ~ derecho.id ~ '.jpg' %}
+				{% set linkImagen	= baseUrl() ~ '/img/bloque/' ~ derecho.contenible_id ~ '.jpg' %}
 				<a href="{{ urlFor('shwDerecho', {'idDer': derecho.contenible_id})}}">
 					<div class="grid-item {{contador < 5 ? '':'w3'}}" style="background-image: url('{{linkImagen}}');background-position:center top; background-size:cover;">
 						<figure class="cap-bot">
