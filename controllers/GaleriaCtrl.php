@@ -48,7 +48,7 @@ class GaleriaCtrl extends Controller {
         $album = Album::findOrFail($idAlb);
         $album->delete();
         $this->flash('success', 'El album fue eliminado exitosamente.');
-        $this->redirectTo('shwAlbum', ['idAlb' => $idAlb]);
+        $this->redirectTo('shwGaleria');
     }
 
     public function subirFoto() {
