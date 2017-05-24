@@ -74,10 +74,10 @@
                 {% for comentario in datos.aportes %}
                 <tr>
                         <td>
-                            <div class="col-xs-4"><div class="well well-sm">
+                            <div class="col-xs-4"><div class="well well-sm" style="margin-bottom:0;">
                                 {% for seccion in secciones %}
                                 {% if (comentario.comentable_type == 'Seccion') and (comentario.comentable_id == seccion.id) %}
-                                <h6 style="margin-bottom:0;line-height: 16px;"><b>Sección del derecho {% for contenido in contenidos %}{{ seccion.derecho_id == contenido.id ? contenido.titulo : ''}}{% endfor %}</b>: {{seccion.descripcion}}</h6>
+                                <h6 style="margin-bottom:0;line-height: 14px;font-size:12px; margin-top:0;"><b>Sección del derecho {% for contenido in contenidos %}{{ seccion.derecho_id == contenido.id ? contenido.titulo : ''}}{% endfor %}</b>: {{seccion.descripcion}}</h6>
                                 {% endif %}
                                 {% endfor%}
                             </div></div>

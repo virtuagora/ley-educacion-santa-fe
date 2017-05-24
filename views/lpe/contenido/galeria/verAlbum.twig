@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label for="inputFile" class="col-lg-2 control-label">Foto</label>
                         <div class="col-lg-10">
-                            <input type="file" name="foto" class="form-control" id="inputFile" placeholder="Suba una imagen">
+                            <input type="file" name="foto" class="form-control" id="inputFile" placeholder="Suba una imagen" required>
                             <input type="hidden" name="album" value="{{album.id}}" >
                         </div>
                     </div>
@@ -65,111 +65,6 @@
                     <a href="{{baseUrl()}}/img/galeria/{{album.id}}/{{foto.id}}.jpg" data-lightbox="album" data-title="{{foto.descripcion}}"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/{{album.id}}/thumbnail/{{foto.id}}.jpg" class="img-responsive" style="width:100%;" alt=""></div></a>
                 </div>
                 {% endfor %}
-<!--
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/01.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/02.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/03.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/04.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/05.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/06.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/07.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/08.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/09.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/10.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/11.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/12.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/13.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/14.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/15.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/16.jpg" class="img-responsive" alt=""></div></a>
-                </div>
-                <div class="fotofull-item {{ random(4) == 2 ? 'w2' }}">
-                    {% if user and (user.patrulla_id != null) %}<form action="{{urlFor('runElimiFoto',{'idFot':1})}}" method="GET">
-                        <button type="submit" class="btn-danger btn boton-eliminar-foto"><i class="fa fa-trash fa-lg"></i></button>
-                    </form>{% endif %}
-                    <a href="{{baseUrl()}}/img/galeria/02/08.jpg" data-lightbox="album" data-title="My caption"><div class=""><div class="overlay"></div><img src="{{baseUrl()}}/img/galeria/02/17.jpg" class="img-responsive" alt=""></div></a>
-                </div>
--->
-
             </div>
         </div>
     </div>
