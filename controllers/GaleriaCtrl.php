@@ -62,6 +62,10 @@ class GaleriaCtrl extends Controller {
             throw new TurnbackException($vdt->getErrors());
         }
 
+        if (!isset($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
+            throw new TurnbackException('No seleccionó imagen.');
+        }
+
         $foto = new Foto;
         $foto->descripcion = $vdt->getData('descripcion');
         $foto->album_id = $vdt->getData('album');
@@ -69,22 +73,19 @@ class GaleriaCtrl extends Controller {
 
         $pathOrig = __DIR__ . '/../public/img/galeria/'.$foto->album_id.'/'.$foto->id.'.jpg';
         $pathThum = __DIR__ . '/../public/img/galeria/'.$foto->album_id.'/thumbnail/'.$foto->id.'.jpg';
-        if (isset($_FILES['foto'])) {
-            $manager = new Intervention\Image\ImageManager(['driver' => 'imagick']);
-            $imgOrig = $manager->make($_FILES['foto']['tmp_name'])
-                ->resize(900, 900, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->save($pathOrig, 85);
-            $imgThum = $manager->make($_FILES['foto']['tmp_name'])
-                ->fit(400, 300, function ($constraint) {
-//                ->resize(400, 300, function ($constraint) {
-					$constraint->aspectRatio();
-                    $constraint->upsize();
-                })->save($pathThum, 80);
-        } else {
-            throw new TurnbackException('No seleccionó imagen.');
-        }
+
+        $manager = new Intervention\Image\ImageManager(['driver' => 'imagick']);
+        $imgOrig = $manager->make($_FILES['foto']['tmp_name'])
+            ->resize(900, 900, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save($pathOrig, 85);
+        $imgThum = $manager->make($_FILES['foto']['tmp_name'])
+            ->fit(400, 300, function ($constraint) {
+				$constraint->aspectRatio();
+                $constraint->upsize();
+            })->save($pathThum, 80);
+
         $this->flash('success', 'Foto subida exitosamente.');
         $this->redirectTo('shwAlbum', ['idAlb' => $foto->album_id]);
     }
