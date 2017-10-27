@@ -1,193 +1,242 @@
 {% if derecho.imagen == 1 %}
-{% set linkImagen = baseUrl() ~ '/img/derecho/' ~ derecho.id ~ '.jpg' %}
+    {% set linkImagen = baseUrl() ~ '/img/derecho/' ~ derecho.id ~ '.jpg' %}
 {% endif %}
 
-{% extends "lpe/master.twig" %} 
+{% extends "lpe/master.twig" %}
 
 {% set share_link = 'https://www.santafe.gob.ar/leyeducacion/public/index.php/derecho/' ~ derecho.id %}
 {% set twitter_txt = 'Estoy debatiendo sobre la Nueva Ley de Educación de Santa Fe. Participá vos también.' %}
 
 {% block opengraph %}
-<meta property="og:url"                content="{{ share_link }}" />
-<meta property="og:type"               content="article" />
-<meta property="og:title"              content="{{ derecho.titulo }} - Ley de Educación de Santa Fe" />
-<meta property="og:description"        content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." />
-<meta property="og:image"              content="{{ baseUrl() }}/assets-lpe/img/sharer-derecho.jpg"/>
-<meta name="description" content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." />
+    <meta content="{{ share_link }}" property="og:url"/>
+    <meta content="article" property="og:type"/>
+    <meta content="{{ derecho.titulo }} - Ley de Educación de Santa Fe" property="og:title"/>
+    <meta content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." property="og:description"/>
+    <meta content="{{ baseUrl() }}/assets-lpe/img/sharer-derecho.jpg" property="og:image"/>
+    <meta content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." name="description"/>
 {% endblock %}
-{% block linkhead %} {% endblock %} {# ----------------------------------------------------------- #} {% block titulo %}{{ derecho.titulo }}{% endblock %}
+{% block linkhead %}
+    <link href="{{ baseUrl() }}/assets-lpe/css/slick.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ baseUrl() }}/assets-lpe/css/slick-theme.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}
+    {{ derecho.titulo }}
+{% endblock %}
 {% block body %}
-<article>
-    {% set colorSeleccionado = random(3) %}
-    {% if derecho.imagen == 1 %}
-    <img src="{{linkImagen}}" class="img-responsive" style="width:100%;margin-bottom: 30px;" alt="">
-    {% else %}
-    <div class="titulo-derecho-background bgcolor{{colorSeleccionado}}" style="{# derecho.imagen == 1 ? 'background-image: url(' ~ linkImagen ~ ')':''#}">
-        <div class="overlay">
+    <article>
+        {% if user and(user.patrulla_id != null) %}
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <h1><strong>{{ derecho.titulo }}</strong></h1> {% if user and (user.patrulla_id != null) %}
-                        {#<h6><a href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}" class="btn btn-default"><i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar derecho</a></h6>#} {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    <div class="container">
-        <div class="row">
-            <div id="derecho" class="col-xs-12 col-sm-12 col-md-8">
-                <div id="descripcion">
-                    <p>{{ derecho.descripcion|bbCode }}</p>
-                </div>
-                {% for seccion in derecho.secciones %}
-                <div class="accion clearfix">
-                    <div class="pull-left" style="margin-right:20px">
-                        {% set ptj = (seccion.votos_alta * 3) + (seccion.votos_media * 2) + (seccion.votos_baja * 1) %}
-                        <div class="btn-group-vertical btn-group-sm">
-                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',3)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 3)) ? 'btn-primary disabled' : 'btn-default'}}">
-                                Muy importante
-
-                                &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_alta}}</span>
-
-                            </a>
-                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',2)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 2)) ? 'btn-primary disabled' : 'btn-default'}}">
-                                Importante
-
-                                &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_media}}</span>
-
-                            </a>
-                            <a href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',1)' : urlFor('shwLogin')}}" class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 1)) ? 'btn-primary disabled' : 'btn-default'}}">
-                                Poco importante
-
-                                &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_baja}}</span>
-
-                            </a>
-                            {% set comentariosSeccion = seccion.comentarios|length %}
-                            {% for comentario in seccion.comentarios %}
-                            {% set comentariosSeccion = comentariosSeccion + comentario.respuestas|length %}
-                            {% endfor %}
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#comentarios{{ seccion.id }}" class="btn btn-info">Participá <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i> {{ comentariosSeccion }}</a>
-                        </div>
-                    </div>
-                    <p class="lead"><span class="badge" data-toggle="tooltip" data-placement="right" title="Relevancia. Se calcula dandole ponderación a cada voto, siendo: {{seccion.votos_alta}} * 3 + {{seccion.votos_media}} * 2 + {{seccion.votos_baja}} * 1 = {{ptj}} "><i class="zmdi zmdi-star zmdi-hc-fw zmdi-hc-lg"></i>{{ptj}}&nbsp;</span>&nbsp;&nbsp;{{seccion.descripcion|nl2br}}</p>
-                    {% include 'lpe/contenido/derecho/comentarioModal.twig' %}
-                </div>
-                <hr>
-                {% endfor %}
-            </div>
-            <div class="col-xs-12 col-md-4">
-                {% if derecho.video is not null %}
-                <div class="embed-responsive embed-responsive-16by9" style="margin-bottom: 20px;">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{derecho.video}}" frameborder="0" allowfullscreen></iframe>
-                </div>
-                {% endif %} 
-                <div class="btn-group btn-group-justified" style="margin-bottom:25px;">
-                    <a href="https://www.facebook.com/sharer.php?u={{ share_link }}" target="_blank" class="btn btn-default" style="background-color:#3b5998; color:#FFF"><i class="zmdi zmdi-facebook zmdi-hc-2x"></i></a>
-                    <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=DiálogosSantaFe" target="_blank" class="btn btn-default" style="background-color:#55acee; color:#FFF"><i class="zmdi zmdi-twitter zmdi-hc-2x"></i></a>
-                    <a href="https://plus.google.com/share?url={{ share_link }}" target="_blank" class="btn btn-default" style="background-color:#dd4b39; color:#FFF"><i class="zmdi zmdi-google-plus zmdi-hc-2x"></i></a>
-                </div>
-                {% for opinion in derecho.opiniones %}
-                <div class="panel">
-                    <div class="panel-body tag-opinion bgcolor{{colorSeleccionado}}">
-                        <a href="javascript:void(0)" data-toggle="modal" data-target="#opinion{{loop.index}}">
-                            <div class="overlay">
-                                <h5><small>La opinión de..</small><br><b>{{opinion.participante.nombre}}</b></h5>
-                            </div>
+                    <div class="btn-group " style="margin-bottom:25px;">
+                        <a class="btn btn-primary" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                            <i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar descripción
+                        </a>
+                        <a class="btn btn-info" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                            <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i>
+                            Editar acciones y testimonios
                         </a>
                     </div>
                 </div>
-                {% include 'lpe/contenido/opinion/ver.twig' %} {% endfor %} {% if user and (user.patrulla_id != null) %}
-                <a href="{{ urlFor('shwCrearOpinion')}}" class="btn btn-primary btn-block"><i class="zmdi zmdi-plus zmdi-hc-lg zmdi-hc-fw"></i>Nueva Opinion</a>
-                <br>
-                <a href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}" class="btn btn-default btn-block"><i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar derecho</a> {% endif %}
-
+            </div>
+        {% endif %}
+        {% set colorSeleccionado = random(3) %}
+        {% if derecho.imagen == 1 %}
+            <img alt="" class="img-responsive" src="{{linkImagen}}" style="width:100%;margin-bottom: 30px;">
+        {% else %}
+            <div class="titulo-derecho-background bgcolor{{colorSeleccionado}}" style="{# derecho.imagen == 1 ? 'background-image: url(' ~ linkImagen ~ ')':''#}">
+                <div class="overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h1>
+                                    <strong>{{ derecho.titulo }}</strong>
+                                </h1>
+                                {% if user and(user.patrulla_id != null) %}
+                                    {#<h6><a href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}" class="btn btn-default"><i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar derecho</a></h6>#}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8" id="derecho">
+                    <div id="descripcion">
+                        <p>{{ derecho.descripcion|bbCode }}</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4" id="derecho">
+                    {% if derecho.video is not null %}
+                        <div class="embed-responsive embed-responsive-16by9" style="margin-bottom: 20px;">
+                            <iframe allowfullscreen="allowfullscreen" class="embed-responsive-item" frameborder="0" src="https://www.youtube.com/embed/{{derecho.video}}"></iframe>
+                        </div>
+                    {% endif %}
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-default" href="https://www.facebook.com/sharer.php?u={{ share_link }}" style="background-color:#3b5998; color:#FFF" target="_blank">
+                            <i class="zmdi zmdi-facebook zmdi-hc-2x"></i>
+                        </a>
+                        <a class="btn btn-default" href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=DiálogosSantaFe" style="background-color:#55acee; color:#FFF" target="_blank">
+                            <i class="zmdi zmdi-twitter zmdi-hc-2x"></i>
+                        </a>
+                        <a class="btn btn-default" href="https://plus.google.com/share?url={{ share_link }}" style="background-color:#dd4b39; color:#FFF" target="_blank">
+                            <i class="zmdi zmdi-google-plus zmdi-hc-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 accion-box">
+                    <div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus convallis ante, ac tincidunt est tristique quis. Morbi vitae arcu eget lacus blandit pretium ut vitae orci. Nam ex mauris, aliquet at mauris non, fermentum vestibulum velit. Curabitur non lobortis turpis. Etiam et purus mauris. Integer metus sem, blandit ut commodo rhoncus, dignissim non magna. Cras sodales suscipit magna, ac ultrices ipsum malesuada ac. Sed tristique at sapien sed tristique. Sed in justo dolor. Sed fringilla, mauris ut faucibus viverra, mi mi gravida purus, in efficitur nunc erat quis nunc. Sed cursus id tellus in euismod. Curabitur tincidunt odio non arcu porttitor euismod. Aliquam erat ex, tincidunt eget elit ac, aliquam viverra ante. Ut at enim eget ex scelerisque mollis. Vivamus fringilla ullamcorper venenatis. Sed aliquam metus dui, vitae sodales nibh blandit a.</p>
+                    </div>
+                    <section class="vertical-center slider">
+                        <div>
+                            <blockquote class="text-justify">
+                                <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
+                                <footer>Someone famous in</footer>
+                            </blockquote>
+                        </div>
+                        <div>
+                            <blockquote class="text-justify">
+                                <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
+                                <footer>Someone famous in</footer>
+                            </blockquote>
+                        </div>
+                        <div>
+                            <blockquote class="text-justify">
+                                <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
+                                <footer>Someone famous in</footer>
+                            </blockquote>
+                        </div>
+                        <div>
+                            <blockquote class="text-justify">
+                                <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
+                                <footer>Someone famous in</footer>
+                            </blockquote>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
-</article>
-{% if user and (user.patrulla_id != null) %}
-{% include 'lpe/contenido/moderar.twig' %}
-{% endif %}
-<form id="eliminarComentario" method="POST">
-    <input type="hidden" type="text" name="seccion">
-</form>
-<form id="votarSeccion" method="POST">
-    <input type="hidden" type="text" name="postura">
-</form>
-<form id="votarComentario" method="POST">
-    <input type="text" name="valor" style="display:none">
-    <input type="text" name="seccion" style="display:none">
-</form>
-{% endblock %} {# ----------------------------------------------------------- #} {% block scripts %}
-<script src="{{ baseUrl() }}/assets-lpe/js/autosize.min.js"></script>
-<script>
-    var idSeccion = getUrlVars()["seccion"];
-    $(document).ready(function() {
-        autosize($('textarea'));
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip();
+    </article>
+    {% if user and(user.patrulla_id != null) %}
+        {% include 'lpe/contenido/moderar.twig' %}
+    {% endif %}
+    <form id="eliminarComentario" method="POST">
+        <input hidden="hidden" name="seccion" type="text">
+    </form>
+    <form id="votarSeccion" method="POST">
+        <input hidden="hidden" name="postura" type="text">
+    </form>
+    <form id="votarComentario" method="POST">
+        <input name="valor" style="display:none" type="text">
+        <input name="seccion" style="display:none" type="text">
+    </form>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+    <script src="{{ baseUrl() }}/assets-lpe/js/autosize.min.js"></script>
+    <script src="{{ baseUrl() }}/assets-lpe/js/slick.min.js"></script>
+    <script>
+        var idSeccion = getUrlVars()["seccion"];
+        var maxHeight = -1;
+        $(document).ready(function () {
+            autosize($('textarea'));
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            })
+
+            if (idSeccion != undefined) {
+                $('#comentarios' +
+                        idSeccion).modal('show');
+            }
+            $(".vertical-center").slick({dots: true, centerMode: true, adaptiveHeight: true});
         })
 
-        if( idSeccion != undefined ){
-            $('#comentarios' + idSeccion).modal('show');
+        $('#comentarios' +
+                idSeccion).on('shown.bs.modal', function () {
+            $('#comentarios' +
+                    idSeccion).scrollTop(0);
+            // get the top of the section
+            var sectionOffset = $('[data-comentarioid=' +
+                    getUrlVars()["comentario"] +
+                    ']').offset();
+            console.log(sectionOffset);
+            //scroll the container
+            $('#comentarios' +
+                    idSeccion).animate({
+                scrollTop: sectionOffset.top - 30
+            }, "slow");
+        })
+
+        var votarSeccion = function (id, valor) {
+            var action_no = "{{ urlFor('runVotarSeccion') }}";
+            $('#votarSeccion')
+                .find('input[name="postura"]')
+                .val(valor)
+            var action_yes = action_no.replace(':idSec', id);
+            $('#votarSeccion').attr('action', action_yes);
+            $('#votarSeccion').submit();
         }
-    })
 
-    $('#comentarios' + idSeccion).on('shown.bs.modal', function () {
-        $('#comentarios' + idSeccion).scrollTop(0);
-        // get the top of the section
-        var sectionOffset = $('[data-comentarioid=' + getUrlVars()["comentario"] + ']').offset();
-        console.log(sectionOffset);
-        //scroll the container
-        $('#comentarios' + idSeccion).animate({
-            scrollTop: sectionOffset.top - 30
-        }, "slow");
-    })
-
-    var votarSeccion = function(id, valor) {
-        var action_no = "{{ urlFor('runVotarSeccion') }}";
-        $('#votarSeccion').find('input[name="postura"]').val(valor)
-        var action_yes = action_no.replace(':idSec', id);
-        $('#votarSeccion').attr('action', action_yes);
-        $('#votarSeccion').submit();
-    }
-
-    var verBoxResponder = function(id) {
-        $('#respComentario-' + id).toggle();
-    }
-
-    var votarComentario = function(seccionID, id, valor) {
-        var action_no = "{{ urlFor('runVotarComenta') }}";
-        $('#votarComentario').find('input[name="valor"]').val(valor)
-        var action_yes = action_no.replace(':idCom', id);
-        $('#votarComentario').find('input[name="seccion"]').val(seccionID)
-        $('#votarComentario').attr('action', action_yes);
-        $('#votarComentario').submit();
-    }
-
-    var eliminarComentario = function(seccion, id) {
-        var action_no = "{{ urlFor('runElimiComenta') }}";
-        //$('#votarComentario').find('input[name="valor"]').val(valor)
-        var action_yes = action_no.replace(':idCom', id);
-        //$('#eliminarComentario').find('input[name="id"]').val(id)
-        $('#eliminarComentario').find('input[name="seccion"]').val(seccion);
-        $('#eliminarComentario').attr('action', action_yes);
-        $('#eliminarComentario').submit();
-    }
-
-    function getUrlVars()
-    {
-        var vars = [], hash;
-        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        for(var i = 0; i < hashes.length; i++)
-        {
-            hash = hashes[i].split('=');
-            vars.push(hash[0]);
-            vars[hash[0]] = hash[1];
+        var verBoxResponder = function (id) {
+            $('#respComentario-' +
+                    id).toggle();
         }
-        return vars;
-    }
-</script>
-{% include 'lpe/contenido/moderar.js.twig' %} {% endblock %}
+
+        var votarComentario = function (seccionID, id, valor) {
+            var action_no = "{{ urlFor('runVotarComenta') }}";
+            $('#votarComentario')
+                .find('input[name="valor"]')
+                .val(valor)
+            var action_yes = action_no.replace(':idCom', id);
+            $('#votarComentario')
+                .find('input[name="seccion"]')
+                .val(seccionID)
+            $('#votarComentario').attr('action', action_yes);
+            $('#votarComentario').submit();
+        }
+
+        var eliminarComentario = function (seccion, id) {
+            var action_no = "{{ urlFor('runElimiComenta') }}";
+            //$('#votarComentario').find('input[name="valor"]').val(valor)
+            var action_yes = action_no.replace(':idCom', id);
+            //$('#eliminarComentario').find('input[name="id"]').val(id)
+            $('#eliminarComentario')
+                .find('input[name="seccion"]')
+                .val(seccion);
+            $('#eliminarComentario').attr('action', action_yes);
+            $('#eliminarComentario').submit();
+        }
+
+        function getUrlVars() {
+            var vars = [],
+                hash;
+            var hashes = window
+                .location
+                .href
+                .slice(window.location.href.indexOf('?') +
+                        1)
+                .split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+    </script>
+    {% include 'lpe/contenido/moderar.js.twig' %}
+{% endblock %}

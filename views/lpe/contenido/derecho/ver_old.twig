@@ -1,0 +1,237 @@
+{% if derecho.imagen == 1 %}
+{% set linkImagen = baseUrl() ~ '/img/derecho/' ~ derecho.id ~ '.jpg' %}
+{% endif %}
+
+{% extends "lpe/master.twig" %}
+
+{% set share_link = 'https://www.santafe.gob.ar/leyeducacion/public/index.php/derecho/' ~ derecho.id %}
+{% set twitter_txt = 'Estoy debatiendo sobre la Nueva Ley de Educación de Santa Fe. Participá vos también.' %}
+
+{% block opengraph %}
+<meta content="{{ share_link }}" property="og:url"/>
+<meta content="article" property="og:type"/>
+<meta content="{{ derecho.titulo }} - Ley de Educación de Santa Fe" property="og:title"/>
+<meta content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." property="og:description"/>
+<meta content="{{ baseUrl() }}/assets-lpe/img/sharer-derecho.jpg" property="og:image"/>
+<meta content="Enterate más acerca de este derecho. Santa Fe Construye Educación y Futuro. Diálogos para la ley provincial de educación. Un espacio de debate amplio, profundo y diverso, en clave de derecho, sobre la educación que la sociedad santafesina necesita." name="description"/>
+{% endblock %}
+{% block linkhead %}{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}{{ derecho.titulo }}
+{% endblock %}
+{% block body %}
+<article>
+    {% set colorSeleccionado = random(3) %}
+    {% if derecho.imagen == 1 %}
+        <img alt="" class="img-responsive" src="{{linkImagen}}" style="width:100%;margin-bottom: 30px;">
+    {% else %}
+        <div class="titulo-derecho-background bgcolor{{colorSeleccionado}}" style="{# derecho.imagen == 1 ? 'background-image: url(' ~ linkImagen ~ ')':''#}">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1>
+                                <strong>{{ derecho.titulo }}</strong>
+                            </h1>
+                            {% if user and(user.patrulla_id != null) %}
+                                {#<h6><a href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}" class="btn btn-default"><i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar derecho</a></h6>#}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8" id="derecho">
+                <div id="descripcion">
+                    <p>{{ derecho.descripcion|bbCode }}</p>
+                </div>
+                {% for seccion in derecho.secciones %}
+                    <div class="accion clearfix">
+                        <div class="pull-left" style="margin-right:20px">
+                            {% set ptj = (seccion.votos_alta * 3) +
+                                    (seccion.votos_media * 2) +
+                                    (seccion.votos_baja * 1) %}
+                            <div class="btn-group-vertical btn-group-sm">
+                                <a class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 3)) ? 'btn-primary disabled' : 'btn-default'}}" href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',3)' : urlFor('shwLogin')}}">
+                                    Muy importante &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_alta}}</span>
+
+                                </a>
+                                <a class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 2)) ? 'btn-primary disabled' : 'btn-default'}}" href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',2)' : urlFor('shwLogin')}}">
+                                    Importante &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_media}}</span>
+
+                                </a>
+                                <a class="btn {{((voto[seccion.id] is not null) and (voto[seccion.id] == 1)) ? 'btn-primary disabled' : 'btn-default'}}" href="{{ user ? 'javascript:votarSeccion(' ~ seccion.id ~',1)' : urlFor('shwLogin')}}">
+                                    Poco importante &nbsp;<span class="badge" style="padding-top: 3px; padding-bottom: 1px;">{{seccion.votos_baja}}</span>
+
+                                </a>
+                                {% set comentariosSeccion = seccion.comentarios | length %}
+                                {% for comentario in seccion.comentarios %}
+                                    {% set comentariosSeccion = comentariosSeccion +
+                                            comentario.respuestas | length %}
+                                {% endfor %}
+                                <a class="btn btn-info" data-target="#comentarios{{ seccion.id }}" data-toggle="modal" href="javascript:void(0)">Participá
+                                    <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i>
+                                    {{ comentariosSeccion }}</a>
+                            </div>
+                        </div>
+                        <p class="lead">
+                            <span class="badge" data-placement="right" data-toggle="tooltip" title="Relevancia. Se calcula dandole ponderación a cada voto, siendo: {{seccion.votos_alta}} * 3 + {{seccion.votos_media}} * 2 + {{seccion.votos_baja}} * 1 = {{ptj}} ">
+                                <i class="zmdi zmdi-star zmdi-hc-fw zmdi-hc-lg"></i>{{ptj}}&nbsp;</span>&nbsp;&nbsp;{{seccion.descripcion|nl2br}}</p>
+                        {% include 'lpe/contenido/derecho/comentarioModal.twig' %}
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+            <div class="col-xs-12 col-md-4">
+                {% if derecho.video is not null %}
+                    <div class="embed-responsive embed-responsive-16by9" style="margin-bottom: 20px;">
+                        <iframe allowfullscreen="allowfullscreen" class="embed-responsive-item" frameborder="0" src="https://www.youtube.com/embed/{{derecho.video}}"></iframe>
+                    </div>
+                {% endif %}
+                <div class="btn-group btn-group-justified" style="margin-bottom:25px;">
+                    <a class="btn btn-default" href="https://www.facebook.com/sharer.php?u={{ share_link }}" style="background-color:#3b5998; color:#FFF" target="_blank">
+                        <i class="zmdi zmdi-facebook zmdi-hc-2x"></i>
+                    </a>
+                    <a class="btn btn-default" href="https://twitter.com/share?text={{ twitter_txt }}&url={{ share_link }}&hashtags=DiálogosSantaFe" style="background-color:#55acee; color:#FFF" target="_blank">
+                        <i class="zmdi zmdi-twitter zmdi-hc-2x"></i>
+                    </a>
+                    <a class="btn btn-default" href="https://plus.google.com/share?url={{ share_link }}" style="background-color:#dd4b39; color:#FFF" target="_blank">
+                        <i class="zmdi zmdi-google-plus zmdi-hc-2x"></i>
+                    </a>
+                </div>
+                {% for opinion in derecho.opiniones %}
+                    <div class="panel">
+                        <div class="panel-body tag-opinion bgcolor{{colorSeleccionado}}">
+                            <a data-target="#opinion{{loop.index}}" data-toggle="modal" href="javascript:void(0)">
+                                <div class="overlay">
+                                    <h5>
+                                        <small>La opinión de..</small><br>
+                                        <b>{{opinion.participante.nombre}}</b>
+                                    </h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% include 'lpe/contenido/opinion/ver.twig' %}
+                {% endfor %}
+                {% if user and(user.patrulla_id != null) %}
+                    <a class="btn btn-primary btn-block" href="{{ urlFor('shwCrearOpinion')}}">
+                        <i class="zmdi zmdi-plus zmdi-hc-lg zmdi-hc-fw"></i>Nueva Opinion</a>
+                    <br>
+                    <a class="btn btn-default btn-block" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                        <i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar derecho</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</article>
+{% if user and(user.patrulla_id != null) %}
+    {% include 'lpe/contenido/moderar.twig' %}
+{% endif %}
+<form id="eliminarComentario" method="POST">
+    <input name="seccion" type="text">
+</form>
+<form id="votarSeccion" method="POST">
+    <input name="postura" type="text">
+</form>
+<form id="votarComentario" method="POST">
+    <input name="valor" style="display:none" type="text">
+    <input name="seccion" style="display:none" type="text">
+</form>
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+<script src="{{ baseUrl() }}/assets-lpe/js/autosize.min.js"></script>
+<script>
+    var idSeccion = getUrlVars()["seccion"];
+    $(document).ready(function () {
+        autosize($('textarea'));
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+
+        if (idSeccion != undefined) {
+            $('#comentarios' +
+                    idSeccion).modal('show');
+        }
+    })
+
+    $('#comentarios' +
+            idSeccion).on('shown.bs.modal', function () {
+        $('#comentarios' +
+                idSeccion).scrollTop(0);
+        // get the top of the section
+        var sectionOffset = $('[data-comentarioid=' +
+                getUrlVars()["comentario"] +
+                ']').offset();
+        console.log(sectionOffset);
+        //scroll the container
+        $('#comentarios' +
+                idSeccion).animate({
+            scrollTop: sectionOffset.top - 30
+        }, "slow");
+    })
+
+    var votarSeccion = function (id, valor) {
+        var action_no = "{{ urlFor('runVotarSeccion') }}";
+        $('#votarSeccion')
+            .find('input[name="postura"]')
+            .val(valor)
+        var action_yes = action_no.replace(':idSec', id);
+        $('#votarSeccion').attr('action', action_yes);
+        $('#votarSeccion').submit();
+    }
+
+    var verBoxResponder = function (id) {
+        $('#respComentario-' +
+                id).toggle();
+    }
+
+    var votarComentario = function (seccionID, id, valor) {
+        var action_no = "{{ urlFor('runVotarComenta') }}";
+        $('#votarComentario')
+            .find('input[name="valor"]')
+            .val(valor)
+        var action_yes = action_no.replace(':idCom', id);
+        $('#votarComentario')
+            .find('input[name="seccion"]')
+            .val(seccionID)
+        $('#votarComentario').attr('action', action_yes);
+        $('#votarComentario').submit();
+    }
+
+    var eliminarComentario = function (seccion, id) {
+        var action_no = "{{ urlFor('runElimiComenta') }}";
+        //$('#votarComentario').find('input[name="valor"]').val(valor)
+        var action_yes = action_no.replace(':idCom', id);
+        //$('#eliminarComentario').find('input[name="id"]').val(id)
+        $('#eliminarComentario')
+            .find('input[name="seccion"]')
+            .val(seccion);
+        $('#eliminarComentario').attr('action', action_yes);
+        $('#eliminarComentario').submit();
+    }
+
+    function getUrlVars() {
+        var vars = [],
+            hash;
+        var hashes = window
+            .location
+            .href
+            .slice(window.location.href.indexOf('?') +
+                    1)
+            .split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+</script>
+{% include 'lpe/contenido/moderar.js.twig' %}
+{% endblock %}
