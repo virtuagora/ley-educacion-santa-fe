@@ -2,11 +2,11 @@
 // Prepare view
 $app->view(new \Slim\Views\Twig());
 $app->view->parserOptions = array(
-    'charset' => 'utf-8',
-    'cache' => false,
-    'auto_reload' => true,
-    'strict_variables' => false,
-    'autoescape' => true
+'charset' => 'utf-8',
+'cache' => false,
+'auto_reload' => true,
+'strict_variables' => false,
+'autoescape' => true
 );
 $app->view->parserExtensions = array(new ExtendedTwig());
 
@@ -24,9 +24,9 @@ $app->container->singleton('translator', function () {
 
 $app->container->singleton('facebook', function () use ($app) {
     return new Facebook\Facebook([
-        'app_id' => '1421977514560165',
-        'app_secret' => 'e9dbb879409dfe4c51a546ff7a4fa863',
-        'default_graph_version' => 'v2.9',
+    'app_id' => '1421977514560165',
+    'app_secret' => 'e9dbb879409dfe4c51a546ff7a4fa863',
+    'default_graph_version' => 'v2.9',
     ]);
 });
 
@@ -53,8 +53,8 @@ $app->error(function (Exception $e) use ($app) {
         } else if ($e instanceof Illuminate\Database\QueryException && $e->getCode() == 23000) {
             $app->render('misc/error.twig', array('mensaje' => 'La información ingresada es inconsistente.'), 400);
         } else {
-//            $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
-            $app->render('misc/error.twig', ['mensaje' => 'Ocurrió un error interno.'], 500);
+            $app->render('misc/fatal-error.twig', array('type' => get_class($e), 'exception' => $e));
+            // $app->render('misc/error.twig', ['mensaje' => 'Ocurrió un error interno.'], 500);
         }
     }
 });
@@ -106,12 +106,13 @@ $checkModifyAuth = function ($resource, $moderable = true) use ($app) {
 };
 
 // Prepare dispatcher
-//$app->get('/test', function () use ($app) {
+$app->get('/test', function () use ($app) {
     //$app->render('lpe/test.twig');
     //$req = $app->request;
     //$uri = $req->headers->get('x-forwarded-host')?: $req->getUrl();
     //var_dump($uri);
-//});
+    $app->render('lpe/test.twig', array());
+});
 
 $app->group('/derecho', function () use ($app, $checkRole) {
     $app->get('/crear', $checkRole('mod'), 'DerechoCtrl:verCrear')->name('shwCrearDerecho');
@@ -120,7 +121,17 @@ $app->group('/derecho', function () use ($app, $checkRole) {
     $app->post('/votar/:idSec', $checkRole('usr'), 'DerechoCtrl:votar')->name('runVotarSeccion');
     $app->get('/:idDer/modificar', $checkRole('mod'), 'DerechoCtrl:verModificar')->name('shwModifDerecho');
     $app->post('/:idDer/modificar', $checkRole('mod'), 'DerechoCtrl:modificar')->name('runModifDerecho');
+    $app->group('/:idDer/accion', function () use ($app, $checkRole) {
+        $app->get('/listar', $checkRole('mod'), 'AccionCtrl:listarAcciones')->name('shwListarAcciones');
+        $app->get('/crear', $checkRole('mod'), 'AccionCtrl:verCrear')->name('shwCrearAccion');
+        $app->post('/crear', $checkRole('mod'), 'AccionCtrl:crear')->name('runCrearAccion');
+        $app->get('/modificar/:idAcc',$checkRole('mod'), 'AccionCtrl:verModificar')->name('shwModifAccion');
+        $app->post('/modificar/:idAcc',$checkRole('mod'), 'AccionCtrl:modificar')->name('runModifAccion');
+        $app->post('/eliminar/:idAcc', $checkRole('mod'), 'AccionCtrl:eliminar')->name('runElimiAccion');
+        
+    });
 });
+
 
 $app->group('/opinion', function () use ($app, $checkRole) {
     $app->get('/crear', $checkRole('mod'), 'OpinionCtrl:verCrear')->name('shwCrearOpinion');
@@ -131,7 +142,7 @@ $app->group('/opinion', function () use ($app, $checkRole) {
 
 $app->group('/participante', function () use ($app, $checkRole) {
     $app->get('/', $checkRole('mod'), 'ParticipanteCtrl:listar')->name('shwListaPartici');
-    $app->get('/crear', $checkRole('mod'), 'ParticipanteCtrl:verCrear')->name('shwCrearPartici');    
+    $app->get('/crear', $checkRole('mod'), 'ParticipanteCtrl:verCrear')->name('shwCrearPartici');
     $app->post('/crear', $checkRole('mod'), 'ParticipanteCtrl:crear')->name('runCrearPartici');
 });
 
@@ -147,7 +158,7 @@ $app->group('/evento', function () use ($app, $checkRole) {
 });
 
 $app->group('/admin', function () use ($app, $checkRole) {
-    $app->get('/', $checkRole('mod'), 'AdminCtrl:verIndexAdmin')->name('shwIndexAdmin');    
+    $app->get('/', $checkRole('mod'), 'AdminCtrl:verIndexAdmin')->name('shwIndexAdmin');
     $app->get('/upload', $checkRole('mod'), 'AdminCtrl:verSubirImagen')->name('shwCrearImagen');
     $app->post('/upload', $checkRole('mod'), 'AdminCtrl:subirImagen')->name('runCrearImagen');
     $app->get('/imagen/:idEve', 'AdminCtrl:verImagen')->name('shwImagen');
@@ -215,9 +226,9 @@ $app->get('/usuario', 'UsuarioCtrl:listar')->name('shwListaUsuario');
 $app->group('/perfil', function () use ($app, $checkRole) {
     $app->get('/modificar', $checkRole('usr'), 'UsuarioCtrl:verModificar')->name('shwModifUsuario');
     $app->post('/modificar', $checkRole('usr'), 'UsuarioCtrl:modificar')->name('runModifUsuario');
-//     $app->post('/cambiar-imagen', $checkRole('usr'), 'UsuarioCtrl:cambiarImagen')->name('runModifImgUsuario');
+    //     $app->post('/cambiar-imagen', $checkRole('usr'), 'UsuarioCtrl:cambiarImagen')->name('runModifImgUsuario');
     $app->get('/cambiar-clave', $checkRole('usr'), 'UsuarioCtrl:verCambiarClave')->name('shwModifClvUsuario');
     $app->post('/cambiar-clave', $checkRole('usr'), 'UsuarioCtrl:cambiarClave')->name('runModifClvUsuario');
-//     $app->get('/eliminar', $checkRole('usr'), 'UsuarioCtrl:verEliminar')->name('shwElimiUsuario');
-//     $app->post('/eliminar', $checkRole('usr'), 'UsuarioCtrl:eliminar')->name('runElimiUsuario');
+    //     $app->get('/eliminar', $checkRole('usr'), 'UsuarioCtrl:verEliminar')->name('shwElimiUsuario');
+    //     $app->post('/eliminar', $checkRole('usr'), 'UsuarioCtrl:eliminar')->name('runElimiUsuario');
 });

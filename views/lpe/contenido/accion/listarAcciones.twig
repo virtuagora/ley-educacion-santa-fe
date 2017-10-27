@@ -1,0 +1,56 @@
+{% extends "lpe/master.twig" %}
+{% block linkhead %}
+    <link href="{{ baseUrl() }}/assets-lpe/css/sceditor/sceditor-main.css" rel="stylesheet">
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block titulo %}Listar acciones - Derecho{% endblock %}
+{% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="">
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-primary" href="{{ urlFor('shwCrearAccion', {'idDer': derecho.id}) }}">
+                            <i class="zmdi zmdi-plus  zmdi-hc-fw"></i>Nueva acción
+                        </a>
+                    </div>
+                    <h2>
+                    <a href="{{ urlFor('shwDerecho', {'idDer': derecho.id}) }}"><i class="zmdi zmdi-caret-left-circle"></i></a> <strong>Acciones y testimonios</strong>
+                    </h2>
+                    <h6>Derecho: {{derecho.titulo}}</h6>
+                    
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Accion</th>
+                                <th class="text-right" width="200px">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Propuesta 1</b>
+                                    -
+                                    <i class="zmdi zmdi-quote zmdi-hc-lg"></i>
+                                    5 testimonios
+                                </td>
+                                <td class="text-right">
+                                    <a class="btn btn-primary btn-sm" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                                        <i class="zmdi zmdi-edit zmdi-hc-fw zmdi-hc-lg"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                                        <i class="zmdi zmdi-delete zmdi-hc-fw zmdi-hc-lg"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+{# ----------------------------------------------------------- #}
+{% block scripts %}
+
+{% endblock %}

@@ -1,47 +1,43 @@
-{% extends "lpe/master.twig" %}
-{% block linkhead %}
-    <link href="{{ baseUrl() }}/assets-lpe/css/sceditor/sceditor-main.css" rel="stylesheet">
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block titulo %}Editar acción - Derecho{% endblock %}
-{% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="">
-                
-                <h2 style="margin-bottom:0;">
-                    <strong>Editar acción</strong>
-                </h2>
-                <hr>
-                <div id="descripcion">
-                    <textarea name="descripcion">Escriba la descripción del derecho...</textarea>
+{% extends "lpe/master.twig" %} {% block linkhead %}
+<link href="{{ baseUrl() }}/assets-lpe/css/sceditor/sceditor-main.css" rel="stylesheet"> {% endblock %} {# ----------------------------------------------------------- #} {% block titulo %}Editar acción - Derecho{%
+endblock %} {% block body %}
+<div class="container">
+    <div class="row">
+        <div class="">
+
+            <h2 style="margin-bottom:0;">
+                <strong>Editar acción</strong>
+            </h2>
+            <hr>
+            <div id="descripcion">
+                <textarea name="descripcion">Escriba la descripción del derecho...</textarea>
+            </div>
+            <hr>
+            <h4 style="margin-bottom:0;">
+                <strong>Testimonios</strong>
+            </h4>
+            <p class="text-primary">Escriba la cantidad de testimonios para la acción en cuestión. Cada testimonio requiere
+                <b>el testimonio</b> y
+                <b>nombre y apellido</b> del autor.</p>
+            <div class="lista-testimonios">
+                <div class="testimonio-container-form">
+                    <textarea name="cuerpo" class="accion form-control" rows="2" placeholder="Escriba el testimonio"></textarea> &mdash;
+                    <input type="text" class="form-control" name="autor" placeholder="Nombre y apellido del autor">
                 </div>
-                <hr>
-                <h4 style="margin-bottom:0;">
-                    <strong>Testimonios</strong>
-                </h4>
-                <p class="text-primary">Escriba la cantidad de testimonios para la acción en cuestión. Cada testimonio requiere <b>el testimonio</b> y <b>nombre y apellido</b> del autor.</p>
-                <div class="lista-testimonios">
-                    <div class="testimonio-container-form">
-                        <textarea name="cuerpo" class="accion form-control" rows="2" placeholder="Escriba el testimonio"></textarea>
-                        &mdash;<input type="text" class="form-control" name="autor" placeholder="Nombre y apellido del autor">
-                    </div>
-                    
-                </div>
-                <div class="clearfix">
-                    <a id="nuevaAccion" href="javascript:void(0)" class="btn btn-sm btn-info pull-left">
-                        <i class="mdi mdi-plus"></i> Agregar un nuevo testimonio</a>
-                    <a class="btn btn-success pull-right" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
-                        <i class="zmdi zmdi-save zmdi-hc-lg"></i>&nbsp;&nbsp;Guardar
-                    </a>
-                </div>
+
+            </div>
+            <div class="clearfix">
+                <a id="nuevaAccion" href="javascript:void(0)" class="btn btn-sm btn-info pull-left">
+                    <i class="mdi mdi-plus"></i> Agregar un nuevo testimonio</a>
+                <a class="btn btn-success pull-right" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                    <i class="zmdi zmdi-save zmdi-hc-lg"></i>&nbsp;&nbsp;Guardar
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-{% endblock %}
-{# ----------------------------------------------------------- #}
-{% block scripts %}
+{% endblock %} {# ----------------------------------------------------------- #} {% block scripts %}
 <script src="{{ baseUrl() }}/assets-lpe/js/autosize.min.js"></script>
 <script src="{{ baseUrl() }}/assets-lpe/js/sceditor/jquery.sceditor.js"></script>
 <script id="testimonioTemplate" type="text/template">
@@ -70,7 +66,7 @@
             }
         });
 
-       
+
     });
     $('input[name=video]').change(function () {
         $("#youtubeVideo iframe").remove();
@@ -127,5 +123,4 @@
         $('input[name=secciones]').val(seccionesString);
         return true;
     });
-</script>
-{% endblock %}
+</script> {% endblock %}

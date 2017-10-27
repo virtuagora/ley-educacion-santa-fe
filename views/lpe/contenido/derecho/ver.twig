@@ -32,7 +32,7 @@
                         <a class="btn btn-primary" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
                             <i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar descripción
                         </a>
-                        <a class="btn btn-info" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                        <a class="btn btn-info" href="{{ urlFor('shwListarAcciones', {'idDer': derecho.id}) }}">
                             <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i>
                             Editar acciones y testimonios
                         </a>
@@ -162,7 +162,12 @@
                 $('#comentarios' +
                         idSeccion).modal('show');
             }
-            $(".vertical-center").slick({dots: true, centerMode: true, adaptiveHeight: true});
+            $(".vertical-center").slick({
+                dots: true,
+                centerMode: true,
+                adaptiveHeight: true,
+                centerPadding: '100px',
+                });
         })
 
         $('#comentarios' +
