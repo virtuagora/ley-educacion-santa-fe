@@ -87,6 +87,9 @@ class AccionCtrl extends Controller {
         $resultado->testimonios = json_decode($vdt->getData('testimonios'), true);
         $resultado->save();
         
+        $idDer = $resultado->derecho->id;
+
+
         $this->flash('success', 'La acción se actualizó exitosamente.');
         $this->redirectTo('shwListarAcciones', ['idDer' => $idDer]);
     }
@@ -96,6 +99,8 @@ class AccionCtrl extends Controller {
         $vdt = new Validate\QuickValidator([$this, 'notFound']);
         $vdt->test($idAcc, new Validate\Rule\NumNatural());
         $resultado = Resultado::findOrFail($idAcc);
+        $idDer = $resultado->derecho->id;
+
         $resultado->delete();
         
         $this->flash('success', 'La acción se eliminó exitosamente.');

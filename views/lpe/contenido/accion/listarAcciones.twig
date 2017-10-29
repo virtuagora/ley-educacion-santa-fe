@@ -23,14 +23,16 @@
                         <thead>
                             <tr>
                                 <th>Accion</th>
-                                <th class="text-right" width="200px">Acción</th>
+                                <th class="text-right" width="120px">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for accion in derecho.resultados %}
                             <tr>
                                 <td>
-                                    {{ accion.descripcion|bbCode }}
+                                    <div class="testimonio-container-read">    
+                                        {{ accion.descripcion|bbCode }}
+                                    </div>
                                     <i class="zmdi zmdi-quote zmdi-hc-lg"></i>
                                     {{ accion.testimonios|length }} testimonios
                                 </td>
@@ -38,9 +40,11 @@
                                     <a class="btn btn-primary btn-sm" href="{{ urlFor('shwModifAccion', {'idAcc': accion.id}) }}">
                                         <i class="zmdi zmdi-edit zmdi-hc-fw zmdi-hc-lg"></i>
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="{{ urlFor('runElimiAccion', {'idAcc': accion.id}) }}">
+                                    <a href="javascript:eliminar({{accion.id}})" type="submit" class="btn btn-danger btn-sm">
                                         <i class="zmdi zmdi-delete zmdi-hc-fw zmdi-hc-lg"></i>
                                     </a>
+                                                <form id="eliminar-{{accion.id}}" action="{{ urlFor('runElimiAccion', {'idAcc': accion.id}) }}" method="POST">
+                                    </form>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -53,5 +57,9 @@
 {% endblock %}
 {# ----------------------------------------------------------- #}
 {% block scripts %}
-
+<script>
+    function eliminar(id){
+        $("#eliminar-"+id).submit();
+    }
+</script>
 {% endblock %}

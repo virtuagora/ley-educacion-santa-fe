@@ -274,7 +274,7 @@ figure:hover:before {
     background-image: -webkit-linear-gradient(top,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.4) 100%);
     background-image: -o-linear-gradient(top,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.4) 100%);
     background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.4) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= 'rgba(0, 0, 0, 0)', endColorstr='rgba(0, 0, 0, 0.4)', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  'rgba(0, 0, 0, 0)', endColorstr='rgba(0, 0, 0, 0.4)', GradientType=0);
     padding: 0 3px 20px;
     height: 150px;
     h5 {
@@ -298,7 +298,7 @@ figure:hover:before {
     background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
     background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
     background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#563d7c', endColorstr='#6F5499', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#563d7c', endColorstr='#6F5499', GradientType=0);
     h6 {
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         font-weight: 100;
@@ -342,7 +342,7 @@ figure:hover:before {
 
 #body-editor {
     font-size: 14px;
-    line-height: 21px;
+    line-height: normal; 
 }
 
 // CREAR DERECHO
@@ -423,7 +423,8 @@ article {
     }
     #derecho #descripcion {
         font-size: 14px;
-        line-height: 21px;
+        line-height: normal;
+
     }
     span.badge {
         background-color: $brand-primary;
@@ -437,7 +438,7 @@ article {
     }
     p {
         font-size: 14px;
-        line-height: 21px;
+        line-height: normal
     }
     img.size32 {
         width: 32px;
@@ -509,7 +510,7 @@ article {
 
 .opinionModal .descripcion {
     font-size: 14px;
-    line-height: 21px;
+    line-height: normal;
 }
 
 // --------------------
@@ -587,7 +588,7 @@ $c4: #ff5400;
     background-image: -webkit-linear-gradient(top,darken($c1,20%) 0,$c1 100%);
     background-image: -o-linear-gradient(top,darken($c1,20%) 0,$c1 100%);
     background-image: linear-gradient(to bottom,darken($c1,20%) 0,$c1 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= 'darken($c1,20%)', endColorstr='$c1', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  'darken($c1,20%)', endColorstr='$c1', GradientType=0);
     background-repeat: repeat-x;
 }
 .bgcolor1 {
@@ -596,7 +597,7 @@ $c4: #ff5400;
     background-image: -webkit-linear-gradient(top,darken($c2,20%) 0,$c2 100%);
     background-image: -o-linear-gradient(top,darken($c2,20%) 0,$c2 100%);
     background-image: linear-gradient(to bottom,darken($c2,20%) 0,$c2 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= 'darken($c2,20%)', endColorstr='$c2', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  'darken($c2,20%)', endColorstr='$c2', GradientType=0);
     background-repeat: repeat-x;
 }
 .bgcolor2 {
@@ -605,7 +606,7 @@ $c4: #ff5400;
     background-image: -webkit-linear-gradient(top,darken($c3,20%) 0,$c3 100%);
     background-image: -o-linear-gradient(top,darken($c3,20%) 0,$c3 100%);
     background-image: linear-gradient(to bottom,darken($c3,20%) 0,$c3 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= 'darken($c3,20%)', endColorstr='$c3', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  'darken($c3,20%)', endColorstr='$c3', GradientType=0);
     background-repeat: repeat-x;
 }
 .bgcolor3 {
@@ -614,7 +615,7 @@ $c4: #ff5400;
     background-image: -webkit-linear-gradient(top,darken($c4,20%) 0,$c4 100%);
     background-image: -o-linear-gradient(top,darken($c4,20%) 0,$c4 100%);
     background-image: linear-gradient(to bottom,darken($c4,20%) 0,$c4 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= 'darken($c4,20%)', endColorstr='$c4', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  'darken($c4,20%)', endColorstr='$c4', GradientType=0);
     background-repeat: repeat-x;
 }
 
@@ -652,7 +653,7 @@ ul.socialmedia {
         background-image: -webkit-linear-gradient(top,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.2) 100%);
         background-image: -o-linear-gradient(top,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.2) 100%);
         background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.2) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= 'rgba(0, 0, 0, 0)', endColorstr='rgba(0, 0, 0, 0.2)', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  'rgba(0, 0, 0, 0)', endColorstr='rgba(0, 0, 0, 0.2)', GradientType=0);
     }
     h1 {
         text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
@@ -674,7 +675,7 @@ ul.socialmedia {
     background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
     background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
     background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#563d7c', endColorstr='#6F5499', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#563d7c', endColorstr='#6F5499', GradientType=0);
     //    h6{text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-weight: 100;}
     @media (max-width: $screen-xs-max) {
         width: 50%;
@@ -712,7 +713,7 @@ ul.socialmedia {
     //    background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
     //    background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
     //    background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
-    //    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
+    //    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);;
     //    h6{text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font-weight: 100;}
     .boton-eliminar-foto {
         display: none;
@@ -765,16 +766,24 @@ ul.socialmedia {
 
 .accion-box {
     .slider {
+        width: 90%;
+        margin: 20px auto;
+        @media (min-width: $screen-sm-min) { 
         width: 100%;
         margin: 20px auto;
+         }
     }
 
     .slick-slide {
-        margin: 0 12px;
+        margin: 0px 3px;
         padding: 20px;
         border-radius: 5px;
         background-color: #6f8cb4;
         color: #FFF;
+        @media (min-width: $screen-sm-min) { 
+        margin: 0 12px;
+
+        }
         p {
             font-size: 12px;
             line-height: 16px;
@@ -783,13 +792,16 @@ ul.socialmedia {
             }
         }
         blockquote {
+            font-size: 12px;
+        line-height: 16px;
+        border-bottom: 0;
             padding: 5.5px 10px 0 23px;
             border-left: 5px solid #fff;
             margin-bottom: 0;
             footer {
                 font-size: 16px;
                 color: #FFF;
-                margin-bottom: 0;
+                margin-top: 10px;
                 line-height: normal;
                 font-style: italic;
             }
@@ -798,10 +810,9 @@ ul.socialmedia {
     .slick-dots {
         bottom: -30px;
     }
-    .slick-dots li button::before{
-        font-size: 13px; 
+    .slick-dots li button::before {
+        font-size: 13px;
     }
-    
     .slick-next:before,
     .slick-prev:before {
         color: black;
@@ -821,43 +832,49 @@ ul.socialmedia {
     }
 }
 
-.testimonio-container-form{
+.testimonio-container-form {
     margin: 0 12px;
-padding: 20px;
-border-radius: 5px;
-background-color: #6f8cb4;
-color: #FFF;
-margin-bottom:15px;
-textarea.form-control{
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #6f8cb4;
     color: #FFF;
-    font-size: 12px;
-line-height: 16px;
-border-bottom:0;
-margin-bottom: 10px;
-box-shadow: none;
+    margin-bottom: 15px;
+    textarea.form-control {
+        color: #FFF;
+        font-size: 12px;
+        line-height: 16px;
+        border-bottom: 0;
+        margin-bottom: 10px;
+        box-shadow: none;
 
-resize: none;
-}
-    textarea:focus, textarea.form-control:focus{
+        resize: none;
+    }
+    textarea.form-control:focus,
+    textarea:focus {
         box-shadow: none;
     }
-    input[type="text"]{
+    input[type="text"] {
         background-color: transparent;
         display: inline;
-width: 50%;
-color: #FFF;
-margin-left: 10px;
-border: 0;
-box-shadow: none;
-font-size: 16px;
-color: #FFF;
-margin-bottom: 0;
-line-height: normal;
-font-style: italic;
-height: 16px;
-    }
-    input[type="text"]:focus{
+        width: 50%;
+        color: #FFF;
+        margin-left: 10px;
+        border: 0;
         box-shadow: none;
-        
+        font-size: 16px;
+        color: #FFF;
+        margin-bottom: 0;
+        line-height: normal;
+        font-style: italic;
+        height: 16px;
     }
+    input[type="text"]:focus {
+        box-shadow: none;
+
+    }
+}
+
+.testimonio-container-read {
+    font-size: 14px;
+    line-height: normal;
 }

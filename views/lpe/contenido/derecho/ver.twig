@@ -91,7 +91,7 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 accion-box">
-                    <div>
+                    <div class="testimonio-container-read">
                         {{ accion.descripcion|bbCode }}
                     </div>
                     <section class="vertical-center slider">
@@ -99,7 +99,7 @@
                         <div>
                             <blockquote class="text-justify">
                                 <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
-                                {{ testimonio.testimonio }}
+                                {{ testimonio.testimonio|nl2br }}
                                 <footer>{{ testimonio.autor }}</footer>
                             </blockquote>
                         </div>
@@ -146,6 +146,14 @@
                 centerMode: true,
                 adaptiveHeight: true,
                 centerPadding: '100px',
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            centerPadding: '0px',
+                        }
+                    },
+            ]
                 });
         })
 

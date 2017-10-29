@@ -1,42 +1,51 @@
 {% extends "lpe/master.twig" %} {% block linkhead %}
 <link href="{{ baseUrl() }}/assets-lpe/css/sceditor/sceditor-main.css" rel="stylesheet"> {% endblock %} {# ----------------------------------------------------------- #} {% block titulo %}Editar acción - Derecho{%
 endblock %} {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="">
+<form action="{{ urlFor('runModifAccion', {'idAcc': accion.id}) }}" method="POST">
 
-            <h2 style="margin-bottom:0;">
-                <strong>Editar acción</strong>
-            </h2>
-            <hr>
-            <div id="descripcion">
-                <textarea name="descripcion">Escriba la descripción del derecho...</textarea>
-            </div>
-            <hr>
-            <h4 style="margin-bottom:0;">
-                <strong>Testimonios</strong>
-            </h4>
-            <p class="text-primary">Escriba la cantidad de testimonios para la acción en cuestión. Cada testimonio requiere
-                <b>el testimonio</b> y
-                <b>nombre y apellido</b> del autor.</p>
-            <div class="lista-testimonios">
-                <div class="testimonio-container-form">
-                    <textarea name="cuerpo" class="accion form-control" rows="2" placeholder="Escriba el testimonio"></textarea> &mdash;
-                    <input type="text" class="form-control" name="autor" placeholder="Nombre y apellido del autor">
+    <div class="container">
+        <div class="row">
+            <div class="">
+                
+                <h2 style="margin-bottom:0;">
+                    <strong>Editar acción</strong>
+                </h2>
+                <hr>
+                <div id="descripcion">
+                    <textarea name="descripcion">Escriba la descripción del derecho...</textarea>
+                                            <input hidden="hidden" name="testimonios" type="text">
+
                 </div>
-
+                <hr>
+                <h4 style="margin-bottom:0;">
+                    <strong>Testimonios</strong>
+                </h4>
+                <p class="text-primary">Escriba la cantidad de testimonios para la acción en cuestión. Cada testimonio requiere
+                    <b>el testimonio</b> y
+                    <b>nombre y apellido</b> del autor.</p>
+                    <div class="lista-testimonios">
+                        {% for testimonio in accion.testimonios %}
+                        <div class="testimonio-container-form">
+                            <textarea name="cuerpo" class="accion form-control" rows="2" placeholder="Escriba el testimonio">{{ testimonio.testimonio }}</textarea> &mdash;
+                            <input type="text" class="form-control" name="autor" placeholder="Nombre y apellido del autor" value="{{ testimonio.autor }}">
+                        <a id="eliminar-{{loop.index}}" href="javascript:void(0)" data-idaccion='{{loop.index}}' class="eliminarAccion pull-right" style="font-size:20px; color: #FFF;">
+                            <i class="mdi mdi-close"></i>
+                        </a>
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                    <div class="clearfix">
+                        <a id="nuevaAccion" href="javascript:void(0)" class="btn btn-sm btn-info pull-left">
+                            <i class="mdi mdi-plus"></i> Agregar un nuevo testimonio</a>
+                            <button class="btn btn-success pull-right" type="submit">
+                                <i class="zmdi zmdi-save zmdi-hc-lg"></i>&nbsp;&nbsp;Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="clearfix">
-                <a id="nuevaAccion" href="javascript:void(0)" class="btn btn-sm btn-info pull-left">
-                    <i class="mdi mdi-plus"></i> Agregar un nuevo testimonio</a>
-                <a class="btn btn-success pull-right" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
-                    <i class="zmdi zmdi-save zmdi-hc-lg"></i>&nbsp;&nbsp;Guardar
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
+        </form>
 {% endblock %} {# ----------------------------------------------------------- #} {% block scripts %}
 <script src="{{ baseUrl() }}/assets-lpe/js/autosize.min.js"></script>
 <script src="{{ baseUrl() }}/assets-lpe/js/sceditor/jquery.sceditor.js"></script>
@@ -48,58 +57,45 @@ endblock %} {% block body %}
     </div>
 </script>
 <script>
-    var numeroAccion = 2;
-    $(document).ready(function () {
-        //Events
-        // $("a.eliminarArticulo").on("click", eliminarArticulo);
-        autosize($('textarea'));
-        // iniciarEditor('cuerpo-1');
-        iniciarEditor('descripcion');
-
-        $(':file').on('fileselect', function (event, numFiles, label) {
-            var input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' files selected' : label;
-            if (numFiles > 1 || numFiles == 0) {
-                alert('Por favor, seleccione solo 1 archivo');
-            } else if (numFiles == 1) {
-                input.val(log);
-            }
+    var numeroAccion = {{accion.testimonios|length}};
+        $(document).ready(function () {
+            autosize($('textarea'));
+            iniciarEditor('descripcion');
         });
 
-
-    });
-    $('input[name=video]').change(function () {
-        $("#youtubeVideo iframe").remove();
-        $('<iframe class="embed-responsive-item" id="youtubeVideo" frameborder="0" allowfullscreen></iframe>')
-            .attr("src", "https://www.youtube.com/embed/" + $(this).val())
-            .appendTo("#youtubeVideo");
-    });
-
-    $("#nuevaAccion").click(function (e) {
-        var nuevaAccion = $("#testimonioTemplate").html().replace(new RegExp('numAccion', 'g'), numeroAccion);
-        $(".lista-testimonios").append(nuevaAccion)
-        numeroAccion += 1
-        autosize($('textarea'));
-    });
-    $(document.body).on('click', '.eliminarAccion', function () {
-        var i = $(this).data('idaccion') + 1
-        $(this).closest(".testimonio-container-form").remove();
-        for (; i <= numeroAccion + 1; i++) {
-            $('#eliminar-' + i).attr('data-idaccion', (i - 1)).attr('id', "eliminar-" + (i - 1));;
-            $("textarea[name='cuerpo-" + i + "']").attr('name', "cuerpo-" + (i - 1))
+        $("#nuevaAccion").click(function (e) {
+            var nuevaAccion = $("#testimonioTemplate")
+                .html()
+                .replace(new RegExp('numAccion', 'g'), numeroAccion);
+            $(".lista-testimonios").append(nuevaAccion)
+            numeroAccion += 1
+            autosize($('textarea'));
+        });
+        $(document.body).on('click', '.eliminarAccion', function () {
+            var i = $(this).data('idaccion') +
+                1
+            $(this)
+                .closest(".testimonio-container-form")
+                .remove();
+            for (; i <= numeroAccion +
+                1; i++) {
+                $('#eliminar-' +
+                    i)
+                    .attr('data-idaccion', (i - 1))
+                    .attr('id', "eliminar-" +
+                    (i - 1));;
+                $("textarea[name='cuerpo-" +
+                    i +
+                    "']").attr('name', "cuerpo-" +
+                    (i - 1))
+            }
+            numeroAccion -= 1;
+        });
+        var eliminarAccion = function (e) {
+            $(this)
+                .closest(".li-accion")
+                .remove();
         }
-        numeroAccion -= 1;
-    });
-    var eliminarAccion = function (e) {
-        $(this).closest(".li-accion").remove();
-    }
-
-    $(document).on('change', ':file', function () {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-    });
     var iniciarEditor = function (nombre) {
         $("textarea[name='" + nombre + "']").sceditor({
             plugins: "bbcode",
@@ -113,14 +109,26 @@ endblock %} {% block body %}
             autoExpand: true,
             enablePasteFiltering: true
         });
+        $("textarea[name=descripcion]").sceditor('instance').val('{{ accion.descripcion|bbCode }}', false)
     }
     $("form").submit(function (event) {
-        var secciones = [];
-        $("textarea[name=cuerpo]").each(function (index) {
-            secciones.push($(this).val());
+            var testimonios = [];
+            $(".testimonio-container-form").each(function (index) {
+                if ($(this).find($("textarea")).val() != "") {
+                    var testimonio = $(this)
+                        .find($("textarea"))
+                        .val()
+                    var autor = $(this)
+                        .find($("input"))
+                        .val()
+                    var objeto = {
+                        "testimonio": testimonio,
+                        "autor": autor
+                    };
+                    testimonios.push(objeto);
+                }
+            });
+            $("input[name=testimonios]").val(JSON.stringify(testimonios))
+            return true;
         });
-        var seccionesString = secciones.join("&&")
-        $('input[name=secciones]').val(seccionesString);
-        return true;
-    });
 </script> {% endblock %}
