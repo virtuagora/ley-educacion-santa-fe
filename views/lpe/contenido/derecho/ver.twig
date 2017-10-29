@@ -25,21 +25,7 @@
 {% endblock %}
 {% block body %}
     <article>
-        {% if user and(user.patrulla_id != null) %}
-            <div class="container">
-                <div class="row">
-                    <div class="btn-group " style="margin-bottom:25px;">
-                        <a class="btn btn-primary" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
-                            <i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar descripción
-                        </a>
-                        <a class="btn btn-info" href="{{ urlFor('shwListarAcciones', {'idDer': derecho.id}) }}">
-                            <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i>
-                            Editar acciones y testimonios
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
+
         {% set colorSeleccionado = random(3) %}
         {% if derecho.imagen == 1 %}
             <img alt="" class="img-responsive" src="{{linkImagen}}" style="width:100%;margin-bottom: 30px;">
@@ -69,6 +55,17 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4" id="derecho">
+                     {% if user and(user.patrulla_id != null) %}
+                            <div class="btn-group-vertical btn-block " style="margin-bottom:25px;">
+                                <a class="btn btn-default" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                                    <i class="zmdi zmdi-edit zmdi-hc-lg zmdi-hc-fw"></i>Editar descripción
+                                </a>
+                                <a class="btn btn-default" href="{{ urlFor('shwListarAcciones', {'idDer': derecho.id}) }}">
+                                    <i class="zmdi zmdi-comments zmdi-hc-lg zmdi-hc-fw"></i>
+                                    Editar acciones y testimonios
+                                </a>
+                            </div>
+                    {% endif %}
                     {% if derecho.video is not null %}
                         <div class="embed-responsive embed-responsive-16by9" style="margin-bottom: 20px;">
                             <iframe allowfullscreen="allowfullscreen" class="embed-responsive-item" frameborder="0" src="https://www.youtube.com/embed/{{derecho.video}}"></iframe>
