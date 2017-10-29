@@ -27,22 +27,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for accion in derecho.resultados %}
                             <tr>
                                 <td>
-                                    <b>Propuesta 1</b>
-                                    -
+                                    {{ accion.descripcion|bbCode }}
                                     <i class="zmdi zmdi-quote zmdi-hc-lg"></i>
-                                    5 testimonios
+                                    {{ accion.testimonios|length }} testimonios
                                 </td>
                                 <td class="text-right">
-                                    <a class="btn btn-primary btn-sm" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                                    <a class="btn btn-primary btn-sm" href="{{ urlFor('shwModifAccion', {'idAcc': accion.id}) }}">
                                         <i class="zmdi zmdi-edit zmdi-hc-fw zmdi-hc-lg"></i>
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="{{ urlFor('shwModifDerecho', {'idDer': derecho.id}) }}">
+                                    <a class="btn btn-danger btn-sm" href="{{ urlFor('runElimiAccion', {'idAcc': accion.id}) }}">
                                         <i class="zmdi zmdi-delete zmdi-hc-fw zmdi-hc-lg"></i>
                                     </a>
                                 </td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

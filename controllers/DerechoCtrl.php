@@ -5,7 +5,7 @@ class DerechoCtrl extends Controller {
     public function ver($idDer) {
         $vdt = new Validate\QuickValidator([$this, 'notFound']);
         $vdt->test($idDer, new Validate\Rule\NumNatural());
-        $derecho = Derecho::with('contenido.tags')->findOrFail($idDer);
+        $derecho = Derecho::with(['contenido', 'resultados'])->findOrFail($idDer);
         $contenido = $derecho->contenido;
         $datosDer = array_merge($contenido->toArray(), $derecho->toArray());
         

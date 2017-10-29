@@ -87,48 +87,27 @@
                     </div>
                 </div>
             </div>
+            {% for accion in derecho.resultados %}
             <hr>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 accion-box">
                     <div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus convallis ante, ac tincidunt est tristique quis. Morbi vitae arcu eget lacus blandit pretium ut vitae orci. Nam ex mauris, aliquet at mauris non, fermentum vestibulum velit. Curabitur non lobortis turpis. Etiam et purus mauris. Integer metus sem, blandit ut commodo rhoncus, dignissim non magna. Cras sodales suscipit magna, ac ultrices ipsum malesuada ac. Sed tristique at sapien sed tristique. Sed in justo dolor. Sed fringilla, mauris ut faucibus viverra, mi mi gravida purus, in efficitur nunc erat quis nunc. Sed cursus id tellus in euismod. Curabitur tincidunt odio non arcu porttitor euismod. Aliquam erat ex, tincidunt eget elit ac, aliquam viverra ante. Ut at enim eget ex scelerisque mollis. Vivamus fringilla ullamcorper venenatis. Sed aliquam metus dui, vitae sodales nibh blandit a.</p>
+                        {{ accion.descripcion|bbCode }}
                     </div>
                     <section class="vertical-center slider">
+                        {% for testimonio in accion.testimonios %}
                         <div>
                             <blockquote class="text-justify">
                                 <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
-                                <footer>Someone famous in</footer>
+                                {{ testimonio.testimonio }}
+                                <footer>{{ testimonio.autor }}</footer>
                             </blockquote>
                         </div>
-                        <div>
-                            <blockquote class="text-justify">
-                                <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
-                                <footer>Someone famous in</footer>
-                            </blockquote>
-                        </div>
-                        <div>
-                            <blockquote class="text-justify">
-                                <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
-                                <footer>Someone famous in</footer>
-                            </blockquote>
-                        </div>
-                        <div>
-                            <blockquote class="text-justify">
-                                <i class="zmdi zmdi-quote zmdi-hc-4x zmdi-hc-fw pull-right"></i>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida dictum metus sit amet feugiat. Nam pretium arcu laoreet accumsan dignissim. Suspendisse quis efficitur sapien. Vestibulum purus dui, condimentum ut risus sit amet, consequat accumsan nibh. In vel condimentum lacus. Nunc egestas tellus nibh, in aliquet arcu sodales a. Quisque et lorem sit amet magna malesuada posuere in et ex. Donec vitae sollicitudin metus. Vivamus mi ante, ornare sed accumsan in, ultrices ut dui. Curabitur ac turpis vel quam ullamcorper convallis. Vestibulum pellentesque lectus at metus porta interdum.</p>
-                                <footer>Someone famous in</footer>
-                            </blockquote>
-                        </div>
+                        {% endfor %}
                     </section>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </article>
     {% if user and(user.patrulla_id != null) %}
