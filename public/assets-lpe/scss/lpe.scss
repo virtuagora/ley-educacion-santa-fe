@@ -202,28 +202,25 @@ figure:hover figcaption {
     opacity: 1;
 }
 figure:before {
-    content: '\f256';
-    font-family: 'FontAwesome';
+    content: 'Conocé las propuestas';
     position: absolute;
     font-weight: 800;
     background: black;
     background: rgba(255, 255, 255, 0.75);
     text-shadow: 0 0 5px white;
     color: #444;
-    width: 24px;
-    height: 24px;
+    width: 145px;
+height: 20px;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     border-radius: 12px;
     text-align: center;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 12px;
+line-height: 21px;
     -moz-transition: all 0.6s ease;
     opacity: 0.75;
 }
-figure:hover:before {
-    opacity: 0;
-}
+
 .cap-left:before {
     bottom: 10px;
     left: 10px;
@@ -639,15 +636,40 @@ ul.socialmedia {
     color: #FFF;
 }
 
+.jumbotron.inicio{
+    h3{
+        padding: 90px 30px;
+background: #ffffffb3;
+margin: 0;
+font-weight: 500;
+a{
+    margin-top: 15px;
+}
+@media (max-width: $screen-sm-max) {
+        padding: 20px 10px;
+        margin-top:20px;
+    }
+    }
+    border: 1px solid #dadada;
+background-color: #999999e6;
+padding: 0 0;
+background-image: url("../img/sharer-derecho.jpg");
+background-size: cover;
+background-position: center center;
+@media (max-width: $screen-sm-max) {
+        margin-top:20px;
+    }
+}
+
 .inicio-banner {
-    background-image: url("../img/tramasf.jpg");
+    background-image: url("../../img/banner.jpg");
     background-size: cover;
     background-position: center center;
     color: #FFF;
     margin-bottom: 30px;
     padding: 0;
     .overlay-banner {
-        padding: 50px 15px;
+        padding: 25px 15px;
 
         background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0, 0, 0, 0)),to(rgba(0, 0, 0, 0.2)));
         background-image: -webkit-linear-gradient(top,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.2) 100%);
@@ -655,15 +677,15 @@ ul.socialmedia {
         background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0) 0,rgba(0, 0, 0, 0.2) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=  'rgba(0, 0, 0, 0)', endColorstr='rgba(0, 0, 0, 0.2)', GradientType=0);
     }
-    h1 {
+    h2 {
         text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
         letter-spacing: -1.4px;
         color: #FFF;
     }
     .descripcion {
-        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-        color: rgb(255, 255, 255);
-        margin-bottom: 0;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+color: #fff;
+font-weight: 500;
     }
 }
 
