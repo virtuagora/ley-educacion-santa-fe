@@ -19,7 +19,18 @@ endblock %} {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 col-md-6">
-			<div class="" style=" background-size:cover;">
+			<div class="jumbotron inicio text-center">
+				<h3>Conocé el Proyecto de Ley presentado ante la Legislatura
+					{% if url_documento is empty %}
+						<a href="#" class="btn btn-primary btn-lg"><i class="fa fa-clock-o fa-fw"></i> Próximamente</a>
+					{% else %}
+						<a href="{{ url_documento }}" class="btn btn-primary btn-lg"><i class="fa fa-download fa-fw"></i> Descargar proyecto</a>
+					{% endif %}
+				</h3>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<div style="margin-bottom:30px; background-size:cover;">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
@@ -46,13 +57,6 @@ endblock %} {% block body %}
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-md-6">
-			<div class="jumbotron inicio text-center">
-				<h3>Conocé el Proyecto de Ley presentado ante la Legislatura
-					<a href="{{url_documento is defined ? url_documento : '#'}}" class="btn btn-primary btn-lg"><i class="fa fa-download fa-fw"></i>	Descargar proyecto</a>
-				</h3>
 			</div>
 		</div>
 	</div>

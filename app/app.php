@@ -129,15 +129,8 @@ $app->group('/derecho', function () use ($app, $checkRole) {
     $app->get('/modificar-accion/:idAcc', $checkRole('mod'), 'AccionCtrl:verModificar')->name('shwModifAccion');
     $app->post('/modificar-accion/:idAcc',$checkRole('mod'), 'AccionCtrl:modificar')->name('runModifAccion');
     $app->post('/eliminar-accion/:idAcc', $checkRole('mod'), 'AccionCtrl:eliminar')->name('runElimiAccion');
-    // $app->group('/:idDer/accion', function () use ($app, $checkRole) {
-    //     $app->get('/listar', $checkRole('mod'), 'AccionCtrl:listarAcciones')->name('shwListarAcciones');
-    //     $app->get('/crear', $checkRole('mod'), 'AccionCtrl:verCrear')->name('shwCrearAccion');
-    //     $app->post('/crear', $checkRole('mod'), 'AccionCtrl:crear')->name('runCrearAccion');
-    //     $app->get('/modificar/:idAcc',$checkRole('mod'), 'AccionCtrl:verModificar')->name('shwModifAccion');
-    //     $app->post('/modificar/:idAcc',$checkRole('mod'), 'AccionCtrl:modificar')->name('runModifAccion');
-    //     $app->post('/eliminar/:idAcc', $checkRole('mod'), 'AccionCtrl:eliminar')->name('runElimiAccion');
-        
-    // });
+
+    $app->get('/:idDer/participacion', 'DerechoCtrl:verParticipacion')->name('shwDerechoParticipacion');
 });
 
 

@@ -9,6 +9,18 @@ class DerechoCtrl extends Controller {
         $contenido = $derecho->contenido;
         $datosDer = array_merge($contenido->toArray(), $derecho->toArray());
         
+        $this->render('lpe/contenido/derecho/ver.twig', [
+            'derecho' => $datosDer,
+        ]);
+    }
+
+    public function verParticipacion($idDer) {
+        $vdt = new Validate\QuickValidator([$this, 'notFound']);
+        $vdt->test($idDer, new Validate\Rule\NumNatural());
+        $derecho = Derecho::with('contenido')->findOrFail($idDer);
+        $contenido = $derecho->contenido;
+        $datosDer = array_merge($contenido->toArray(), $derecho->toArray());
+        
         $votosUsr = [];
         if ($this->session->user('id')) {
             $votos = $derecho->votos()->where('usuario_id', $this->session->user('id'))->get();
@@ -16,7 +28,7 @@ class DerechoCtrl extends Controller {
                 $votosUsr[$voto->seccion_id] = $voto->postura;
             }
         }
-        $this->render('lpe/contenido/derecho/ver.twig', [
+        $this->render('lpe/contenido/derecho/ver_desactivado.twig', [
             'derecho' => $datosDer,
             'voto' => $votosUsr
         ]);

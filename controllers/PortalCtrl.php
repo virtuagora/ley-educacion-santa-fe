@@ -4,8 +4,8 @@ class PortalCtrl extends Controller {
 
     public function verIndex() {
         $derechos = Contenido::where('contenible_type', 'Derecho')->get()->toArray();
-        $eventos = Evento::whereDate('fecha', '>=', date('Y-m-d'))->orderBy('fecha', 'asc')->take(2)->get()->toArray();
-        $ajustes = Ajuste::whereIn('key', ['titulo', 'intro', 'videos'])->get();
+        //$eventos = Evento::whereDate('fecha', '>=', date('Y-m-d'))->orderBy('fecha', 'asc')->take(2)->get()->toArray();
+        $ajustes = Ajuste::whereIn('key', ['titulo', 'intro', 'videos', 'url_documento'])->get();
         foreach ($ajustes as $aju) {
             if ($aju->key == 'titulo') {
                 $titulo = $aju->value;
@@ -13,14 +13,16 @@ class PortalCtrl extends Controller {
                 $intro = $aju->value;
             } elseif ($aju->key == 'videos') {
                 $videos = explode('&&', $aju->value);
+            } elseif ($aju->key == 'url_documento') {
+                $urlDoc = $aju->value;
             }
         }
         $this->render('lpe/portal/inicio.twig',  [
             'derechos' => $derechos,
-            'eventos' => $eventos,
             'titulo' => $titulo,
             'intro' => $intro,
             'videos' => $videos,
+            'url_documento' => $urlDoc,
         ]);
     }
 
@@ -43,7 +45,10 @@ class PortalCtrl extends Controller {
     }
 
     public function verAntecedentes() {
-        $this->render('lpe/contenido/static/antecedentes.twig');
+        $informe = Ajuste::where('key', 'url_informe')->firstOrFail();
+        $this->render('lpe/contenido/static/antecedentes.twig', [
+            'url_informe' => $informe->value,
+        ]);
     }
 
     public function verPropuesta() {

@@ -52,7 +52,7 @@
             "support": {
                 "source": "https://github.com/augusthur/PHP-Validation/tree/v2.7"
             },
-            "time": "2015-05-07T04:50:25+00:00"
+            "time": "2015-05-07 04:50:25"
         },
         {
             "name": "codeguy/upload",
@@ -99,7 +99,7 @@
                 "upload",
                 "validation"
             ],
-            "time": "2013-07-07T17:01:41+00:00"
+            "time": "2013-07-07 17:01:41"
         },
         {
             "name": "facebook/graph-sdk",
@@ -157,7 +157,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2017-01-19T15:42:20+00:00"
+            "time": "2017-01-19 15:42:20"
         },
         {
             "name": "google/recaptcha",
@@ -202,7 +202,7 @@
                 "recaptcha",
                 "spam"
             ],
-            "time": "2017-03-09T18:44:34+00:00"
+            "time": "2017-03-09 18:44:34"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -267,7 +267,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20T17:10:46+00:00"
+            "time": "2017-03-20 17:10:46"
         },
         {
             "name": "illuminate/container",
@@ -308,7 +308,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2015-01-29T16:04:27+00:00"
+            "time": "2015-01-29 16:04:27"
         },
         {
             "name": "illuminate/database",
@@ -365,7 +365,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-02-11T20:10:47+00:00"
+            "time": "2015-02-11 20:10:47"
         },
         {
             "name": "illuminate/events",
@@ -408,7 +408,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2014-10-02T19:49:50+00:00"
+            "time": "2014-10-02 19:49:50"
         },
         {
             "name": "illuminate/support",
@@ -456,7 +456,7 @@
                     "email": "taylorotwell@gmail.com"
                 }
             ],
-            "time": "2015-01-27T20:51:43+00:00"
+            "time": "2015-01-27 20:51:43"
         },
         {
             "name": "intervention/image",
@@ -513,7 +513,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-06-28T15:55:12+00:00"
+            "time": "2015-06-28 15:55:12"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -555,7 +555,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2014-11-20T16:49:30+00:00"
+            "time": "2014-11-20 16:49:30"
         },
         {
             "name": "nesbot/carbon",
@@ -608,7 +608,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2017-01-16T07:55:07+00:00"
+            "time": "2017-01-16 07:55:07"
         },
         {
             "name": "psr/http-message",
@@ -658,7 +658,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2016-08-06 14:39:51"
         },
         {
             "name": "slim/slim",
@@ -705,7 +705,7 @@
                 "rest",
                 "router"
             ],
-            "time": "2017-01-07T12:21:41+00:00"
+            "time": "2017-01-07 12:21:41"
         },
         {
             "name": "slim/views",
@@ -758,7 +758,7 @@
                 "slimphp",
                 "templating"
             ],
-            "time": "2014-12-09T23:48:51+00:00"
+            "time": "2014-12-09 23:48:51"
         },
         {
             "name": "symfony/config",
@@ -820,7 +820,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-04T18:56:58+00:00"
+            "time": "2017-10-04 18:56:58"
         },
         {
             "name": "symfony/filesystem",
@@ -869,7 +869,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-03T13:33:10+00:00"
+            "time": "2017-10-03 13:33:10"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -928,7 +928,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-10-11T12:05:26+00:00"
+            "time": "2017-10-11 12:05:26"
         },
         {
             "name": "symfony/translation",
@@ -993,7 +993,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02T06:42:24+00:00"
+            "time": "2017-10-02 06:42:24"
         },
         {
             "name": "twig/twig",
@@ -1058,7 +1058,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-09-27T18:06:46+00:00"
+            "time": "2017-09-27 18:06:46"
         }
     ],
     "packages-dev": [],
